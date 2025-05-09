@@ -20,8 +20,8 @@
 \autor{Ing. Diego Anibal Vazquez}
 
 % El nombre del director y co-director, se puede usar el cualquier lugar del documento con el comando \supname y \cosupname y \pertesupname y \pertecosupname
-\director{Título y Nombre del director}
-\pertenenciaDirector{pertenencia} 
+\director{-}
+\pertenenciaDirector{-} 
 \codirector{} % para que aparezca en la portada se debe descomentar la opción codirector en los parámetros de documentclass
 \pertenenciaCoDirector{FIUBA}
 
@@ -86,7 +86,7 @@ Buenos Aires, \fechaInicioName
 
 \vspace{2cm}
 
-Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en \textcolor{red}{ un sistema de comunicación de los contadores de tránsito, incorporando un modelo de comunicación bidireccional}. El trabajo tendrá un presupuesto preliminar estimado de \textcolor{red}{600} horas y un costo estimado de \textcolor{red}{\$ 200}, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
+Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en {un sistema de comunicación con los contadores de tránsito, incorporando un modelo de comunicación bidireccional. El trabajo tendrá un presupuesto preliminar estimado de 600} horas y un costo estimado de \$ 500, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
 
 Se adjunta a esta acta la planificación inicial.
 
@@ -107,7 +107,46 @@ Se adjunta a esta acta la planificación inicial.
 \section{1. Descripción técnica-conceptual del proyecto a realizar}
 \label{sec:descripcion}
 
-\begin{consigna}{red} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
+%\begin{consigna}{red} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
+
+
+\subsection{Situación Actual}
+
+Actualmente, un modelo de contadores de tránsito utilizados en las rutas nacionales y que administra Vialidad Nacional, fueron desarrollados internamente y cumplen su función principal: registrar el paso de vehículos, clasificar dicha información y transmitirla a un servidor central. Estos dispositivos se comunican mediante enlaces GPRS tercerizados, a través de un canal unidireccional, lo que significa que solo envían datos al servidor, sin la posibilidad de recibir instrucciones o configuraciones de manera remota.
+
+Este modelo es funcional pero presenta importantes limitaciones operativas y técnicas, especialmente en un contexto en el que la flexibilidad, la eficiencia operativa y la capacidad de respuesta remota son fundamentales.
+
+\subsection{Problemas Identificados}
+
+\begin{itemize}
+
+\item Falta de comunicación bidireccional: actualmente, no es posible enviar comandos desde el servidor a los dispositivos para ajustar su configuración, reiniciarlos o recolectar información de diagnóstico.
+
+\item Dependencia de proveedores externos: la infraestructura GPRS utilizada es tercerizada, lo que genera costos recurrentes, posibles restricciones técnicas y dificultades para gestionar incidentes de manera eficiente.
+
+\item Imposibilidad de actualización remota: cualquier modificación de parámetros de funcionamiento requiere intervención física en el dispositivo, lo que limita la flexibilidad y agilidad operativa.
+
+\end{itemize}
+
+\subsection{Propuesta de Modernización}
+
+Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito, incorporando un modelo de comunicación bidireccional segura. Este nuevo esquema permitirá no solo el envío de datos desde los dispositivos hacia el servidor central, sino también la recepción de comandos y actualizaciones desde el servidor hacia los dispositivos en campo. Adicionalmente, se prevé la visualización de los datos en tiempo real, a medida que vayan siendo transmitidos.
+
+
+\subsection{Aspectos Clave del Rediseño}
+
+\begin{itemize}
+\item Comunicación bidireccional segura: implementación de protocolos (MQTT sobre TLS, HTTPS) que permitan una interacción constante y confiable entre el servidor central y cada equipo en campo.
+\item Canal de comunicación: evaluación de alternativas que permitan disminuir la dependencia de infraestructura tercerizada y mejorar la disponibilidad del sistema.
+\item Centralización de la lógica de control: simplificación de los dispositivos en campo, que actuarán como nodos ejecutores, mientras que la inteligencia asociada a la operación, configuración y toma de decisiones residirá en el servidor central.
+\item Diagnóstico y gestión remota: incorporación de capacidades para monitorear el estado del hardware.
+\item Mayor autonomía operativa: reducción de la intervención manual, eliminación de cuellos de botella administrativos vinculados a terceros, y posibilidad de escalar la solución de manera más ágil y eficiente.
+
+\end{itemize}
+
+\subsection{Consideraciones de Seguridad}
+
+
 El objetivo es que el lector, en una o dos páginas, exponga de qué se trata el proyecto y cuáles son sus desafíos, cuál es la motivación para realizarlo y su importancia.
 
 Se debe introducir el contexto del proyecto, el estado del arte en la temática, describir la propuesta de valor, cuál es el problema que atiende y cuál es la solución que se propone. Se debe dar una descripción funcional de la solución que incluya un diagrama en bloques.
@@ -141,7 +180,7 @@ El tamaño del texto en TODAS las figuras debe ser adecuado \textbf{para que NO 
 
 Los colores usados en el diagrama deben ser adecuados, tal que ayuden a comprender mejor el diagrama. Se recomienda evitar colores primarios (como rojo, verde o cyan) y usar la gama de colores pastel.
 
-\end{consigna} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
+%\end{consigna} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
 
 \section{2. Identificación y análisis de los interesados}
 \label{sec:interesados}
