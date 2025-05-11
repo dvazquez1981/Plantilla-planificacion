@@ -85,13 +85,9 @@ Buenos Aires, \fechaInicioName
 \end{flushright}
 
 \vspace{2cm}
-
 Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en {un sistema de comunicación con los contadores de tránsito, incorporando un modelo de comunicación bidireccional. El trabajo tendrá un presupuesto preliminar estimado de 600} horas y un costo estimado de \$ 500, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
-
 Se adjunta a esta acta la planificación inicial.
-
 \vfill
-
 % Esta parte se construye sola con la información que hayan cargado en el preámbulo del documento y no debe modificarla
 \begin{table}[ht]
 \centering
@@ -100,9 +96,6 @@ Se adjunta a esta acta la planificación inicial.
 \multicolumn{3}{c}{\begin{tabular}[c]{@{}c@{}} \supname \\ Director del Trabajo Final\end{tabular}} \vspace{2.5cm} \\
 \end{tabular}
 \end{table}
-
-
-
 
 \section{1. Descripción técnica-conceptual del proyecto a realizar}
 \label{sec:descripcion}
@@ -163,41 +156,17 @@ No existen condiciones especiales en cuanto a propiedad intelectual ni confidenc
 La innovación del proyecto reside en la integración de elementos existentes (sensores, redes móviles) bajo una lógica de arquitectura abierta y centralizada, adaptable y orientada a la gestión inteligente de los datos del tránsito, con fuerte énfasis en la autonomía y la flexibilidad operativa.
 
 
-
-El objetivo es que el lector, en una o dos páginas, exponga de qué se trata el proyecto y cuáles son sus desafíos, cuál es la motivación para realizarlo y su importancia.
-
-Se debe introducir el contexto del proyecto, el estado del arte en la temática, describir la propuesta de valor, cuál es el problema que atiende y cuál es la solución que se propone. Se debe dar una descripción funcional de la solución que incluya un diagrama en bloques.
-
-Puede ser útil incluir en esta sección la respuesta a alguna de estas preguntas:
-
-\begin{itemize}
-	\item ¿Cuál es el contexto del proyecto, es un emprendimiento personal, un proyecto para una empresa, es parte del programa de vinculación con empresas del posgrado?
-	\item ¿Existen o aplican condiciones especiales al proyecto, financiamiento de algún programa público o privado, acuerdos de confidencialidad, acuerdos sobre la propiedad intelectual de los entregables u otros?
-	\item ¿Cómo se compara la solución propuesta con el estado del arte en el campo de aplicación? ¿En qué aspectos destaca?
-	\item ¿Ayuda a la explicación si se incluye un lienzo Canvas del Modelo de Negocio?
-	\item ¿En qué estado del ciclo de vida está la solución que se propone?
-	\item ¿Cuáles son las características del cliente (el adoptante de los entregables del proyecto) qué valora, qué necesita?
-	\item ¿Por dónde pasa la innovación?
-\end{itemize}
-
-La descripción técnica-conceptual \textbf{debe incluir al menos un diagrama en bloques del sistema} y descripción funcional de la solución propuesta.
-
-En la figura \ref{fig:diagBloques} se presenta el diagrama en bloques del sistema. Se observa que...''.  La regla es que las figuras nunca pueden ir antes de ser mencionadas en el texto, porque sino el lector no entiende por qué de pronto aparece una figura.
+En la figura \ref{fig:diagBloques} se presenta el diagrama en bloques del sistema. El dispositivo de conteo, compuesto por sensores y un microcontrolador, se comunica mediante un canal inalámbrico GPRS y transmite los datos hacia un broker MQTT externo. El servidor central está suscrito a este broker y recibe los datos mediante un módulo de procesamiento que los almacena en una base de datos relacional. Paralelamente, el sistema cuenta con una API REST que permite el acceso a la información desde una interfaz web y la ejecución de comandos administrativos. De esta manera, el sistema combina la eficiencia del protocolo MQTT para el envío de datos en tiempo real con la flexibilidad de una API REST para la gestión y visualización.
 
 \begin{figure}[htpb]
 \centering 
-\includegraphics[width=.65\textwidth]{./Figuras/diagBloques.png}
+\includegraphics[width=.90\textwidth]{./Figuras/diagBloques.png}
 \caption{Diagrama en bloques del sistema.}
 \label{fig:diagBloques}
 \end{figure}
 
 \vspace{25px}
 
-El tamaño del texto en TODAS las figuras debe ser adecuado \textbf{para que NO pase lo que ocurre en la figura \ref{fig:diagBloques}}, donde el lector debe esforzarse para poder leer el texto. 
-
-Los colores usados en el diagrama deben ser adecuados, tal que ayuden a comprender mejor el diagrama. Se recomienda evitar colores primarios (como rojo, verde o cyan) y usar la gama de colores pastel.
-
-%\end{consigna} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
 
 \section{2. Identificación y análisis de los interesados}
 \label{sec:interesados}
