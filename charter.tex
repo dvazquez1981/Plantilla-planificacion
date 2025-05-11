@@ -110,11 +110,12 @@ Se adjunta a esta acta la planificación inicial.
 %\begin{consigna}{red} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
 
 
-\subsection{Situación Actual}
+\subsection{Contexto y Motivación}
 
-Actualmente, un modelo de contadores de tránsito utilizados en las rutas nacionales y que administra Vialidad Nacional, fueron desarrollados internamente y cumplen su función principal: registrar el paso de vehículos, clasificar dicha información y transmitirla a un servidor central. Estos dispositivos se comunican mediante enlaces GPRS tercerizados, a través de un canal unidireccional, lo que significa que solo envían datos al servidor, sin la posibilidad de recibir instrucciones o configuraciones de manera remota.
-
-Este modelo es funcional pero presenta importantes limitaciones operativas y técnicas, especialmente en un contexto en el que la flexibilidad, la eficiencia operativa y la capacidad de respuesta remota son fundamentales.
+Este proyecto surge en el marco de una necesidad operativa concreta detectada en la infraestructura actual de monitoreo de tránsito vehicular utilizada en rutas nacionales. 
+Actualmente, un modelo de los contadores de tránsito empleados han sido desarrollados internamente y cumplen adecuadamente su función básica: registrar el paso de vehículos, clasificar en livianos y pesados y transmitir los datos a un servidor central. 
+Sin embargo, estas unidades se comunican exclusivamente por enlaces GPRS tercerizados, a través de un canal unidireccional, lo que impide cualquier tipo de interacción remota con los dispositivos en campo.
+Frente a esta situación, se plantea el desafío de modernizar la arquitectura de comunicaciones de estos sistemas, incorporando capacidades de comunicación bidireccional, diagnósticos remotos y rapida respuesta operativa. Este proyecto se enmarca en una iniciativa profesional orientada a mejorarel proceso de calculo de estadísticas viales y optimizar la eficiencia operativa en el control de tránsito.
 
 \subsection{Problemas Identificados}
 
@@ -128,23 +129,36 @@ Este modelo es funcional pero presenta importantes limitaciones operativas y té
 
 \end{itemize}
 
+
+\subsection{Estado del Arte y Propuesta de Valor}
+Existen en el mercado soluciones comerciales con capacidades de gestión remota y comunicación bidireccional. Sin embargo, muchas de estas soluciones son costosas. El enfoque propuesto busca aprovechar tecnologías de código abierto y protocolos estandarizados (MQTT sobre TLS) para construir una solución flexible, escalable y económicamente viable, adaptada al entorno específico de rutas argentinas.
+
 \subsection{Propuesta de Modernización}
 
 Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito, incorporando un modelo de comunicación bidireccional segura. Este nuevo esquema permitirá no solo el envío de datos desde los dispositivos hacia el servidor central, sino también la recepción de comandos y actualizaciones desde el servidor hacia los dispositivos en campo. Adicionalmente, se prevé la visualización de los datos en tiempo real, a medida que vayan siendo transmitidos.
 
-
-\subsection{Aspectos Clave del Rediseño}
-
+\subsection{Descripción Funcional y Técnica}
+El sistema estará compuesto por:
 \begin{itemize}
-\item Comunicación bidireccional segura: implementación de protocolos (MQTT sobre TLS, HTTPS) que permitan una interacción constante y confiable entre el servidor central y cada equipo en campo.
-\item Canal de comunicación: evaluación de alternativas que permitan disminuir la dependencia de infraestructura tercerizada y mejorar la disponibilidad del sistema.
-\item Centralización de la lógica de control: simplificación de los dispositivos en campo, que actuarán como nodos ejecutores, mientras que la inteligencia asociada a la operación, configuración y toma de decisiones residirá en el servidor central.
-\item Diagnóstico y gestión remota: incorporación de capacidades para monitorear el estado del hardware.
-\item Mayor autonomía operativa: reducción de la intervención manual, eliminación de cuellos de botella administrativos vinculados a terceros, y posibilidad de escalar la solución de manera más ágil y eficiente.
+
+\item Un dispositivo contador (ya desarrolado pero incompleto) modificado para incluir capacidad de comunicación bidireccional.
+
+\item Un canal de comunicación (NB-IOT o Wi-Fi en zonas cubiertas).
+
+\item Un protocolo de comunicación con MQTT sobre TLS.
+
+\item Una base de datos relacional donde se almacenará toda la información recibida de los dispositivos.
+
+\item Una interfaz web básica alojada en el servidor central, que permitirá visualizar en tiempo real los datos capturados y enviar comandos a los dispositivos (reinicio, carga de parametros, consulta de estado).
+
+\item Funciones básicas de monitoreo remoto: temperatura del equipo, nivel de batería, errores de hardware o comunicación.
 
 \end{itemize}
 
-\subsection{Consideraciones de Seguridad}
+\subsection{Características del Cliente y del Entorno}
+El cliente es Vialidad Nacional interesada en modernizar sus sistemas de conteo de tránsito. Valora la autonomía operativa, la posibilidad de diagnóstico remoto, y la reducción de costos operativos.
+No existen condiciones especiales en cuanto a propiedad intelectual ni confidencialidad en esta etapa.
+
 
 
 El objetivo es que el lector, en una o dos páginas, exponga de qué se trata el proyecto y cuáles son sus desafíos, cuál es la motivación para realizarlo y su importancia.
@@ -247,8 +261,6 @@ Se recomienda que sea solo un párrafo que continúe con la idea de la frase ``e
 
 Se desarrollará un prototipo funcional que permita validar los aspectos clave del rediseño propuesto.
 El prototipo incluirá:
-
-
 
 \begin{itemize}
 	\item Un dispositivo contador (actualmente existente, pero incompleto), al que se le incorporará capacidad de comunicación bidireccional.
