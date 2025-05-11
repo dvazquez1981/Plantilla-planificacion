@@ -105,10 +105,11 @@ Se adjunta a esta acta la planificación inicial.
 
 \subsection{Contexto y Motivación}
 
-Este proyecto surge en el marco de una necesidad operativa concreta detectada en la infraestructura actual de monitoreo de tránsito vehicular utilizada en rutas nacionales. 
-Actualmente, un modelo de los contadores de tránsito empleados han sido desarrollados internamente y cumplen adecuadamente su función básica: registrar el paso de vehículos, clasificar en livianos y pesados y transmitir los datos a un servidor central. 
-Sin embargo, estas unidades se comunican exclusivamente por enlaces GPRS tercerizados, a través de un canal unidireccional, lo que impide cualquier tipo de interacción remota con los dispositivos en campo.
-Frente a esta situación, se plantea el desafío de modernizar la arquitectura de comunicaciones de estos sistemas, incorporando capacidades de comunicación bidireccional, diagnósticos remotos y rapida respuesta operativa. Este proyecto se enmarca en una iniciativa profesional orientada a mejorar el proceso de calculo de estadísticas viales y optimizar la eficiencia operativa en el control de tránsito.
+Este proyecto surge a partir de una necesidad detectada en la infraestructura actual de monitoreo del tránsito vehicular utilizada en rutas nacionales.
+Actualmente, uno de los modelos de contadores de tránsito empleados ha sido desarrollado internamente y cumple adecuadamente su función básica: registrar el paso de vehículos, clasificarlos en livianos y pesados, y transmitir los datos a un servidor central.
+Sin embargo, estas unidades se comunican exclusivamente a través de enlaces GPRS tercerizados, mediante un canal unidireccional, lo que impide cualquier tipo de interacción remota con los dispositivos en campo.
+Frente a esta situación, se plantea el desafío de modernizar la arquitectura de comunicaciones de estos sistemas, incorporando capacidades de comunicación bidireccional, diagnóstico remoto y rápida respuesta operativa.
+La iniciativa se enmarca en un esfuerzo profesional orientado a mejorar el proceso de cálculo de estadísticas viales y optimizar la eficiencia operativa en el control del tránsito.
 
 \subsection{Problemas Identificados}
 
@@ -124,11 +125,13 @@ Frente a esta situación, se plantea el desafío de modernizar la arquitectura d
 
 
 \subsection{Estado del Arte y Propuesta de Valor}
-Existen en el mercado soluciones comerciales con capacidades de gestión remota y comunicación bidireccional. Sin embargo, muchas de estas soluciones son costosas. El enfoque propuesto busca aprovechar tecnologías de código abierto y protocolos estandarizados (MQTT sobre TLS) para construir una solución flexible, escalable y económicamente viable, adaptada al entorno específico de rutas argentinas.
-
+En el mercado existen diversas soluciones comerciales que ofrecen capacidades de gestión remota y comunicación bidireccional; sin embargo, muchas de ellas resultan costosas.
+El enfoque propuesto busca aprovechar tecnologías de código abierto y protocolos estandarizados (MQTT sobre TLS), con el objetivo de construir una alternativa flexible, escalable y económicamente viable, adaptada al entorno específico de las rutas argentinas.
 \subsection{Propuesta de Modernización}
 
-Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito, incorporando un modelo de comunicación bidireccional segura. Este nuevo esquema permitirá no solo el envío de datos desde los dispositivos hacia el servidor central, sino también la recepción de comandos y actualizaciones desde el servidor hacia los dispositivos en campo. Adicionalmente, se prevé la visualización de los datos en tiempo real, a medida que vayan siendo transmitidos.
+Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito mediante la incorporación de un modelo de comunicación bidireccional segura.
+Este nuevo esquema permitirá no solo el envío de datos desde los dispositivos al servidor central, sino también la recepción de comandos y actualizaciones de parámetros desde el servidor hacia el campo.
+Además, se prevé la visualización de los datos en tiempo real, conforme se vayan transmitiendo.
 
 \subsection{Descripción Funcional y Técnica}
 El sistema estará compuesto por:
@@ -149,8 +152,8 @@ El sistema estará compuesto por:
 \end{itemize}
 
 \subsection{Características del Cliente y del Entorno}
-El cliente es Vialidad Nacional interesada en modernizar sus sistemas de conteo de tránsito. Valora la autonomía operativa, la posibilidad de diagnóstico remoto, y la reducción de costos operativos.
-No existen condiciones especiales en cuanto a propiedad intelectual ni confidencialidad en esta etapa.
+El cliente, la Subgerencia de Estudios de Demanda de Vialidad Nacional, está interesado en modernizar sus sistemas de conteo de tránsito. Valora especialmente la autonomía operativa, la posibilidad de diagnóstico remoto y la reducción de costos operativos.
+En esta etapa, no se han establecido condiciones especiales relacionadas con la propiedad intelectual ni con la confidencialidad.
 
 \subsection{Grado de Innovación}
 La innovación del proyecto reside en la integración de elementos existentes (sensores, redes móviles) bajo una lógica de arquitectura abierta y centralizada, adaptable y orientada a la gestión inteligente de los datos del tránsito, con fuerte énfasis en la autonomía y la flexibilidad operativa.
