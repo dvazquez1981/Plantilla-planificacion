@@ -106,9 +106,9 @@ Se adjunta a esta acta la planificación inicial.
 \subsection{Contexto y Motivación}
 
 Este proyecto surge a partir de una necesidad detectada en la infraestructura actual de monitoreo del tránsito vehicular utilizada en rutas nacionales.
-Actualmente, uno de los modelos de contadores de tránsito empleados ha sido desarrollado internamente y cumple adecuadamente su función básica: registrar el paso de vehículos, clasificarlos en livianos y pesados por carril, y transmitir los datos a un servidor central.
+Actualmente, uno de los modelos de contadores de tránsito empleados ha sido desarrollado internamente y cumple adecuadamente su función básica: registrar el paso de vehículos, clasificarlos en livianos y pesados por carril y transmitir los datos a un servidor central.
 Sin embargo, estas unidades se comunican exclusivamente a través de enlaces GPRS tercerizados, mediante un canal unidireccional, lo que impide cualquier tipo de interacción remota con los dispositivos en campo.
-Frente a esta situación, se plantea el desafío de modernizar la arquitectura de comunicaciones de estos sistemas, incorporando capacidades de comunicación bidireccional, diagnóstico remoto y rápida respuesta operativa.
+Frente a esta situación, se plantea el desafío de modernizar la arquitectura de comunicaciones de estos sistemas incorporando capacidades de comunicación bidireccional, diagnóstico remoto y rápida respuesta operativa.
 La iniciativa se enmarca en un esfuerzo profesional orientado a mejorar el proceso de cálculo de estadísticas viales y optimizar la eficiencia operativa en el control del tránsito.
 
 \subsection{Problemas Identificados}
@@ -129,9 +129,9 @@ En el mercado existen diversas soluciones comerciales que ofrecen capacidades de
 El enfoque propuesto busca aprovechar tecnologías de código abierto y protocolos estandarizados (MQTT sobre TLS), con el objetivo de construir una alternativa flexible, escalable y económicamente viable, adaptada al entorno específico de las rutas argentinas.
 \subsection{Propuesta de Modernización}
 
-Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito mediante la incorporación de un modelo de comunicación bidireccional segura.
+Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito mediante la incorporación de un modelo de comunicación bidireccional y segura.
 Este nuevo esquema permitirá no solo el envío de datos desde los dispositivos al servidor central, sino también la recepción de comandos y actualizaciones de parámetros desde el servidor hacia el campo.
-Además, se prevé la visualización de los datos en tiempo real, conforme se vayan transmitiendo.
+Además, se prevé la visualización de los datos en tiempo real, conforme se transmiten.
 
 \subsection{Descripción Funcional y Técnica}
 El sistema estará compuesto por:
@@ -153,10 +153,11 @@ El sistema estará compuesto por:
 
 \subsection{Características del Cliente y del Entorno}
 El cliente, la Subgerencia de Estudios de Demanda de Vialidad Nacional, está interesado en modernizar sus sistemas de conteo de tránsito. Valora especialmente la autonomía operativa, la posibilidad de diagnóstico remoto y la reducción de costos operativos.
-En esta etapa, no se han establecido condiciones especiales relacionadas con la propiedad intelectual ni con la confidencialidad.
+En esta etapa, no se han establecido condiciones especiales relacionadas con la propiedad intelectual o la confidencialidad.
+
 
 \subsection{Grado de Innovación}
-La innovación del proyecto reside en la integración de elementos existentes (sensores, redes móviles) bajo una lógica de arquitectura abierta y centralizada, adaptable y orientada a la gestión inteligente de los datos del tránsito, con fuerte énfasis en la autonomía y la flexibilidad operativa.
+La innovación del proyecto radica en la integración de elementos existentes (sensores, redes móviles) bajo una arquitectura abierta y centralizada, adaptable y orientada a la gestión inteligente de los datos de tránsito, con un fuerte énfasis en la autonomía y la flexibilidad operativa.
 
 
 En la figura \ref{fig:diagBloques} se presenta el diagrama en bloques del sistema. El dispositivo de conteo, compuesto por sensores y un microcontrolador, se comunica mediante un canal inalámbrico GPRS y transmite los datos hacia un broker MQTT externo. El servidor central está suscrito a este broker y recibe los datos mediante un módulo de procesamiento que los almacena en una base de datos relacional. Paralelamente, el sistema cuenta con una API REST que permite el acceso a la información desde una interfaz web y la ejecución de comandos administrativos. De esta manera, el sistema combina la eficiencia del protocolo MQTT para el envío de datos en tiempo real con la flexibilidad de una API REST para la gestión y visualización.
@@ -187,7 +188,8 @@ Auspiciante   &  \empclientename	                 &-              	&-        	\\
 Cliente       & \clientename      &\empclientename	& -       	\\ \hline
 Impulsor      & Ing. Rogelio Diego González          &\empclientename               	&Subgerente de Estudios de Demanda  	\\ \hline
 Responsable   & \authorname       & FIUBA        	& Alumno 	\\ \hline
-Colaboradores & Inga. María Clara Cutrone    &\empclientename             	&Jefa Sección Análisis Tránsito      	\\ \hline
+Colaborador   & Inga. María Clara Cutrone    &\empclientename             	&Jefa Sección Análisis Tránsito      	\\ \hline
+Colaborador   & Ing. Alejandro Di Rosso    &\empclientename             	&Jefe de Sección Censos de Carga    	\\ \hline
 Orientador    & \supname	      & \pertesupname 	& Director del Trabajo Final \\ \hline
 Opositores    & ATSA                  &-              	&-        	\\ \hline
 Usuario final   & \clientename      &\empclientename	& -        	\\ \hline
@@ -209,7 +211,7 @@ Usuario final   & Consultoras Externas    &-	& -        	\\ \hline
 \section{3. Propósito del proyecto}
 \label{sec:proposito}
 
-Diseñar e implementar un sistema capaz de registrar eventos de tránsito, permitir la transmisión segura de los datos recolectados, incluso ante cortes de conexión. Además, se busca incorporar capacidades de comunicación bidireccional que habiliten diagnósticos y carga de  remotos y una mejor respuesta ante fallas. Con esto, se pretende mejorar la calidad de la información recolectada en rutas nacionales y facilitar el trabajo de los equipos técnicos responsables del monitoreo.
+Diseñar e implementar un sistema capaz de registrar eventos de tránsito y permitir la transmisión segura de los datos recolectados, incluso ante cortes de conexión. Además, se busca incorporar capacidades de comunicación bidireccional que habiliten diagnósticos remotos y carga de actualizaciones de parámetros, así como una mejor respuesta ante fallas. Con ello, se pretende mejorar la calidad de la información recolectada en rutas nacionales y facilitar el trabajo de los equipos técnicos responsables del monitoreo.
 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
