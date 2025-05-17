@@ -252,36 +252,65 @@ Para el desarrollo del presente proyecto se supone que:
 
 
 \begin{enumerate}
-	\item Requerimientos funcionales:
-		\begin{enumerate}
-			\item El sistema debe...
-			\item Tal componente debe...
-			\item El usuario debe poder...
+	\item \textbf{Requerimientos funcionales:}
+			\begin{enumerate}
+			\item El ESP32-C3 debe recibir datos por interfaz \textbf{RS-232} desde el sistema de detección.
+			\item  Cada evento recibido debe ser \textbf{encolado en memoria RAM} en el orden de llegada.
+			\item  El ESP32-C3 debe publicar cada mensaje de la cola a un \textbf{broker MQTT} remoto usando GPRS.
+			\item  El protocolo MQTT debe utilizar \textbf{QoS 1 o 2} para asegurar entrega sin duplicación.
+			\item  Debe haber control de reintentos ante fallos de conexión sin duplicar mensajes.
+			\item  Si no hay conectividad GPRS disponible, los mensajes deben permanecer en la cola en memoria.
+			\item  Al llenarse la cola, los mensajes nuevos pueden descartarse (política FIFO).
+			\item  El ESP32-C3 debe \textbf{suscribirse a un topic MQTT} para recibir comandos desde el servidor.
+			\item  Al recibir un comando válido, el ESP32-C3 debe \textbf{ejecutar una acción responder OK o error, también puede devolver con el estado solicitado}.
+			\item  La API REST debe suscribirse al mismo broker MQTT y recibir todos los eventos publicados.
+			\item  La API REST debe poder \textbf{enviar comandos al ESP32-C3} publicando en el topic correspondiente.
+			\item  La \textbf{interfaz web} debe permitir visualizar eventos de tránsito recibidos desde la API REST.
+			\item  La interfaz web debe permitir enviar comandos al ESP32-C3 a través de la API REST y posibilitar ver si se pudieron realizar los comandos o el estado solicitado.
 		\end{enumerate}
-	\item Requerimientos de documentación:
+		
+		
+		
+		
+	\item \textbf{Requerimientos de documentación:}
 		\begin{enumerate}
-			\item Requerimiento 1.
-			\item Requerimiento 2 (prioridad menor)
+			\item Documentar la estructura de los mensajes RS-232 esperados (formato, delimitadores).
+			\item Especificar el topic MQTT usado y los parámetros de conexión (broker, puerto, QoS).
+			\item Incluir diagrama de bloques del flujo de eventos: contador → RS-232 → cola → MQTT → API REST.
+			\item Incluir diagrama de bloques del flujo de eventos: API REST → MQTT → RS-232 → contador.
+			\item  Documentar los comandos remotos disponibles y el formato de sus respuestas.
+			\item Documentar la estructura de los endpoints REST y sus respuestas.
 		\end{enumerate}
-	\item Requerimiento de testing...
-	\item Requerimientos de la interfaz...
-	\item Requerimientos interoperabilidad...
-	\item etc...
+
+	\item \textbf{Requerimientos de testing:}
+		\begin{enumerate}
+			\item Probar pérdida de conectividad GPRS y reenvío automático posterior.
+			\item Verificar que no haya duplicación ni pérdida de eventos con distintos volúmenes de tráfico.
+			\item  Verificar saturación de la cola y descarte correcto de eventos.
+			\item  Probar recepción de comandos desde el servidor y respuesta correcta.
+			\item  Verificar que la API REST consuma correctamente los eventos desde MQTT.
+			\item  Probar que la interfaz web reciba eventos en tiempo real o los consulte en el backend.
+		\end{enumerate}
+	\item \textbf{Requerimientos de interfaz:}
+		\begin{enumerate}
+			\item La interfaz web debe ser accesible desde cualquier navegador moderno.
+			\item La interfaz debe tener una tabla o lista para visualizar los eventos de tránsito.
+			\item La interfaz debe permitir enviar comandos a dispositivos mediante un formulario o botón.
+		\end{enumerate}
+
+	
+	\item \textbf{Requerimientos de interoperabilidad:}
+		\begin{enumerate}
+			\item  El sistema debe poder comunicarse con un broker MQTT externo configurable.
+			\item  El protocolo MQTT texto delimitado según acordado con el backend.
+		\end{enumerate}
+
+	\item \textbf{Requerimientos de seguridad}
+		\begin{enumerate}
+			\item La conexión MQTT debe incluir autenticación por credenciales.
+			\item La API REST debe requerir autenticación para el envío de comandos o consulta de datos.
+	 	\end{enumerate}
 \end{enumerate}
-
-Leyendo los requerimientos se debe poder interpretar cómo será el proyecto y su funcionalidad.
-
-Indicar claramente cuál es la prioridad entre los distintos requerimientos y si hay requerimientos opcionales. 
-
-\textbf{¡¡¡No olvidarse de que los requerimientos incluyen a las regulaciones y normas vigentes!!!}
-
-Y al escribirlos seguir las siguientes reglas:
-\begin{itemize}
-	\item Ser breve y conciso (nadie lee cosas largas). 
-	\item Ser específico: no dejar lugar a confusiones.
-	\item Expresar los requerimientos en términos que sean cuantificables y medibles.
-\end{itemize}
-
 
 \section{7. Historias de usuarios (\textit{Product backlog})}
 \label{sec:backlog}
