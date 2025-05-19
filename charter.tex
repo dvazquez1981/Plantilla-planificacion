@@ -309,57 +309,66 @@ Para el desarrollo del presente proyecto se supone que:
 
 \section{7. Historias de usuarios (\textit{Product backlog})}
 \label{sec:backlog}
-
+Criterio para estimación de Story Points: Cada historia de usuario se evalúa en tres
+dimensiones usando la secuencia de Fibonacci: 1, 2, 3, 5, 8, 13, 21. La suma de dificultad,
+complejidad y riesgo se redondea al número de Fibonacci más cercano.
 \begin{enumerate}
 
 \item \textbf{Interfaz web para visualización}\\
 \textbf{Como} usuario del sistema\\
 \textbf{quiero} ver los eventos de tránsito en una interfaz web\\
 \textbf{para} tener monitoreo visual y registro histórico de los tránsitos.\\
-\textit{Story points:} 5 (complejidad: 2, dificultad: 2, incertidumbre: 1)
+\textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 1)\\
+Prioridad: media
 
 \item \textbf{Envío de datos al servidor}\\
 \textbf{Como} administrador del sistema\\
 \textbf{quiero} que los eventos se envíen al servidor vía MQTT sobre GPRS\\
 \textbf{para} recibir todos los tránsitos detectados en tiempo real o diferido.\\
-\textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)
+\textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)\\
+Prioridad: alta
 
 \item \textbf{API REST que consume el MQTT}\\
 \textbf{Como} desarrollador backend\\
 \textbf{quiero} que la API REST se suscriba al broker MQTT\\
 \textbf{para} recibir y procesar los eventos de tránsito.\\
-\textit{Story points:} 7 (complejidad: 3, dificultad: 1, incertidumbre: 3)
+\textit{Story points:} 13 (complejidad: 3, dificultad: 3, incertidumbre: 3)\\
+Prioridad: alta
 
 \item \textbf{Envío de comandos desde la API REST}\\
 \textbf{Como} administrador desde la interfaz web\\
 \textbf{quiero} enviar comandos al dispositivo a través de la API REST\\
 \textbf{para} controlar remotamente los dispositivos en campo.\\
-\textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)
+\textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)\\
+Prioridad: alta
 
 \item \textbf{Interfaz web para control remoto}\\
 \textbf{Como} usuario del sistema\\
 \textbf{quiero} usar la interfaz web para enviar comandos\\
 \textbf{para} realizar chequeos o pruebas de funcionamiento a distancia.\\
-\textit{Story points:} 5 (complejidad: 2, dificultad: 2, incertidumbre: 1)
+\textit{Story points:} 5 (complejidad: 2, dificultad: 2, incertidumbre: 1)\\
+Prioridad: media
 
 \item \textbf{Registro de eventos de tránsito y respuesta a comandos en cola local del dispositivo ESP32-C3}\\
 \textbf{Como} desarrollador del sistema,\\
 \textbf{quiero} que el ESP32-C3 registre cada evento de tránsito recibido y respuesta a comandos por RS-232 en una cola en memoria RAM,\\
 \textbf{para} asegurar que los eventos no se pierdan si no hay conexión GPRS disponible en ese momento.\\
-\textit{Story points:} 5 (complejidad: 2, dificultad: 2, incertidumbre: 1)
+\textit{Story points:} 13 (complejidad: 5, dificultad: 2, incertidumbre: 3)\\
+Prioridad: alta
 
 \item \textbf{Adaptación del contador de tránsito para interpretar protocolo RS-232}\\
 \textbf{Como} desarrollador del sistema\\
 \textbf{quiero} modificar el contador de tránsito en el ESP32-C3 para que interprete correctamente las tramas recibidas mediante RS-232\\
 \textbf{para} asegurar que los eventos de tránsito se procesen con precisión y se registren adecuadamente en la cola local, como el manejo de comandos y sus respuestas al servidor central\\
-\textit{Story points:} 6 (complejidad: 3, dificultad: 2, incertidumbre: 1)
+\textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 1)\\
+Prioridad: alta
 
 \item \textbf{Manejo de errores de comunicación y reconexión automática en el ESP32-C3}\\
 \textbf{Como} desarrollador del sistema\\
 \textbf{quiero} que el ESP32-C3 detecte y maneje errores de comunicación en el puerto RS-232 y en la conexión GPRS. Adicionalmente realice reconexiones automáticas cuando sea necesario\\
 \textbf{para} garantizar la estabilidad y continuidad del sistema, evitando la pérdida de eventos de tránsito y asegurando una comunicación confiable con el servidor.\\
-\textit{Story points:} 6 (complejidad: 3, dificultad: 2, incertidumbre: 1)
-
+\textit{Story points:} 5 (complejidad: 3, dificultad: 1, incertidumbre: 1)\\
+Prioridad: media
 
 \end{enumerate}
 
@@ -452,12 +461,13 @@ Diagramas que muestran las conexiones eléctricas de los dispositivos: RS-232, E
 \end{enumerate}
 \item \textbf{Desarrollo de la API REST (75 h)}
 \begin{enumerate}
-\item Diseño de endpoints para recepción de eventos desde MQTT (15 h)
-\item Implementación de lógica para procesamiento de eventos (15 h)
-\item Desarrollo de endpoints para envío de comandos al ESP32-C3 (15 h)
-\item Integración con el broker MQTT (15 h)
-\item Implementación de autenticación y seguridad (10 h)
-\item Pruebas unitarias y de integración de la API (5 h)
+  \item Diseño del modelo entidad-relación y esquema de base de datos (10 h)
+  \item Diseño de endpoints para recepción de eventos desde MQTT (12 h)
+  \item Implementación de lógica para procesamiento de eventos (12 h)
+  \item Desarrollo de endpoints para envío de comandos al ESP32-C3 (12 h)
+  \item Integración con el broker MQTT (12 h)
+  \item Implementación de autenticación y seguridad (10 h)
+  \item Pruebas unitarias y de integración de la API (7 h)
 \end{enumerate}
 \item \textbf{Testing de la API REST (15 h)}
 \begin{enumerate}
