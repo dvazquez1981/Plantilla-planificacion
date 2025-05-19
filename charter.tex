@@ -5,7 +5,7 @@
 
 
 % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
-\titulo{Modernización de Contadores de Tránsito con Comunicación Bidireccional} 
+\titulo{Modernización de contadores de tránsito con comunicación bidireccional} 
 
 % Nombre del posgrado, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \degreename
 %\posgrado{Carrera de Especialización en Sistemas Embebidos} 
@@ -28,9 +28,9 @@
 \cliente{Subgerencia de Estudios de Demanda}
 \empresaCliente{Vialidad Nacional}
  
-\fechaINICIO{30 de abril de 2025}		%Fecha de inicio de la cursada de GdP \fechaInicioName
-\fechaFINALPlan{18 de junio de 2025} 	%Fecha de final de cursada de GdP
-\fechaFINALTrabajo{30 de mayo de 2025}	%Fecha de defensa pública del trabajo final
+\fechaINICIO{29 de abril de 2025}		%Fecha de inicio de la cursada de GdP \fechaInicioName
+\fechaFINALPlan{17 de junio de 2025} 	%Fecha de final de cursada de GdP
+\fechaFINALTrabajo{marzo de 2026}	%Fecha de defensa pública del trabajo final
 
 
 \begin{document}
@@ -84,7 +84,7 @@ Buenos Aires, \fechaInicioName
 \end{flushright}
 
 \vspace{2cm}
-Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en {un sistema de comunicación con los contadores de tránsito, incorporando un modelo de comunicación bidireccional. El trabajo tendrá un presupuesto preliminar estimado de 600} horas y un costo estimado de \$ - , con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
+Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en {un sistema de comunicación con los contadores de tránsito, que incorpore un modelo bidireccional. El trabajo tendrá un presupuesto preliminar estimado de 600} horas y un costo estimado de \$ - , con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
 Se adjunta a esta acta la planificación inicial.
 \vfill
 % Esta parte se construye sola con la información que hayan cargado en el preámbulo del documento y no debe modificarla
@@ -102,16 +102,16 @@ Se adjunta a esta acta la planificación inicial.
 %\begin{consigna}{red} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
 
 
-\subsection{Contexto y Motivación}
+\subsection{Contexto y motivación}
 Este proyecto surge a partir de una necesidad detectada en la infraestructura actual de monitoreo del tránsito vehicular utilizada en rutas nacionales.
 
-Actualmente, uno de los modelos de contadores de tránsito empleados ha sido desarrollado internamente y cumplen adecuadamente su función básica: registrar el paso de vehículos, clasificarlos por carril en livianos y pesados, y transmitir los datos a un servidor central.
+Actualmente, uno de los modelos de contadores de tránsito empleados ha sido desarrollado internamente y cumple adecuadamente su función básica: registrar el paso de vehículos, clasificarlos por carril en livianos y pesados y transmitir los datos a un servidor central.
 
-Sin embargo, estas unidades se comunican exclusivamente mediante enlaces GPRS tercerizados, a través de un canal unidireccional. Esto impide cualquier tipo de interacción remota con los dispositivos en campo.
+Sin embargo, estas unidades se comunican exclusivamente mediante enlaces GPRS tercerizados a través de un canal unidireccional. Esto impide cualquier tipo de interacción remota con los dispositivos en campo.
 
 Frente a esta situación, se plantea el desafío de modernizar la arquitectura de comunicaciones del sistema, incorporando capacidades de comunicación bidireccional, diagnóstico remoto y respuesta operativa rápida.
 
-\subsection{Problemas Identificados}
+\subsection{Problemas identificados}
 
 \begin{itemize}
 
@@ -123,41 +123,25 @@ Frente a esta situación, se plantea el desafío de modernizar la arquitectura d
 
 \end{itemize}
 
-\subsection{Estado del Arte y Propuesta de Valor}
-En el mercado existen diversas soluciones comerciales que ofrecen capacidades de gestión remota y comunicación bidireccional; sin embargo, muchas de ellas resultan costosas.
+\subsection{Estado del arte y propuesta de valor}
+En el mercado existen diversas soluciones comerciales que ofrecen capacidades de gestión remota y comunicación bidireccional. Sin embargo, muchas de ellas resultan costosas.
 
-El enfoque propuesto busca aprovechar tecnologías de código abierto y protocolos estandarizados (MQTT sobre TLS), con el objetivo de construir una alternativa flexible, escalable y económicamente viable, adaptada al entorno específico de las rutas argentinas.
-\subsection{Propuesta de Modernización}
+El enfoque propuesto busca aprovechar tecnologías de código abierto y protocolos estandarizados (MQTT sobre TLS), con el objetivo de construir una alternativa flexible, escalable y económicamente viable adaptada al entorno específico de las rutas argentinas.
+\subsection{Propuesta de modernización}
 
 Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito mediante la incorporación de un modelo de comunicación bidireccional y segura.
 Este nuevo esquema permitirá no solo el envío de datos desde los dispositivos hacia el servidor central, sino también la recepción de comandos y actualizaciones de parámetros desde el servidor hacia los dispositivos en el campo.
-Además, se prevé la visualización de los datos en tiempo real, conforme se transmiten.
+Además se prevé la visualización de los datos en tiempo real conforme se transmiten.
 
-\subsection{Descripción Funcional y Técnica}
-El sistema estará compuesto por:
-\begin{itemize}
+\subsection{Descripción funcional y técnica}
 
-\item Un dispositivo contador (ya desarrollado pero incompleto) modificado para incluir capacidad de comunicación bidireccional.
-
-\item Un canal de comunicación (GPRS).
-
-\item Un protocolo de comunicación con MQTT sobre TLS.
-
-\item Una base de datos relacional donde se almacenará toda la información recibida de los dispositivos.
-
-\item Una interfaz web básica alojada en el servidor central, que permitirá visualizar en tiempo real los datos capturados y enviar comandos a los dispositivos (reinicio, carga de parámetros, consulta de estado).
-
-\item Funciones básicas de monitoreo remoto: temperatura del equipo, nivel de batería, errores de hardware o comunicación.
-
-\end{itemize}
-
-\subsection{Características del Cliente y del Entorno}
-El cliente, la Subgerencia de Estudios de Demanda de Vialidad Nacional, está interesado en modernizar sus sistemas de conteo de tránsito. Valora especialmente la autonomía operativa, la posibilidad de diagnóstico remoto y la reducción de costos operativos.
-En esta etapa, no se han establecido condiciones especiales relacionadas con la propiedad intelectual ni con la confidencialidad.
+El sistema estará compuesto por un dispositivo contador con capacidad de comunicación bidireccional mediante GPRS, utilizando el protocolo MQTT sobre TLS para el envío seguro de datos. La información capturada será almacenada en una base de datos relacional y visualizada a través de una interfaz web básica alojada en el servidor central. Esta interfaz permitirá el monitoreo en tiempo real así como el envío de comandos remotos. Además, se incluirán funciones de monitoreo de temperatura, nivel de batería y detección de errores de hardware o comunicación.
 
 
-\subsection{Grado de Innovación}
-La innovación del proyecto radica en la integración de elementos existentes (sensores, redes móviles) bajo una arquitectura abierta y centralizada, adaptable y orientada a la gestión inteligente de los datos de tránsito, con un fuerte énfasis en la autonomía y flexibilidad operativa.
+
+
+\subsection{Grado de innovación}
+La innovación del proyecto radica en la integración de elementos existentes , como sensores y redes móviles, bajo una arquitectura abierta y centralizada, adaptable y orientada a la gestión inteligente de los datos de tránsito, con un fuerte énfasis en la autonomía y flexibilidad operativa.
 
 
 En la figura \ref{fig:diagBloques} se presenta el diagrama en bloques del sistema. El dispositivo de conteo, compuesto por sensores y un microcontrolador, se comunica mediante un canal inalámbrico GPRS y transmite los datos hacia un broker MQTT externo. El servidor central está suscrito a este broker y recibe los datos mediante un módulo de procesamiento que los almacena en una base de datos relacional. Paralelamente, el sistema cuenta con una API REST que permite el acceso a la información desde una interfaz web y la ejecución de comandos administrativos. De esta manera, el sistema combina la eficiencia del protocolo MQTT para el envío de datos en tiempo real con la flexibilidad de una API REST para la gestión y visualización.
@@ -177,34 +161,59 @@ En la figura \ref{fig:diagBloques} se presenta el diagrama en bloques del sistem
 
 
 
-\begin{table}[ht]
-%\caption{Identificación de los interesados}
-%\label{tab:interesados}
-\begin{tabularx}{\linewidth}{@{}|l|X|X|l|@{}}
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.4} % Aumenta el espacio entre filas
+\centering
+\begin{tabular}{|p{3cm}|p{4.5cm}|p{4.5cm}|p{4.5cm}|}
 \hline
-\rowcolor[HTML]{C0C0C0} 
-Rol           & Nombre y Apellido & Organización 	& Puesto 	\\ \hline
-Auspiciante   &  \empclientename	                 &-              	&-        	\\ \hline
-Cliente       & \clientename      &\empclientename	& -       	\\ \hline
-Impulsor      & Ing. Rogelio Diego González          &\empclientename               	&Subgerente de Estudios de Demanda  	\\ \hline
-Responsable   & \authorname       & FIUBA        	& Alumno 	\\ \hline
-Colaborador   & Inga. María Clara Cutrone    &\empclientename             	&Jefa Sección Análisis Tránsito      	\\ \hline
-Colaborador   & Ing. Alejandro Di Rosso    &\empclientename             	&Jefe de Sección Censos de Carga    	\\ \hline
-Orientador    & \supname	      & \pertesupname 	& Director del Trabajo Final \\ \hline
-Opositores    & ATSA                  &-              	&-        	\\ \hline
-Usuario final   & \clientename      &\empclientename	& -        	\\ \hline
-Usuario final   &Gerencia Ejecutiva de Proyectos y Obras      &\empclientename	& -        	\\ \hline
-
-Usuario final   & Consultoras Externas    &-	& -        	\\ \hline
-\end{tabularx}
+\textbf{Rol} & \textbf{Nombre y apellido} & \textbf{Organización} & \textbf{Puesto} \\
+\hline
+Auspiciante   & \empclientename             & -                & -                                \\
+\hline
+Cliente       & \clientename                & \empclientename  & -                                \\
+\hline
+Impulsor      & Ing. Rogelio Diego González & \empclientename  & Subgerente de Estudios de Demanda \\
+\hline
+Responsable   & \authorname                 & FIUBA            & Alumno                           \\
+\hline
+Colaboradora  & Ing. María Clara Cutrone    & \empclientename  & Jefa Sección Análisis Tránsito   \\
+\hline
+Colaborador   & Ing. Alejandro Di Rosso     & \empclientename  & Jefe Sección Censos de Carga     \\
+\hline
+Orientador    & \supname                    & \pertesupname    & Director del Trabajo Final       \\
+\hline
+Opositores    & ATSA                        & -                & -                                \\
+\hline
+Usuario final & \clientename                & \empclientename  & -                                \\
+\hline
+Usuario final & Gerencia Ejecutiva de Proyectos y Obras & \empclientename & -             \\
+\hline
+Usuario final & Consultoras Externas        & -                & -                                \\
+\hline
+\end{tabular}
+\caption{Identificación de los interesados}
+\label{tab:interesados}
 \end{table}
 
 
-\begin{itemize}
-	%\item Orientador: la Dra. Ing. María Gómez es experta en la temática y va a ayudar con la definición de los requerimientos y el desarrollo del firmware del embebido.
-	\item Auspiciante: es exigente con la rendición de gastos. Tener mucho cuidado con esto.
-	\item Colaborador: Inga. María Clara Cutrone, suele pedir licencia porque tiene familia extensa. Planificar considerando esto.
-\end{itemize}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.4} % Aumenta el espacio entre filas
+\centering
+\begin{tabular}{|p{3cm}|p{4.5cm}|p{8cm}|}
+\hline
+\textbf{Rol} & \textbf{Nombre y apellido} & \textbf{Observaciones} \\
+\hline
+Auspiciante & \empclientename & Es exigente con la rendición de gastos. Se deberá tener especial cuidado en este aspecto. \\
+\hline
+Cliente & \clientename & Valora especialmente la autonomía operativa, la posibilidad de diagnóstico remoto y la reducción de costos operativos. No hay condiciones especiales relacionadas con la propiedad intelectual ni con la confidencialidad. \\
+\hline
+Colaboradora & Ing. María Clara Cutrone & Suele pedir licencia debido a una familia extensa. La planificación debe considerar esta situación. \\
+\hline
+\end{tabular}
+\caption{Participantes y consideraciones relevantes}
+\end{table}
+
 
 
 
@@ -221,7 +230,7 @@ Se desarrollará un prototipo funcional que permita validar los aspectos clave d
 El prototipo incluirá:
 
 \begin{itemize}
-	\item Un dispositivo contador (actualmente existente, pero incompleto), al que se le incorporará capacidad de comunicación bidireccional.
+	\item Un dispositivo contador actualmente existente, pero incompleto, al que se le incorporará la capacidad de comunicación bidireccional.
 	\item Un canal de comunicación GPRS.
 	\item Implementación de un protocolo seguro (MQTT sobre TLS) para el envío y recepción de datos y comandos.
 	\item Una interfaz básica en el servidor central para la visualización de datos en tiempo real y el envío de instrucciones al dispositivo.
@@ -239,9 +248,9 @@ Para el desarrollo del presente proyecto se supone que:
 
 \begin{itemize}
 	\item Se dispone de acceso a la infraestructura actual de los contadores de tránsito ya instalados, así como de la documentación técnica necesaria para su análisis y eventual integración.
-	\item Se cuenta con conectividad intermitente por GPRS en los sitios donde se instalará el sistema, permitiendo validar el funcionamiento del envío diferido de datos.
-	\item Los recursos humanos involucrados  estarán disponibles durante la duración del proyecto, en los tiempos y roles previstos.
-	\item Los materiales requeridos (hardware de prueba, sensores, dispositivos de comunicación, etc.) estarán disponibles o serán reemplazables por equivalentes funcionales en caso de faltantes.
+	\item Se cuenta con conectividad intermitente por GPRS en los sitios donde se instalará el sistema, lo que permitirá validar el funcionamiento del envío diferido de datos.
+	\item Los recursos humanos involucrados  estarán disponibles durante la duración del proyecto en los tiempos y roles previstos.
+	\item Los materiales requeridos (hardware de prueba, sensores, dispositivos de comunicación, etc.), estarán disponibles o serán reemplazables por equivalentes funcionales en caso de faltantes.
 	\item La incorporación de comunicación bidireccional es técnicamente factible y puede realizarse sin rediseñar completamente el hardware existente.
 \end{itemize}
 
