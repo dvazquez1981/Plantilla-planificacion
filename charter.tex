@@ -126,7 +126,7 @@ Frente a esta situación, se plantea el desafío de modernizar la arquitectura d
 \subsection{Estado del arte y propuesta de valor}
 En el mercado existen diversas soluciones comerciales que ofrecen capacidades de gestión remota y comunicación bidireccional. Sin embargo, muchas de ellas resultan costosas.
 
-El enfoque propuesto busca aprovechar tecnologías de código abierto y protocolos estandarizados (MQTT sobre TLS), con el objetivo de construir una alternativa flexible, escalable y económicamente viable adaptada al entorno específico de las rutas argentinas.
+El enfoque propuesto busca aprovechar tecnologías de código abierto y protocolos estandarizados (MQTT), con el objetivo de construir una alternativa flexible, escalable y económicamente viable adaptada al entorno específico de las rutas argentinas.
 \subsection{Propuesta de modernización}
 
 Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito mediante la incorporación de un modelo de comunicación bidireccional y segura.
@@ -135,7 +135,7 @@ Además se prevé la visualización de los datos en tiempo real conforme se tran
 
 \subsection{Descripción funcional y técnica}
 
-El sistema estará compuesto por un dispositivo contador con capacidad de comunicación bidireccional mediante GPRS, utilizando el protocolo MQTT sobre TLS para el envío seguro de datos. La información capturada será almacenada en una base de datos relacional y visualizada a través de una interfaz web básica alojada en el servidor central. Esta interfaz permitirá el monitoreo en tiempo real así como el envío de comandos remotos. Además, se incluirán funciones de monitoreo de temperatura, nivel de batería y detección de errores de hardware o comunicación.
+El sistema estará compuesto por un dispositivo contador con capacidad de comunicación bidireccional mediante GPRS, utilizando el protocolo MQTT para el envío seguro de datos. La información capturada será almacenada en una base de datos relacional y visualizada a través de una interfaz web básica alojada en el servidor central. Esta interfaz permitirá el monitoreo en tiempo real así como el envío de comandos remotos. Además, se incluirán funciones de monitoreo de temperatura, nivel de batería y detección de errores de hardware o comunicación.
 
 
 
@@ -232,7 +232,7 @@ El prototipo incluirá:
 \begin{itemize}
 	\item Un dispositivo contador actualmente existente, pero incompleto, al que se le incorporará la capacidad de comunicación bidireccional.
 	\item Un canal de comunicación GPRS.
-	\item Implementación de un protocolo seguro (MQTT sobre TLS) para el envío y recepción de datos y comandos.
+	\item Implementación de un protocolo seguro (MQTT) para el envío y recepción de datos y comandos.
 	\item Una interfaz básica en el servidor central para la visualización de datos en tiempo real y el envío de instrucciones al dispositivo.
 	\item Funciones elementales de monitoreo remoto.
 	\item Base de datos relacional en el servidor central para el almacenamiento estructurado de los datos recibidos desde los dispositivos de campo.
