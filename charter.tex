@@ -294,7 +294,7 @@ Para el desarrollo del presente proyecto se supone que:
 			\item Incluir diagrama de bloques del flujo de eventos: contador → RS-232 → cola → MQTT → API REST.
 			\item Incluir diagrama de bloques del flujo de eventos: API REST → MQTT → RS-232 → contador.
 			\item  Documentar los comandos remotos disponibles y el formato de sus respuestas.
-			\item Documentar la estructura de los endpoints REST y sus respuestas.
+			\item Documentar la estructura de los \textit{endpoints} REST y sus respuestas.
 		\end{enumerate}
 
 	\item Requerimientos de testing:
@@ -306,7 +306,7 @@ Para el desarrollo del presente proyecto se supone que:
 			\item  Verificar que la API REST consuma correctamente los eventos desde MQTT.
 			\item  Probar que la interfaz web reciba eventos en tiempo real o los consulte en el backend.
 		\end{enumerate}
-	\item \textbf{Requerimientos de interfaz:}
+	\item Requerimientos de interfaz:
 		\begin{enumerate}
 			\item La interfaz web debe ser accesible desde cualquier navegador moderno.
 			\item La interfaz debe tener una tabla o lista para visualizar los eventos de tránsito.
@@ -314,13 +314,13 @@ Para el desarrollo del presente proyecto se supone que:
 		\end{enumerate}
 
 	
-	\item \textbf{Requerimientos de interoperabilidad:}
+	\item Requerimientos de interoperabilidad:
 		\begin{enumerate}
-			\item  El sistema debe poder comunicarse con un broker MQTT externo configurable.
-			\item  El protocolo MQTT texto delimitado según acordado con el backend.
+			\item  El sistema debe poder comunicarse con un \textit{broker} MQTT externo configurable.
+			\item Responder al protocolo MQTT según acordado en el backend.
 		\end{enumerate}
 
-	\item \textbf{Requerimientos de seguridad}
+	\item Requerimientos de seguridad:
 		\begin{enumerate}
 			\item La conexión MQTT debe incluir autenticación por credenciales.
 			\item La API REST debe requerir autenticación para el envío de comandos o consulta de datos.
@@ -329,64 +329,64 @@ Para el desarrollo del presente proyecto se supone que:
 
 \section{7. Historias de usuarios (\textit{Product backlog})}
 \label{sec:backlog}
-Criterio para estimación de Story Points: Cada historia de usuario se evalúa en tres
+Criterio para estimación de \textit{story points}: cada historia de usuario se evalúa en tres
 dimensiones usando la secuencia de Fibonacci: 1, 2, 3, 5, 8, 13, 21. La suma de dificultad,
 complejidad y riesgo se redondea al número de Fibonacci más cercano.
 \begin{enumerate}
 
-\item Historia usuario: \textbf{interfaz web para visualización}\\
+\item
 \textbf{Como} usuario del sistema\\
 \textbf{quiero} ver los eventos de tránsito en una interfaz web\\
-\textbf{para} tener monitoreo visual y registro histórico de los tránsitos.\\
+\textbf{para} tener monitoreo visual y registro histórico.\\
 \textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 1)\\
 Prioridad: media
 
-\item  Historia usuario: \textbf{envío de datos al servidor}\\
+\item 
 \textbf{Como} administrador del sistema\\
 \textbf{quiero} que los eventos se envíen al servidor vía MQTT sobre GPRS\\
 \textbf{para} recibir todos los tránsitos detectados en tiempo real o diferido.\\
 \textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)\\
 Prioridad: alta
 
-\item  Historia usuario: \textbf{API REST que consume el MQTT}\\
+\item
 \textbf{Como} desarrollador backend\\
-\textbf{quiero} que la API REST se suscriba al broker MQTT\\
+\textbf{quiero} que la API REST se suscriba al \textit{broker} MQTT\\
 \textbf{para} recibir y procesar los eventos de tránsito.\\
 \textit{Story points:} 13 (complejidad: 3, dificultad: 3, incertidumbre: 3)\\
 Prioridad: alta
 
-\item  Historia usuario: \textbf{envío de comandos desde la API REST}\\
+\item 
 \textbf{Como} administrador desde la interfaz web\\
 \textbf{quiero} enviar comandos al dispositivo a través de la API REST\\
 \textbf{para} controlar remotamente los dispositivos en campo.\\
 \textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)\\
 Prioridad: alta
 
-\item  Historia usuario: \textbf{interfaz web para control remoto}\\
+\item 
 \textbf{Como} usuario del sistema\\
 \textbf{quiero} usar la interfaz web para enviar comandos\\
 \textbf{para} realizar chequeos o pruebas de funcionamiento a distancia.\\
 \textit{Story points:} 5 (complejidad: 2, dificultad: 2, incertidumbre: 1)\\
 Prioridad: media
 
-\item  Historia usuario: \textbf{registro de eventos de tránsito y respuesta a comandos en cola local del dispositivo ESP32-C3}\\
+\item 
 \textbf{Como} desarrollador del sistema,\\
 \textbf{quiero} que el ESP32-C3 registre cada evento de tránsito recibido y respuesta a comandos por RS-232 en una cola en memoria RAM,\\
 \textbf{para} asegurar que los eventos no se pierdan si no hay conexión GPRS disponible en ese momento.\\
 \textit{Story points:} 13 (complejidad: 5, dificultad: 2, incertidumbre: 3)\\
 Prioridad: alta
 
-\item  Historia usuario: \textbf{adaptación del contador de tránsito para interpretar protocolo RS-232}\\
+\item 
 \textbf{Como} desarrollador del sistema\\
-\textbf{quiero} modificar el contador de tránsito en el ESP32-C3 para que interprete correctamente las tramas recibidas mediante RS-232\\
+\textbf{quiero} modificar el contador de tránsito en el ESP32-C3 con el objetivo de una correcta interpretación de las tramas recibidas mediante RS-232\
 \textbf{para} asegurar que los eventos de tránsito se procesen con precisión y se registren adecuadamente en la cola local, como el manejo de comandos y sus respuestas al servidor central.\\
 \textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 1)\\
 Prioridad: alta
 
-\item  Historia usuario: \textbf{manejo de errores de comunicación y reconexión automática en el ESP32-C3}\\
+\item
 \textbf{Como} desarrollador del sistema\\
-\textbf{quiero} que el ESP32-C3 detecte y maneje errores de comunicación en el puerto RS-232 y en la conexión GPRS. Adicionalmente realice reconexiones automáticas cuando sea necesario.\\
-\textbf{para} garantizar la estabilidad y continuidad del sistema, evitando la pérdida de eventos de tránsito y asegurando una comunicación confiable con el servidor.\\
+\textbf{quiero} que el ESP32-C3 detecte y maneje errores de comunicación en el puerto RS-232 y en la conexión GPRS y se reconecte automáticamente cuando sea necesario.\\
+\textbf{para} garantizar la estabilidad y continuidad del sistema, evitar la pérdida de eventos de tránsito y asegurar una comunicación confiable con el servidor.\\
 \textit{Story points:} 5 (complejidad: 3, dificultad: 1, incertidumbre: 1)\\
 Prioridad: media
 
@@ -396,10 +396,9 @@ Prioridad: media
 \label{sec:entregables}
 
 \begin{itemize}
-	\item \textbf{Manual de Usuario:} guía detallada para operadores y administradores sobre el uso de la interfaz web, incluyendo la visualización de eventos de tránsito y el envío de comandos remotos.
-	\item \textbf{Manual Técnico de Instalación y Configuración:} instrucciones para la instalación física de los dispositivos ESP32-C3, configuración de la comunicación RS-232 y GPRS, y puesta en marcha del sistema.
-	\item \textbf{Código Fuente del Firmware (ESP32-C3)}
-	Implementación del firmware que incluye:
+	\item Manual de Usuario: guía detallada para operadores y administradores sobre el uso de la interfaz web, incluyendo la visualización de eventos de tránsito y el envío de comandos remotos.
+	\item Manual Técnico de Instalación y Configuración: instrucciones para la instalación física de los dispositivos ESP32-C3, configuración de la comunicación RS-232 y GPRS, y puesta en marcha del sistema.
+	\item Código Fuente del Firmware (ESP32-C3) que incluirá:
 	\begin{itemize}
 	\item Recepción y procesamiento de datos a través de RS-232.
 	\item Manejo de errores de comunicación y reconexión automática.
@@ -408,23 +407,21 @@ Prioridad: media
 	\item Recepción de comandos mediante MQTT sobre GPRS y respuesta
 	\end{itemize}
 
-\item \textbf{Código Fuente del Backend (API REST)}
-Desarrollo de la API REST que:
+\item Código Fuente del Backend (API REST) que incluirá:
 
 \begin{itemize}
-\item Se suscribe al broker MQTT para recibir eventos de tránsito.
-\item Procesa y almacena los datos recibidos.
-\item Permite el envío de comandos a los dispositivos en campo. 
+\item Suscripción al \textit{broker} MQTT para recibir eventos de tránsito.
+\item Procesamiento y almacenamiento de los datos recibidos.
+\item Envío de comandos a los dispositivos en campo. 
 \end{itemize}
 
-\item \textbf{Código Fuente del Frontend (Interfaz Web)}
-Aplicación web que proporciona:
+\item Código Fuente del Frontend que incluirá:
 \begin{itemize}
 \item Visualización en tiempo real de los eventos de tránsito.
 \item Interfaz para el envío de comandos y control remoto de dispositivos.
 \end{itemize}
 
-\item \textbf{Diagramas de Arquitectura del Sistema}
+\item Diagramas de Arquitectura del Sistema:
 \begin{itemize}
 \item La arquitectura general del sistema.
 \item La comunicación entre componentes (contador, ESP32-C3, servidor, interfaz web).
@@ -432,10 +429,9 @@ Aplicación web que proporciona:
 \item El flujo de datos desde el servidor hasta el contador.
 \end{itemize}
 
-\item \textbf{Esquemas Eléctricos y de Comunicación}
-Diagramas que muestran las conexiones eléctricas de los dispositivos: RS-232, ESP32-C3 y modem GPRS.
-\item \textbf{Plan de Pruebas y Resultados}
-\item \textbf{Memoria del trabajo final}
+\item Esquemas Eléctricos y de Comunicación incluyendo los diagramas de conexiones entre los dispositivos.
+\item Plan de Pruebas y Resultados
+\item Memoria del trabajo final
 
 \end{itemize}
 
@@ -444,7 +440,7 @@ Diagramas que muestran las conexiones eléctricas de los dispositivos: RS-232, E
 \label{sec:wbs}
 
 \begin{enumerate}
-\item \textbf{Análisis y Diseño del Sistema (65 h)}
+\item Análisis y diseño del sistema (65 h):
 \begin{enumerate}
 \item Revisión de requerimientos funcionales y no funcionales (10 h)
 \item Diseño de arquitectura del sistema (15 h)
@@ -452,7 +448,8 @@ Diagramas que muestran las conexiones eléctricas de los dispositivos: RS-232, E
 \item Elaboración de diagramas de flujo y casos de uso (10 h)
 \item Revisión y validación del diseño con los interesados (15 h)
 \end{enumerate}
-\item \textbf{Aprendizaje en Tecnologías (45 h)}
+
+\item Aprendizaje en tecnologías (45 h):
 \begin{enumerate}
 \item Estudio del protocolo MQTT y su implementación (10 h)
 \item Estudio ESP32-C3 (10 h)
@@ -460,47 +457,48 @@ Diagramas que muestran las conexiones eléctricas de los dispositivos: RS-232, E
 \item Capacitación en desarrollo de interfaces web (10 h)
 \item Investigación sobre manejo de errores y reconexión en comunicaciones (5 h)
 \end{enumerate}
-\item \textbf{Desarrollo del Firmware para ESP32-C3 (90 h)}
+
+\item Desarrollo del Firmware para ESP32-C3 (90 h):
 \begin{enumerate}
 \item Implementación de envío y recepción de datos por RS-232 (15 h)
 \item Gestión de cola en memoria RAM para eventos (15 h)
-\item Publicación de eventos en broker MQTT sobre GPRS (20 h)
+\item Publicación de eventos en \textit{broker} MQTT sobre GPRS (20 h)
 \item Suscripción a tópicos MQTT para recepción de comandos (15 h)
 \item Ejecución y respuesta a comandos recibidos (15 h)
 \item Manejo de errores de comunicación y reconexión automática (10 h)
 \end{enumerate}
-\item \textbf{Testing del Firmware para ESP32-C3 (20 h)}
+\item Testing del Firmware para ESP32-C3 (20 h):
 \begin{enumerate}
 \item Pruebas unitarias de módulos individuales (10 h)
 \item Pruebas de integración con módulos de comunicación (10 h)
 \end{enumerate}
-\item \textbf{Documentación del Firmware para ESP32-C3 (10 h)}
+\item Documentación del Firmware para ESP32-C3 (10 h):
 \begin{enumerate}
 \item Documentación del código fuente y comentarios en línea (5 h)
 \item Elaboración de guía de instalación y configuración (5 h)
 \end{enumerate}
-\item \textbf{Desarrollo de la API REST (75 h)}
+\item Desarrollo de la API REST (75 h):
 \begin{enumerate}
   \item Diseño del modelo entidad-relación y esquema de base de datos (10 h)
-  \item Diseño de endpoints para recepción de eventos desde MQTT (12 h)
+  \item Diseño de \textit{endpoints} para recepción de eventos desde MQTT (12 h)
   \item Implementación de lógica para procesamiento de eventos (12 h)
-  \item Desarrollo de endpoints para envío de comandos al ESP32-C3 (12 h)
-  \item Integración con el broker MQTT (12 h)
+  \item Desarrollo de \textit{endpoints} para envío de comandos al ESP32-C3 (12 h)
+  \item Integración con el  \textit{broker} MQTT (12 h)
   \item Implementación de autenticación y seguridad (10 h)
   \item Pruebas unitarias y de integración de la API (7 h)
 \end{enumerate}
-\item \textbf{Testing de la API REST (15 h)}
+\item Testing de la API REST (15 h):
 \begin{enumerate}
 \item Pruebas de carga y rendimiento (5 h)
 \item Pruebas de seguridad y validación de datos (5 h)
 \item Pruebas de compatibilidad con diferentes usuarios (5 h)
 \end{enumerate}
-\item \textbf{Documentación de la API REST (10 h)}
+\item Documentación de la API REST (10 h):
 \begin{enumerate}
-\item Documentación de endpoints y ejemplos de uso (5 h)
+\item Documentación de  \textit{endpoints} y ejemplos de uso (5 h)
 \item Elaboración de guía de integración para desarrolladores (5 h)
 \end{enumerate}
-\item \textbf{Desarrollo de la Interfaz Web (65 h)}
+\item Desarrollo de la Interfaz Web (65 h):
 \begin{enumerate}
 \item Diseño de la interfaz de usuario (15 h)
 \item Implementación de visualización de eventos de tránsito (15 h)
@@ -508,48 +506,48 @@ Diagramas que muestran las conexiones eléctricas de los dispositivos: RS-232, E
 \item Integración con la API REST (10 h)
 \item Pruebas de usabilidad y funcionalidad (10 h)
 \end{enumerate}
-\item \textbf{Testing de la Interfaz Web (15 h)}
+\item Testing de la Interfaz Web (15 h):
 \begin{enumerate}
 \item Pruebas de compatibilidad con diferentes navegadores (5 h)
 \item Pruebas de accesibilidad y experiencia de usuario (5 h)
 \item Pruebas de rendimiento y tiempos de carga (5 h)
 \end{enumerate}
-\item \textbf{Documentación de la Interfaz Web (10 h)}
+\item Documentación de la Interfaz Web (10 h):
 \begin{enumerate}
 \item Manual de usuario y guía de navegación (5 h)
 \item Documentación de instalación y despliegue (5 h)
 \end{enumerate}
-\item \textbf{Infraestructura y Configuración del Broker MQTT (25 h)}
+\item Infraestructura y Configuración del  \textit{broker} MQTT (25 h):
 \begin{enumerate}
-\item Instalación y configuración del broker MQTT (10 h)
+\item Instalación y configuración del  \textit{broker} MQTT (10 h)
 \item Configuración de tópicos y políticas de QoS (10 h)
-\item Pruebas de comunicación entre dispositivos y broker (5 h)
+\item Pruebas de comunicación entre dispositivos y  \textit{broker} (5 h)
 \end{enumerate}
-\item \textbf{Documentación de Infraestructura (10 h)}
+\item Documentación de Infraestructura (10 h):
 \begin{enumerate}
-\item Documentación de configuración del broker MQTT (5 h)
+\item Documentación de configuración del  \textit{broker} MQTT (5 h)
 \item Guía de mantenimiento y monitoreo (5 h)
 \end{enumerate}
-\item \textbf{Gestión del Proyecto y Coordinación (45 h)}
+\item Gestión del Proyecto y Coordinación (45 h):
 \begin{enumerate}
 \item Planificación y seguimiento del proyecto (15 h)
 \item Reuniones de coordinación y revisión (15 h)
 \item Gestión de riesgos y control de calidad (10 h)
 \item Comunicación con los interesados y reporte de avances (5 h)
 \end{enumerate}
-\item \textbf{Pruebas e Integración del Sistema (45 h)}
+\item Pruebas e Integración del Sistema (45 h):
 \begin{enumerate}
 \item Pruebas de integración entre módulos (15 h)
 \item Pruebas de sistema y validación con casos de uso (15 h)
 \item Pruebas de aceptación por parte del cliente (15 h)
 \end{enumerate}
-\item \textbf{Despliegue y Mantenimiento Inicial (45 h)}
+\item Despliegue y Mantenimiento Inicial (45 h):
 \begin{enumerate}
 \item Despliegue del sistema en entorno de producción (15 h)
 \item Monitoreo y soporte después de despliegue (15 h)
 \item Corrección de errores y ajustes finales (15 h)
 \end{enumerate}
-\item \textbf{Buffer para Imprevistos (60 h)}
+\item Buffer para Imprevistos (60 h):
 \begin{enumerate}
 \item Tiempo reservado para manejar retrasos, cambios de alcance o problemas técnicos imprevistos.
 \end{enumerate}
