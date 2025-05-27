@@ -98,7 +98,7 @@ Buenos Aires, \fechaInicioName
 \end{flushright}
 
 \vspace{2cm}
-Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en {un sistema de comunicación con los contadores de tránsito, que incorpore un modelo bidireccional. El trabajo tendrá un presupuesto preliminar estimado de 600} horas y un costo estimado de  \$ 20.720.000, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
+Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en {un sistema de comunicación con los contadores de tránsito, que incorpore un modelo bidireccional. El trabajo tendrá un presupuesto preliminar estimado de 600} horas y un costo estimado de  \$ 20.720.000, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública en \fechaFinalName.
 Se adjunta a esta acta la planificación inicial.
 \vfill
 % Esta parte se construye sola con la información que hayan cargado en el preámbulo del documento y no debe modificarla
@@ -149,7 +149,7 @@ Además se prevé la visualización de los datos en tiempo real conforme se tran
 
 \subsection{Descripción funcional y técnica}
 
-El sistema estará compuesto por un dispositivo contador con capacidad de comunicación bidireccional mediante GPRS, utilizando el protocolo MQTT para el envío seguro de datos. La información capturada será almacenada en una base de datos relacional y visualizada a través de una interfaz web básica alojada en el servidor central. Esta interfaz permitirá el monitoreo en tiempo real así como el envío de comandos remotos. Además, se incluirán funciones de monitoreo de temperatura, nivel de batería y detección de errores de hardware o comunicación.
+El sistema estará compuesto por un dispositivo contador con capacidad de comunicación bidireccional mediante GPRS, que utilice el protocolo MQTT para el envío y recepción de datos. La información capturada será almacenada en una base de datos relacional y visualizada a través de una interfaz web básica alojada en el servidor central. Esta interfaz permitirá el monitoreo en tiempo real así como el envío de comandos remotos, se incluirán funciones de monitoreo de temperatura, nivel de batería y detección de errores de hardware o comunicación.
 
 
 
@@ -178,7 +178,7 @@ En la figura \ref{fig:diagBloques} se presenta el diagrama en bloques del sistem
 \begin{table}[h!]
 \renewcommand{\arraystretch}{1.4} % Aumenta el espacio entre filas
 \centering
-\begin{tabular}{|p{3cm}|p{4.5cm}|p{4.5cm}|p{4.5cm}|}
+\begin{tabular}{|p{2.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
 \hline
 \textbf{Rol} & \textbf{Nombre y apellido} & \textbf{Organización} & \textbf{Puesto} \\
 \hline
@@ -205,7 +205,7 @@ Usuario final & Gerencia Ejecutiva de Proyectos y Obras & \empclientename & -   
 Usuario final & Consultoras Externas        & -                & -                                \\
 \hline
 \end{tabular}
-\caption{Identificación de los interesados}
+\caption{Identificación de los interesados.}
 \label{tab:interesados}
 \end{table}
 
@@ -214,7 +214,7 @@ Usuario final & Consultoras Externas        & -                & -              
 \begin{table}[h!]
 \renewcommand{\arraystretch}{1.4} % Aumenta el espacio entre filas
 \centering
-\begin{tabular}{|p{3cm}|p{4.5cm}|p{8cm}|}
+\begin{tabular}{|p{2.5cm}|p{3.5cm}|p{7.5cm}|}
 \hline
 \textbf{Rol} & \textbf{Nombre y apellido} & \textbf{Observaciones} \\
 \hline
@@ -225,7 +225,7 @@ Cliente & \clientename & Valora especialmente la autonomía operativa, la posibi
 Colaboradora & Ing. María Clara Cutrone & Suele pedir licencia debido a una familia extensa. La planificación debe considerar esta situación. \\
 \hline
 \end{tabular}
-\caption{Participantes y consideraciones relevantes}
+\caption{Participantes y consideraciones relevantes}.
 \end{table}
 
 \section{3. Propósito del proyecto}
@@ -270,24 +270,24 @@ Para el desarrollo del presente proyecto se supone que:
 
 
 \begin{enumerate}
-	\item \textbf{Requerimientos funcionales:}
+	\item Requerimientos funcionales:
 			\begin{enumerate}
-			\item El ESP32-C3 debe recibir datos por interfaz \textbf{RS-232} desde el sistema de detección.
-			\item  Cada evento recibido debe ser \textbf{encolado en memoria RAM} en el orden de llegada.
-			\item  El ESP32-C3 debe publicar cada mensaje de la cola a un \textbf{broker MQTT} remoto usando GPRS.
-			\item  El protocolo MQTT debe utilizar \textbf{QoS 1 o 2} para asegurar entrega sin duplicación.
+			\item El ESP32-C3 debe recibir datos por interfaz RS-232 desde el sistema de detección.
+			\item  Cada evento recibido debe ser encolado en memoria RAM segun el orden de llegada.
+			\item  El ESP32-C3 debe publicar cada mensaje de la cola a un \textit{broker} MQTT remoto usando GPRS.
+			\item  El protocolo MQTT debe utilizar QoS 1 o 2 para asegurar la entrega sin duplicación.
 			\item  Debe haber control de reintentos ante fallos de conexión sin duplicar mensajes.
 			\item  Si no hay conectividad GPRS disponible, los mensajes deben permanecer en la cola en memoria.
 			\item  Al llenarse la cola, los mensajes nuevos pueden descartarse (política FIFO).
-			\item  El ESP32-C3 debe \textbf{suscribirse a un topic MQTT} para recibir comandos desde el servidor.
-			\item  Al recibir un comando válido, el ESP32-C3 debe \textbf{ejecutar una acción responder OK o error, también puede devolver con el estado solicitado}.
-			\item  La API REST debe suscribirse al mismo broker MQTT y recibir todos los eventos publicados.
-			\item  La API REST debe poder \textbf{enviar comandos al ESP32-C3} publicando en el topic correspondiente.
-			\item  La \textbf{interfaz web} debe permitir visualizar eventos de tránsito recibidos desde la API REST.
-			\item  La interfaz web debe permitir enviar comandos al ESP32-C3 a través de la API REST y posibilitar ver si se pudieron realizar los comandos o el estado solicitado.
+			\item  El ESP32-C3 debe  suscribirse a un \textit{topic} MQTT para recibir comandos desde el servidor.
+			\item  Al recibir un comando válido, el ESP32-C3 debe ejecutar una acción responder OK, error o   devolver con el estado solicitado por el comando.
+			\item  La API REST debe suscribirse al mismo \textit{broker} MQTT y recibir todos los eventos publicados.
+			\item  La API REST debe poder enviar comandos al ESP32-C3 publicando en el \textit{topic} correspondiente.
+			\item  La interfaz web debe permitir visualizar eventos de tránsito recibidos desde la API REST.
+			\item  La interfaz web debe permitir enviar comandos al ESP32-C3 a través de la API REST y posibilitar ver el estado.
 		\end{enumerate}
 		
-	\item \textbf{Requerimientos de documentación:}
+	\item Requerimientos de documentación:
 		\begin{enumerate}
 			\item Documentar la estructura de los mensajes RS-232 esperados (formato, delimitadores).
 			\item Especificar el topic MQTT usado y los parámetros de conexión (broker, puerto, QoS).
@@ -297,7 +297,7 @@ Para el desarrollo del presente proyecto se supone que:
 			\item Documentar la estructura de los endpoints REST y sus respuestas.
 		\end{enumerate}
 
-	\item \textbf{Requerimientos de testing:}
+	\item Requerimientos de testing:
 		\begin{enumerate}
 			\item Probar pérdida de conectividad GPRS y reenvío automático posterior.
 			\item Verificar que no haya duplicación ni pérdida de eventos con distintos volúmenes de tráfico.
