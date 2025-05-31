@@ -787,37 +787,52 @@ Descripción &
 Los valores de los precios están en pesos argentinos.
 
 \section{13. Gestión de riesgos}
+
 \label{sec:riesgos}
 
-\begin{consigna}{red}
-a) Identificación de los riesgos (al menos cinco) y estimación de sus consecuencias:
- 
-Riesgo 1: detallar el riesgo (riesgo es algo que si ocurre altera los planes previstos de forma negativa)
+a) Identificación de Riesgos y Consecuencias  \\
+\\
+Riesgo 1: incompatibilidad del módulo SIM800L con comunicación MQTT
 \begin{itemize}
-	\item Severidad (S): mientras más severo, más alto es el número (usar números del 1 al 10).\\
-	Justificar el motivo por el cual se asigna determinado número de severidad (S).
-	\item Probabilidad de ocurrencia (O): mientras más probable, más alto es el número (usar del 1 al 10).\\
-	Justificar el motivo por el cual se asigna determinado número de (O). 
-\end{itemize}   
-
-Riesgo 2:
-\begin{itemize}
-	\item Severidad (S): X.\\
-	Justificación...
-	\item Ocurrencia (O): Y.\\
-	Justificación...
+\item Severidad (S): 8\
+Justificación: Requeriría rediseñar todo el sistema de comunicación, impactando en el cronograma y costos.
+\item Probabilidad (O): 6\
+Justificación: El SIM800L tiene limitaciones conocidas para implementar MQTT de forma estable.
 \end{itemize}
 
-Riesgo 3:
+Riesgo 2: fallas prolongadas en la conexión GPRS
 \begin{itemize}
-	\item Severidad (S):  X.\\
-	Justificación...
-	\item Ocurrencia (O): Y.\\
-	Justificación...
+\item Severidad (S): 7\
+Justificación: Pérdida de datos críticos de tránsito durante los periodos sin conexión.
+\item Probabilidad (O): 7\
+Justificación: Las redes celulares en zonas rurales suelen tener intermitencias frecuentes.
 \end{itemize}
 
+Riesgo 3: saturación de la memoria RAM del ESP32-C3
+\begin{itemize}
+\item Severidad (S): 6\
+Justificación: pérdida de datos no transmitidos.
+\item Probabilidad (O): 5\
+Justificación: Depende del volumen de tráfico y frecuencia de eventos.
+\end{itemize}
 
-b) Tabla de gestión de riesgos:      (El RPN se calcula como RPN=SxO)
+Riesgo 4: vulnerabilidades de seguridad en la comunicación
+\begin{itemize}
+\item Severidad (S): 8\
+Justificación: Podría permitir acceso no autorizado o manipulación de datos.
+\item Probabilidad (O): 4\
+Justificación: El uso de protocolos seguros reduce este riesgo.
+\end{itemize}
+
+Riesgo 5: Retrasos en la entrega de componentes electrónicos
+\begin{itemize}
+\item Severidad (S): 5\
+Justificación: Afectaría el cronograma de desarrollo y pruebas.
+\item Probabilidad (O): 4\
+Justificación: Problemas en la cadena de suministro son frecuentes actualmente.
+\end{itemize}
+
+b) Tabla de Gestión de Riesgos
 
 \begin{table}[htpb]
 \centering
@@ -825,36 +840,40 @@ b) Tabla de gestión de riesgos:      (El RPN se calcula como RPN=SxO)
 \hline
 \rowcolor[HTML]{C0C0C0} 
 Riesgo & S & O & RPN & S* & O* & RPN* \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
+Incompatibilidad del módulo SIM800L con comunicación MQTT & 8 & 6 & 48 & 5 & 3 & 15 \\ \hline
+Fallas prolongadas en la conexión GPRS & 7 & 7 & 49 & 5 & 4 & 20 \\ \hline
+Saturación de la memoria RAM del ESP32-C3 & 6 & 5 & 30 & 5 & 3 & 15 \\ \hline
+Vulnerabilidades de seguridad en la comunicación & 8 & 4 & 32 & 6 & 2 & 12 \\ \hline
+Retrasos en la entrega de componentes electrónicos & 5 & 4 & 20 & 4 & 2 & 8 \\ \hline
 \end{tabularx}%
 \end{table}
 
-Criterio adoptado: 
+Criterio adoptado:
+Se tomarán medidas de mitigación en riesgos con RPN > 30.
 
-Se tomarán medidas de mitigación en los riesgos cuyos números de RPN sean mayores a...
+c) Plan de Mitigación
+Riesgo 1: incompatibilidad SIM800L/MQTT
+\begin{itemize}
+\item Mitigación: implementar protocolo HTTP como alternativa, usando POST para enviar datos.
+\item S: 5 (impacto reducido al tener alternativa funcional)
+\item O: 3 (solución probada y documentada)
+\end{itemize}
 
-Nota: los valores marcados con (*) en la tabla corresponden luego de haber aplicado la mitigación.
+Riesgo 2: Fallas conexión GPRS
+\begin{itemize}
+\item Mitigación: implementar almacenamiento local persistente en SPIFFS y lógica de reintentos inteligente.
+\item S*: 5 (datos se recuperan post-reconexión)
+\item O*: 4 (mejora en manejo de desconexiones)
+\end{itemize}
 
-c) Plan de mitigación de los riesgos que originalmente excedían el RPN máximo establecido:
- 
-Riesgo 1: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
-  Nueva asignación de S y O, con su respectiva justificación:
-  \begin{itemize}
-	\item Severidad (S*): mientras más severo, más alto es el número (usar números del 1 al 10).
-          Justificar el motivo por el cual se asigna determinado número de severidad (S).
-	\item Probabilidad de ocurrencia (O*): mientras más probable, más alto es el número (usar del 1 al 10).
-          Justificar el motivo por el cual se asigna determinado número de (O).
-	\end{itemize}
+Riesgo 4: vulnerabilidades seguridad
+\begin{itemize}
+\item Mitigación: implementar autenticación por tokens JWT y encriptación TLS.
+\item S: 6 (reduce impacto de posibles ataques)
+\item O: 2 (medidas comprobadas reducen vulnerabilidades)
+\end{itemize}
 
-Riesgo 2: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
- 
-Riesgo 3: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
 
-\end{consigna}
 
 
 \section{14. Gestión de la calidad}
