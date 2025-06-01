@@ -222,7 +222,7 @@ Auspiciante & \empclientename & Es exigente con la rendición de gastos. Se debe
 \hline
 Cliente & \clientename & Valora especialmente la autonomía operativa, la posibilidad de diagnóstico remoto y la reducción de costos operativos. No hay condiciones especiales relacionadas con la propiedad intelectual ni con la confidencialidad. \\
 \hline
-Colaboradora & Ing. María Clara Cutrone & Suele pedir licencia debido a una familia extensa. La planificación debe considerar esta situación. \\
+Colaboradora & Ing. María Clara Cuttrone & Suele pedir licencia debido a una familia extensa. La planificación debe considerar esta situación. \\
 \hline
 \end{tabular}
 \caption{Participantes y consideraciones relevantes}.
@@ -786,6 +786,7 @@ Descripción &
 
 Los valores de los precios están en pesos argentinos.
 
+
 \section{13. Gestión de riesgos}
 
 \label{sec:riesgos}
@@ -794,42 +795,50 @@ a) Identificación de Riesgos y Consecuencias  \\
 \\
 Riesgo 1: incompatibilidad del módulo SIM800L con comunicación MQTT
 \begin{itemize}
-\item Severidad (S): 8\
+\item Severidad (S): 8\\
 Justificación: Requeriría rediseñar todo el sistema de comunicación, impactando en el cronograma y costos.
-\item Probabilidad (O): 6\
+\item Probabilidad (O): 6\\
 Justificación: El SIM800L tiene limitaciones conocidas para implementar MQTT de forma estable.
 \end{itemize}
 
 Riesgo 2: fallas prolongadas en la conexión GPRS
 \begin{itemize}
-\item Severidad (S): 7\
+\item Severidad (S): 7\\
 Justificación: Pérdida de datos críticos de tránsito durante los periodos sin conexión.
-\item Probabilidad (O): 7\
+\item Probabilidad (O): 7\\
 Justificación: Las redes celulares en zonas rurales suelen tener intermitencias frecuentes.
 \end{itemize}
 
 Riesgo 3: saturación de la memoria RAM del ESP32-C3
 \begin{itemize}
-\item Severidad (S): 6\
+\item Severidad (S): 6\\
 Justificación: pérdida de datos no transmitidos.
-\item Probabilidad (O): 5\
+\item Probabilidad (O): 5\\
 Justificación: Depende del volumen de tráfico y frecuencia de eventos.
 \end{itemize}
 
 Riesgo 4: vulnerabilidades de seguridad en la comunicación
 \begin{itemize}
-\item Severidad (S): 8\
+\item Severidad (S): 8\\
 Justificación: Podría permitir acceso no autorizado o manipulación de datos.
-\item Probabilidad (O): 4\
+\item Probabilidad (O): 4\\
 Justificación: El uso de protocolos seguros reduce este riesgo.
 \end{itemize}
 
-Riesgo 5: Retrasos en la entrega de componentes electrónicos
+Riesgo 5: retrasos en la entrega de componentes electrónicos
 \begin{itemize}
-\item Severidad (S): 5\
+\item Severidad (S): 5\\
 Justificación: Afectaría el cronograma de desarrollo y pruebas.
-\item Probabilidad (O): 4\
+\item Probabilidad (O): 4\\
 Justificación: Problemas en la cadena de suministro son frecuentes actualmente.
+\end{itemize}
+
+Riesgo 6: incompatibilidad del protocolo RS232 con el contador desarrollado por María Clara Cuttrone
+\begin{itemize}
+\item Severidad (S): 7\\
+Justificación: Dependencia de desarrollo externo y posible incompatibilidad o falta de documentación.
+\item Probabilidad (O): 5\\
+Justificación: Riesgo moderado dado que el protocolo RS232 es estándar, pero la implementación específica puede variar.
 \end{itemize}
 
 b) Tabla de Gestión de Riesgos
@@ -845,10 +854,11 @@ Fallas prolongadas en la conexión GPRS & 7 & 7 & 49 & 5 & 4 & 20 \\ \hline
 Saturación de la memoria RAM del ESP32-C3 & 6 & 5 & 30 & 5 & 3 & 15 \\ \hline
 Vulnerabilidades de seguridad en la comunicación & 8 & 4 & 32 & 6 & 2 & 12 \\ \hline
 Retrasos en la entrega de componentes electrónicos & 5 & 4 & 20 & 4 & 2 & 8 \\ \hline
+Incompatibilidad del protocolo RS232 con el contador & 7 & 5 & 35 & 5 & 3 & 15 \\ \hline
 \end{tabularx}%
 \end{table}
 
-Criterio adoptado:
+Criterio adoptado: \\
 Se tomarán medidas de mitigación en riesgos con RPN > 30.
 
 c) Plan de Mitigación
@@ -859,9 +869,9 @@ Riesgo 1: incompatibilidad SIM800L/MQTT
 \item O: 3 (solución probada y documentada)
 \end{itemize}
 
-Riesgo 2: Fallas conexión GPRS
+Riesgo 2: fallas conexión GPRS
 \begin{itemize}
-\item Mitigación: implementar almacenamiento local persistente en SPIFFS y lógica de reintentos inteligente.
+\item Mitigación: implementar almacenamiento local persistente y lógica de reintentos inteligente.
 \item S*: 5 (datos se recuperan post-reconexión)
 \item O*: 4 (mejora en manejo de desconexiones)
 \end{itemize}
@@ -873,48 +883,117 @@ Riesgo 4: vulnerabilidades seguridad
 \item O: 2 (medidas comprobadas reducen vulnerabilidades)
 \end{itemize}
 
+Riesgo 6: incompatibilidad protocolo RS232 con contador
+\begin{itemize}
+\item Mitigación: coordinar con María Clara Cuttrone para validar y documentar la interfaz RS232; realizar pruebas de integración tempranas.
+\item S*: 5 (reducción del impacto con mejor conocimiento)
+\item O*: 3 (mejora en la probabilidad al estar en contacto con desarrolladora)
+\end{itemize}
 
 
 
 \section{14. Gestión de la calidad}
 \label{sec:calidad}
 
-\begin{consigna}{red}
-Elija al menos diez requerimientos que a su criterio sean los más importantes/críticos/que aportan más valor y para cada uno de ellos indique las acciones de verificación y validación que permitan asegurar su cumplimiento.
+
 
 \begin{itemize} 
-\item Req \#1: copiar acá el requerimiento con su correspondiente número.
+
+\item Req \#1: El ESP32-C3 debe recibir datos por interfaz RS-232 desde el sistema de detección.
 
 \begin{itemize}
-	\item Verificación para confirmar si se cumplió con lo requerido antes de mostrar el sistema al cliente. Detallar.
-	\item Validación con el cliente para confirmar que está de acuerdo en que se cumplió con lo requerido. Detallar. 
+	\item Verificación: realizar pruebas de laboratorio con el sistema de detección enviando datos por RS-232 y monitorear que el ESP32-C3 los reciba correctamente sin pérdidas ni errores. Se usan analizadores lógicos y herramientas de debug para observar la comunicación interna.
+	\item Validación: demostrar con el cliente la recepción en tiempo real de eventos generados en el sistema de detección y confirmación del correcto procesamiento de datos.
+\end{itemize}
+
+\item Req \#3: El ESP32-C3 debe publicar cada mensaje de la cola a un \textit{broker} MQTT remoto usando GPRS.
+
+\begin{itemize}
+	\item Verificación: simular eventos y verificar en laboratorio que el ESP32-C3 publique correctamente cada mensaje a un broker MQTT configurado, validando los logs y el orden de envío.
+	\item Validación: mostrar al cliente la recepción de mensajes en el sistema remoto bajo diferentes condiciones de conectividad y volumen de datos.
+\end{itemize}
+
+\item Req \#4: El protocolo MQTT debe utilizar QoS 1 o 2 para asegurar la entrega sin duplicación.
+
+\begin{itemize}
+	\item Verificación: testear la implementación con broker MQTT que soporte QoS 1 y 2, revisando que no haya duplicados en la recepción y confirmando los mecanismos de ACK.
+	\item Validación: validar con el cliente que los datos recibidos en el backend no presentan duplicaciones y que la información es consistente.
+\end{itemize}
+
+\item Req \#5: Debe haber control de reintentos ante fallos de conexión sin duplicar mensajes.
+
+\begin{itemize}
+	\item Verificación: en laboratorio interrumpir la conexión GPRS y observar que el ESP32-C3 hace reintentos controlados, sin duplicar mensajes en el broker.
+	\item Validación: el cliente valida que durante periodos de desconexión los datos no se pierden ni duplican, comprobando reportes posteriores.
+\end{itemize}
+
+\item Req \#6: Si no hay conectividad GPRS disponible, los mensajes deben permanecer en la cola en memoria.
+
+\begin{itemize}
+	\item Verificación: simular falta de conectividad y verificar que los mensajes se almacenan en cola interna y se publican una vez restaurada la conexión.
+	\item Validación: el cliente confirma que no se pierden eventos durante desconexiones y que la cola gestiona adecuadamente la memoria.
+\end{itemize}
+
+\item Req \#8: El ESP32-C3 debe suscribirse a un \textit{topic} MQTT para recibir comandos desde el servidor.
+
+\begin{itemize}
+	\item Verificación: comprobar en pruebas que el ESP32-C3 se suscribe correctamente y recibe comandos publicados en el topic específico.
+	\item Validación: demostrar al cliente que los comandos enviados desde el servidor llegan y se interpretan correctamente en el dispositivo.
+\end{itemize}
+
+\item Req \#11: La API REST debe poder enviar comandos al ESP32-C3 publicando en el \textit{topic} correspondiente.
+
+\begin{itemize}
+	\item Verificación: probar en laboratorio la API REST enviando comandos y confirmar la publicación correcta en MQTT.
+	\item Validación: el cliente verifica que los comandos emitidos desde la API llegan efectivamente al dispositivo y se ejecutan.
+\end{itemize}
+
+\item Req \#15: Probar recepción de comandos desde el servidor y respuesta correcta.
+
+\begin{itemize}
+	\item Verificación: realizar pruebas funcionales enviando comandos y validando que el ESP32-C3 responde con OK, error o estados según corresponda.
+	\item Validación: el cliente valida que el sistema responde adecuadamente ante comandos válidos y maneja errores según lo esperado.
+\end{itemize}
+
+\item Req \#18: La conexión MQTT debe incluir autenticación por credenciales.
+
+\begin{itemize}
+	\item Verificación: revisar configuración de autenticación en el broker MQTT y probar conexiones con credenciales válidas e inválidas.
+	\item Validación: el cliente confirma que el acceso está restringido y solo usuarios autorizados pueden conectarse y publicar/suscribirse.
+\end{itemize}
+
+\item Req \#19: La API REST debe requerir autenticación para el envío de comandos o consulta de datos.
+
+\begin{itemize}
+	\item Verificación: probar mecanismos de autenticación (por ejemplo, tokens o claves) en la API REST, validando que rechaza accesos no autorizados.
+	\item Validación: el cliente verifica que solo usuarios autenticados pueden enviar comandos o consultar datos mediante la API.
 \end{itemize}
 
 \end{itemize}
-
-Tener en cuenta que en este contexto se pueden mencionar simulaciones, cálculos, revisión de hojas de datos, consulta con expertos, mediciones, etc.  
-
-Las acciones de verificación suelen considerar al entregable como ``caja blanca'', es decir se conoce en profundidad su funcionamiento interno.  
-
-En cambio, las acciones de validación suelen considerar al entregable como ``caja negra'', es decir, que no se conocen los detalles de su funcionamiento interno.
-
-\end{consigna}
 
 \section{15. Procesos de cierre}    
 \label{sec:cierre}
+\label{sec:reunion-final}
 
-\begin{consigna}{red}
-Establecer las pautas de trabajo para realizar una reunión final de evaluación del proyecto, tal que contemple las siguientes actividades:
+Para la realización de la reunión final de evaluación del proyecto se establecen las siguientes pautas de trabajo:
 
 \begin{itemize}
-	\item Pautas de trabajo que se seguirán para analizar si se respetó el Plan de Proyecto original:\\
-	 - Indicar quién se ocupará de hacer esto y cuál será el procedimiento a aplicar. 
-	\item Identificación de las técnicas y procedimientos útiles e inútiles que se emplearon, los problemas que surgieron y cómo se solucionaron:\\
-	 - Indicar quién se ocupará de hacer esto y cuál será el procedimiento para dejar registro.
-	\item Indicar quién organizará el acto de agradecimiento a todos los interesados, y en especial al equipo de trabajo y colaboradores:\\
-	  - Indicar esto y quién financiará los gastos correspondientes.
+
+    \item \textbf{Análisis del respeto al Plan de Proyecto original:} \\
+    Responsable: El Jefe de Proyecto será el encargado de esta tarea. \\
+    Procedimiento: Se revisará el cronograma inicial, los entregables planificados y los resultados obtenidos mediante la comparación con reportes de avance y actas de reuniones anteriores. Se utilizarán herramientas de gestión de proyectos para identificar desviaciones y causas. Se documentará el análisis en un informe para presentar en la reunión.
+
+    \item \textbf{Identificación de técnicas y procedimientos útiles e inútiles, problemas y soluciones:} \\
+    Responsable: El Coordinador de Calidad y el equipo de trabajo colaborarán en esta tarea. \\
+    Procedimiento: Se convocará a una sesión de retroalimentación donde cada integrante comentará sobre las técnicas aplicadas. Se recopilarán problemas surgidos y sus soluciones mediante actas o minutas. Posteriormente, se consolidará un documento con lecciones aprendidas que se archivará para futuros proyectos.
+
+    \item \textbf{Organización del acto de agradecimiento a interesados, equipo y colaboradores:} \\
+    Responsable: El Departamento de Recursos Humanos organizará el acto. \\
+    Financiamiento: Los gastos serán cubiertos por el presupuesto asignado al área de gestión de proyectos, aprobados por la dirección. \\
+    Procedimiento: Se coordinará la logística del evento, envío de invitaciones y agradecimientos formales a todos los involucrados.
+
 \end{itemize}
 
-\end{consigna}
+
 
 \end{document}
