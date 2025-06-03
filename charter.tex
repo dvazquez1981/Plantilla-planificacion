@@ -79,7 +79,7 @@ Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios 
 %		  Se puede agregar algo más \newline
 %		  En distintas líneas \newline
 %		  Así                                                    & {día} de {mes} de 202X \\ 3      & Se completa hasta el punto 12 inclusive                & {día} de {mes} de 202X \\ \hline
-%4      & Se completa el plan	                                 & {día} de {mes} de 202X \\ \hline
+4      & Se completa el plan	                                 & {3} de {junio} de 2025 \\ \hline
 
 % Si hay más correcciones pasada la versión 4 también se deben especificar acá
 
@@ -145,7 +145,7 @@ El enfoque propuesto busca aprovechar tecnologías de código abierto y protocol
 
 Se propone rediseñar el sistema de comunicaciones de los contadores de tránsito mediante la incorporación de un modelo de comunicación bidireccional y segura.
 Este nuevo esquema permitirá no solo el envío de datos desde los dispositivos hacia el servidor central, sino también la recepción de comandos y actualizaciones de parámetros desde el servidor hacia los dispositivos en el campo.
-Además se prevé la visualización de los datos en tiempo real conforme se transmiten.
+Además, se prevé la visualización de los datos en tiempo real conforme se transmiten.
 
 \subsection{Descripción funcional y técnica}
 
@@ -273,7 +273,7 @@ Para el desarrollo del presente proyecto se supone que:
 	\item Requerimientos funcionales:
 			\begin{enumerate}
 			\item El ESP32-C3 debe recibir datos por interfaz RS-232 desde el sistema de detección.
-			\item  Cada evento recibido debe ser encolado en memoria RAM segun el orden de llegada.
+			\item  Cada evento recibido debe ser encolado en memoria RAM según el orden de llegada.
 			\item  El ESP32-C3 debe publicar cada mensaje de la cola a un \textit{broker} MQTT remoto usando GPRS.
 			\item  El protocolo MQTT debe utilizar QoS 1 o 2 para asegurar la entrega sin duplicación.
 			\item  Debe haber control de reintentos ante fallos de conexión sin duplicar mensajes.
@@ -317,7 +317,7 @@ Para el desarrollo del presente proyecto se supone que:
 	\item Requerimientos de interoperabilidad:
 		\begin{enumerate}
 			\item  El sistema debe poder comunicarse con un \textit{broker} MQTT externo configurable.
-			\item Responder al protocolo MQTT según acordado en el backend.
+			\item Responder al protocolo MQTT según lo acordado en el backend.
 		\end{enumerate}
 
 	\item Requerimientos de seguridad:
@@ -335,58 +335,58 @@ complejidad y riesgo se redondea al número de Fibonacci más cercano.
 \begin{enumerate}
 
 \item
-\textbf{Como} usuario del sistema\\
-\textbf{quiero} ver los eventos de tránsito en una interfaz web\\
-\textbf{para} tener monitoreo visual y registro histórico.\\
+Como usuario del sistema\\
+quiero ver los eventos de tránsito en una interfaz web\\
+para tener monitoreo visual y registro histórico.\\
 \textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 1)\\
 Prioridad: media
 
 \item 
-\textbf{Como} administrador del sistema\\
-\textbf{quiero} que los eventos se envíen al servidor vía MQTT sobre GPRS\\
-\textbf{para} recibir todos los tránsitos detectados en tiempo real o diferido.\\
+Como administrador del sistema\\
+quiero que los eventos se envíen al servidor vía MQTT sobre GPRS\\
+para recibir todos los tránsitos detectados en tiempo real o diferido.\\
 \textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)\\
 Prioridad: alta
 
 \item
-\textbf{Como} desarrollador backend\\
-\textbf{quiero} que la API REST se suscriba al \textit{broker} MQTT\\
-\textbf{para} recibir y procesar los eventos de tránsito.\\
+Como desarrollador backend\\
+quiero que la API REST se suscriba al \textit{broker} MQTT\\
+para recibir y procesar los eventos de tránsito.\\
 \textit{Story points:} 13 (complejidad: 3, dificultad: 3, incertidumbre: 3)\\
 Prioridad: alta
 
 \item 
-\textbf{Como} administrador desde la interfaz web\\
-\textbf{quiero} enviar comandos al dispositivo a través de la API REST\\
-\textbf{para} controlar remotamente los dispositivos en campo.\\
+Como administrador desde la interfaz web\\
+quiero enviar comandos al dispositivo a través de la API REST\\
+para controlar remotamente los dispositivos en campo.\\
 \textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)\\
 Prioridad: alta
 
 \item 
-\textbf{Como} usuario del sistema\\
-\textbf{quiero} usar la interfaz web para enviar comandos\\
-\textbf{para} realizar chequeos o pruebas de funcionamiento a distancia.\\
+Como usuario del sistema\\
+quiero usar la interfaz web para enviar comandos\\
+para realizar chequeos o pruebas de funcionamiento a distancia.\\
 \textit{Story points:} 5 (complejidad: 2, dificultad: 2, incertidumbre: 1)\\
 Prioridad: media
 
 \item 
-\textbf{Como} desarrollador del sistema,\\
-\textbf{quiero} que el ESP32-C3 registre cada evento de tránsito recibido y respuesta a comandos por RS-232 en una cola en memoria RAM,\\
-\textbf{para} asegurar que los eventos no se pierdan si no hay conexión GPRS disponible en ese momento.\\
+Como desarrollador del sistema,\\
+quiero que el ESP32-C3 registre cada evento de tránsito recibido y respuesta a comandos por RS-232 en una cola en memoria RAM,\\
+para asegurar que los eventos no se pierdan si no hay conexión GPRS disponible en ese momento.\\
 \textit{Story points:} 13 (complejidad: 5, dificultad: 2, incertidumbre: 3)\\
 Prioridad: alta
 
 \item 
-\textbf{Como} desarrollador del sistema\\
-\textbf{quiero} modificar el contador de tránsito en el ESP32-C3 con el objetivo de una correcta interpretación de las tramas recibidas mediante RS-232\
-\textbf{para} asegurar que los eventos de tránsito se procesen con precisión y se registren adecuadamente en la cola local, como el manejo de comandos y sus respuestas al servidor central.\\
+Como desarrollador del sistema\\
+quiero modificar el contador de tránsito en el ESP32-C3 con el objetivo de una correcta interpretación de las tramas recibidas mediante RS-232\
+para asegurar que los eventos de tránsito se procesen con precisión y se registren adecuadamente en la cola local, como el manejo de comandos y sus respuestas al servidor central.\\
 \textit{Story points:} 8 (complejidad: 3, dificultad: 2, incertidumbre: 1)\\
 Prioridad: alta
 
 \item
-\textbf{Como} desarrollador del sistema\\
-\textbf{quiero} que el ESP32-C3 detecte y maneje errores de comunicación en el puerto RS-232 y en la conexión GPRS y se reconecte automáticamente cuando sea necesario.\\
-\textbf{para} garantizar la estabilidad y continuidad del sistema, evitar la pérdida de eventos de tránsito y asegurar una comunicación confiable con el servidor.\\
+Como desarrollador del sistema\\
+quiero que el ESP32-C3 detecte y maneje errores de comunicación en el puerto RS-232 y en la conexión GPRS y se reconecte automáticamente cuando sea necesario.\\
+para garantizar la estabilidad y continuidad del sistema, evitar la pérdida de eventos de tránsito y asegurar una comunicación confiable con el servidor.\\
 \textit{Story points:} 5 (complejidad: 3, dificultad: 1, incertidumbre: 1)\\
 Prioridad: media
 
@@ -396,9 +396,9 @@ Prioridad: media
 \label{sec:entregables}
 
 \begin{itemize}
-	\item Manual de Usuario: guía detallada para operadores y administradores sobre el uso de la interfaz web, incluyendo la visualización de eventos de tránsito y el envío de comandos remotos.
-	\item Manual Técnico de Instalación y Configuración: instrucciones para la instalación física de los dispositivos ESP32-C3, configuración de la comunicación RS-232 y GPRS, y puesta en marcha del sistema.
-	\item Código Fuente del Firmware (ESP32-C3) que incluirá:
+	\item Manual de usuario: guía detallada para operadores y administradores sobre el uso de la interfaz web, incluyendo la visualización de eventos de tránsito y el envío de comandos remotos.
+	\item Manual técnico de instalación y configuración: instrucciones para la instalación física de los dispositivos ESP32-C3, configuración de la comunicación RS-232 y GPRS, y puesta en marcha del sistema.
+	\item Código fuente del firmware (ESP32-C3) que incluirá:
 	\begin{itemize}
 	\item Recepción y procesamiento de datos a través de RS-232.
 	\item Manejo de errores de comunicación y reconexión automática.
@@ -407,7 +407,7 @@ Prioridad: media
 	\item Recepción de comandos mediante MQTT sobre GPRS y respuesta
 	\end{itemize}
 
-\item Código Fuente del Backend (API REST) que incluirá:
+\item Código fuente del backend (API REST) que incluirá:
 
 \begin{itemize}
 \item Suscripción al \textit{broker} MQTT para recibir eventos de tránsito.
@@ -415,13 +415,13 @@ Prioridad: media
 \item Envío de comandos a los dispositivos en campo. 
 \end{itemize}
 
-\item Código Fuente del Frontend que incluirá:
+\item Código fuente del frontend que incluirá:
 \begin{itemize}
 \item Visualización en tiempo real de los eventos de tránsito.
 \item Interfaz para el envío de comandos y control remoto de dispositivos.
 \end{itemize}
 
-\item Diagramas de Arquitectura del Sistema:
+\item Diagramas de arquitectura del sistema:
 \begin{itemize}
 \item La arquitectura general del sistema.
 \item La comunicación entre componentes (contador, ESP32-C3, servidor, interfaz web).
@@ -429,8 +429,8 @@ Prioridad: media
 \item El flujo de datos desde el servidor hasta el contador.
 \end{itemize}
 
-\item Esquemas Eléctricos y de Comunicación incluyendo los diagramas de conexiones entre los dispositivos.
-\item Plan de Pruebas y Resultados
+\item Esquemas eléctricos y de comunicación incluyendo los diagramas de conexiones entre los dispositivos.
+\item Plan de pruebas y resultados
 \item Memoria del trabajo final
 
 \end{itemize}
@@ -458,7 +458,7 @@ Prioridad: media
 \item Investigación sobre manejo de errores y reconexión en comunicaciones (5 h)
 \end{enumerate}
 
-\item Desarrollo del Firmware para ESP32-C3 (90 h):
+\item Desarrollo del firmware para ESP32-C3 (90 h):
 \begin{enumerate}
 \item Implementación de envío y recepción de datos por RS-232 (15 h)
 \item Gestión de cola en memoria RAM para eventos (15 h)
@@ -467,12 +467,12 @@ Prioridad: media
 \item Ejecución y respuesta a comandos recibidos (15 h)
 \item Manejo de errores de comunicación y reconexión automática (10 h)
 \end{enumerate}
-\item Testing del Firmware para ESP32-C3 (20 h):
+\item Testing del firmware para ESP32-C3 (20 h):
 \begin{enumerate}
 \item Pruebas unitarias de módulos individuales (10 h)
 \item Pruebas de integración con módulos de comunicación (10 h)
 \end{enumerate}
-\item Documentación del Firmware para ESP32-C3 (10 h):
+\item Documentación del firmware para ESP32-C3 (10 h):
 \begin{enumerate}
 \item Documentación del código fuente y comentarios en línea (5 h)
 \item Elaboración de guía de instalación y configuración (5 h)
@@ -498,7 +498,7 @@ Prioridad: media
 \item Documentación de  \textit{endpoints} y ejemplos de uso (5 h)
 \item Elaboración de guía de integración para desarrolladores (5 h)
 \end{enumerate}
-\item Desarrollo de la Interfaz Web (65 h):
+\item Desarrollo de la interfaz web (65 h):
 \begin{enumerate}
 \item Diseño de la interfaz de usuario (15 h)
 \item Implementación de visualización de eventos de tránsito (15 h)
@@ -506,59 +506,60 @@ Prioridad: media
 \item Integración con la API REST (10 h)
 \item Pruebas de usabilidad y funcionalidad (10 h)
 \end{enumerate}
-\item Testing de la Interfaz Web (15 h):
+\item Testing de la interfaz web (15 h):
 \begin{enumerate}
 \item Pruebas de compatibilidad con diferentes navegadores (5 h)
 \item Pruebas de accesibilidad y experiencia de usuario (5 h)
 \item Pruebas de rendimiento y tiempos de carga (5 h)
 \end{enumerate}
-\item Documentación de la Interfaz Web (10 h):
+\item Documentación de la interfaz web (10 h):
 \begin{enumerate}
 \item Manual de usuario y guía de navegación (5 h)
 \item Documentación de instalación y despliegue (5 h)
 \end{enumerate}
-\item Infraestructura y Configuración del  \textit{broker} MQTT (25 h):
+\item Infraestructura y configuración del  \textit{broker} MQTT (25 h):
 \begin{enumerate}
 \item Instalación y configuración del  \textit{broker} MQTT (10 h)
 \item Configuración de tópicos y políticas de QoS (10 h)
 \item Pruebas de comunicación entre dispositivos y  \textit{broker} (5 h)
 \end{enumerate}
-\item Documentación de Infraestructura (10 h):
+\item Documentación de infraestructura (10 h):
 \begin{enumerate}
 \item Documentación de configuración del  \textit{broker} MQTT (5 h)
 \item Guía de mantenimiento y monitoreo (5 h)
 \end{enumerate}
-\item Gestión del Proyecto y Coordinación (45 h):
+\item Gestión del proyecto y coordinación (45 h):
 \begin{enumerate}
 \item Planificación y seguimiento del proyecto (15 h)
 \item Reuniones de coordinación y revisión (15 h)
 \item Gestión de riesgos y control de calidad (10 h)
 \item Comunicación con los interesados y reporte de avances (5 h)
 \end{enumerate}
-\item Pruebas e Integración del Sistema (45 h):
+\item Pruebas e integración del sistema (45 h):
 \begin{enumerate}
 \item Pruebas de integración entre módulos (15 h)
 \item Pruebas de sistema y validación con casos de uso (15 h)
 \item Pruebas de aceptación por parte del cliente (15 h)
 \end{enumerate}
-\item Despliegue y Mantenimiento Inicial (45 h):
+\item Despliegue y mantenimiento inicial (45 h):
 \begin{enumerate}
 \item Despliegue del sistema en entorno de producción (15 h)
 \item Monitoreo y soporte después de despliegue (15 h)
 \item Corrección de errores y ajustes finales (15 h)
 \end{enumerate}
-\item Buffer para Imprevistos (60 h):
+\item Buffer para imprevistos (60 h):
 \begin{enumerate}
 \item Tiempo reservado para manejar retrasos, cambios de alcance o problemas técnicos imprevistos.
 \end{enumerate}
 \end{enumerate}
 
-\textbf{Cantidad total de horas: 600 h}
+\textbf{Cantidad total de horas: 600 }
 
 \newpage
 
 \section{10. Diagrama de Activity On Node}
 \label{sec:AoN}
+En la figura 2 se observa el diagrama AON, que presenta las actividades principales del proyecto y sus dependencias temporales. Las tareas se organizan en forma de red, donde las flechas indican la secuencia de ejecución. El camino crítico (resaltado en rojo) muestra las actividades cuya duración afecta directamente el plazo total del proyecto, por lo que deben gestionarse con especial atención.
 \vspace{2cm}
 \begin{figure}[htpb]
 \centering 
@@ -574,6 +575,10 @@ Prioridad: media
 
 \section{11. Diagrama de Gantt}
 \label{sec:gantt}
+En la figura 3 se presenta el diagrama de Gantt correspondiente a la planificación del proyecto. En él se detallan las tareas a realizar, sus fechas de inicio y fin, así como la duración estimada de cada una. 
+
+
+
 \begin{figure}[htpb]
   \begin{center}
     \begin{ganttchart}[
@@ -591,48 +596,48 @@ Prioridad: media
       \gantttitlecalendar*{2025-05-01}{2025-08-11}{month} \\
 
       % Fase 1: Análisis y Diseño (65 h → 22 días)
-      \ganttgroup{1. A. y Diseño del Sistema}{2025-05-01}{2025-05-22} \\
-      \ganttbar{1.1 Requisitos F. y No F.}{2025-05-01}{2025-05-02} \\
-      \ganttbar{1.2 Diseño Arquitectura}{2025-05-03}{2025-05-05} \\
-      \ganttbar{1.3 Evaluación Tec.}{2025-05-06}{2025-05-08} \\
-      \ganttbar{1.4 Diag. de Flujo y Casos}{2025-05-09}{2025-05-10} \\
-      \ganttbar{1.5 Val. Diseño}{2025-05-11}{2025-05-22} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-05-21}{2025-05-22} \\
+      \ganttgroup{1. A. y diseño del sistema}{2025-05-01}{2025-05-22} \\
+      \ganttbar{1.1 Requisitos func. y no f.}{2025-05-01}{2025-05-02} \\
+      \ganttbar{1.2 Diseño arquitectura}{2025-05-03}{2025-05-05} \\
+      \ganttbar{1.3 Evaluación tec.}{2025-05-06}{2025-05-08} \\
+      \ganttbar{1.4 Diag. de flujo y casos}{2025-05-09}{2025-05-10} \\
+      \ganttbar{1.5 Val. diseño}{2025-05-11}{2025-05-22} \\
+      \ganttgroup{14. Gestión y coord.}{2025-05-21}{2025-05-22} \\
     
 
       % Fase 2: Aprendizaje en Tecnologías (45 h → 15 días)
-      \ganttgroup{2. Aprendizaje en Tec.}{2025-05-23}{2025-06-06} \\
-      \ganttbar{2.1 Cap. Firmware}{2025-05-23}{2025-05-28} \\
+      \ganttgroup{2. Aprendizaje en tec.}{2025-05-23}{2025-06-06} \\
+      \ganttbar{2.1 Cap. firmware}{2025-05-23}{2025-05-28} \\
       \ganttbar{2.2 Cap. API REST}{2025-05-29}{2025-06-02} \\
-      \ganttbar{2.3 Cap. Interfaz Web}{2025-06-03}{2025-06-06} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-06-05}{2025-06-06} \\
+      \ganttbar{2.3 Cap. interfaz web}{2025-06-03}{2025-06-06} \\
+      \ganttgroup{14. Gestión y coord.}{2025-06-05}{2025-06-06} \\
     
       % Fase 3: Desarrollo Firmware (90 h → 30 días)
-      \ganttgroup{3. Desa. del Firmware}{2025-06-07}{2025-07-06} \\
-      \ganttbar{3.1 Progra. Básica}{2025-06-07}{2025-06-16} \\
-      \ganttbar{3.2 Integ. Sensores}{2025-06-17}{2025-06-23} \\
+      \ganttgroup{3. Desa. del firmware}{2025-06-07}{2025-07-06} \\
+      \ganttbar{3.1 Progra. básica}{2025-06-07}{2025-06-16} \\
+      \ganttbar{3.2 Integ. sensores}{2025-06-17}{2025-06-23} \\
       \ganttbar{3.3 Com. MQTT}{2025-06-24}{2025-06-30} \\
-      \ganttbar{3.4 Opt. Código}{2025-07-01}{2025-07-06} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-07-01}{2025-07-06} \\
+      \ganttbar{3.4 Opt. código}{2025-07-01}{2025-07-06} \\
+      \ganttgroup{14. Gestión y coord.}{2025-07-01}{2025-07-06} \\
     
       % Fase 4: Testing Firmware (20 h → 7 días)
-      \ganttgroup{4. Testing Firmware}{2025-07-07}{2025-07-13} \\
-      \ganttbar{4.1 Pruebas Uni.}{2025-07-07}{2025-07-10} \\
-      \ganttbar{4.2 Pruebas Int.}{2025-07-11}{2025-07-13} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-07-13}{2025-07-13} \\
+      \ganttgroup{4. Testing firmware}{2025-07-07}{2025-07-13} \\
+      \ganttbar{4.1 Pruebas uni.}{2025-07-07}{2025-07-10} \\
+      \ganttbar{4.2 Pruebas int.}{2025-07-11}{2025-07-13} \\
+      \ganttgroup{14. Gestión y coord.}{2025-07-13}{2025-07-13} \\
     
       % Fase 5: Documentación Firmware (10 h → 4 días)
-      \ganttgroup{5. Doc. Firmware}{2025-07-14}{2025-07-17} \\
-      \ganttbar{5.1 Manual Usuario}{2025-07-14}{2025-07-15} \\
-      \ganttbar{5.2 Manual Técnico}{2025-07-16}{2025-07-18} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-07-18}{2025-07-18} \\
+      \ganttgroup{5. Doc. firmware}{2025-07-14}{2025-07-17} \\
+      \ganttbar{5.1 Manual usuario}{2025-07-14}{2025-07-15} \\
+      \ganttbar{5.2 Manual técnico}{2025-07-16}{2025-07-18} \\
+      \ganttgroup{14. Gestión y coord.}{2025-07-18}{2025-07-18} \\
     
       % Fase 6: Desarrollo API REST (75 h → 25 días)
       \ganttgroup{6. Desa. API REST}{2025-07-18}{2025-08-11} \\
-      \ganttbar{6.1 Diseño Endpoints}{2025-07-18}{2025-07-22} \\
+      \ganttbar{6.1 Diseño endpoints}{2025-07-18}{2025-07-22} \\
       \ganttbar{6.2 Implem.}{2025-07-23}{2025-08-05} \\
-      \ganttbar{6.3 Seguridad y Aut.}{2025-08-06}{2025-08-11} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-08-10}{2025-08-11} \\
+      \ganttbar{6.3 Seguridad y aut.}{2025-08-06}{2025-08-11} \\
+      \ganttgroup{14. Gestión y coord.}{2025-08-10}{2025-08-11} \\
     
     \end{ganttchart}
   \end{center}
@@ -662,53 +667,53 @@ y unit chart=0.5cm, % antes 0.5cm
 
       % Fase 7: Testing API REST (15 h → 5 días)
       \ganttgroup{7. Testing API REST}{2025-08-12}{2025-08-16} \\
-      \ganttbar{7.1 Pruebas F.}{2025-08-12}{2025-08-14} \\
-      \ganttbar{7.2 Pruebas de Seg.}{2025-08-15}{2025-08-16} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-08-15}{2025-08-16} \\
-      \ganttbar{14.2/3 Seg.y Rep.}{2025-08-15}{2025-08-16} \\
+      \ganttbar{7.1 Pruebas f.}{2025-08-12}{2025-08-14} \\
+      \ganttbar{7.2 Pruebas de seg.}{2025-08-15}{2025-08-16} \\
+      \ganttgroup{14. Gestión y coord.}{2025-08-15}{2025-08-16} \\
+      \ganttbar{14.2/3 Seg.y rep.}{2025-08-15}{2025-08-16} \\
 
       % Fase 8: Documentación API REST (10 h → 4 días)
       \ganttgroup{8. Doc. API REST}{2025-08-17}{2025-08-20} \\
       \ganttbar{8.1 Manual de Uso}{2025-08-17}{2025-08-18} \\
-      \ganttbar{8.2 Doc.n Técnica}{2025-08-19}{2025-08-20} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-08-19}{2025-08-20} \\
+      \ganttbar{8.2 Doc. técnica}{2025-08-19}{2025-08-20} \\
+      \ganttgroup{14. Gestión y coord.}{2025-08-19}{2025-08-20} \\
     
       % Fase 9: Desarrollo Interfaz Web (65 h → 22 días)
-      \ganttgroup{9. Desa. Interfaz Web}{2025-08-21}{2025-09-11} \\
+      \ganttgroup{9. Desa. interfaz web}{2025-08-21}{2025-09-11} \\
       \ganttbar{9.1 Diseño UI/UX}{2025-08-21}{2025-08-25} \\
       \ganttbar{9.2 Implem.}{2025-08-26}{2025-09-05} \\
       \ganttbar{9.3 Pruebas}{2025-09-06}{2025-09-11} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-09-10}{2025-09-11} \\
+      \ganttgroup{14. Gestión y coord.}{2025-09-10}{2025-09-11} \\
     
       % Fase 10: Testing Interfaz Web (15 h → 5 días)
-      \ganttgroup{10. Testing Interfaz Web}{2025-09-12}{2025-09-16} \\
-      \ganttbar{10.1 Pruebas Func.}{2025-09-12}{2025-09-14} \\
-      \ganttbar{10.2 Pruebas Usab.}{2025-09-15}{2025-09-16} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-09-15}{2025-09-16} \\
+      \ganttgroup{10. Testing interfaz web}{2025-09-12}{2025-09-16} \\
+      \ganttbar{10.1 Pruebas func.}{2025-09-12}{2025-09-14} \\
+      \ganttbar{10.2 Pruebas usab.}{2025-09-15}{2025-09-16} \\
+      \ganttgroup{14. Gestión y coord.}{2025-09-15}{2025-09-16} \\
     
       % Fase 11: Documentación Interfaz Web (10 h → 4 días)
-      \ganttgroup{11. Doc. Interfaz Web}{2025-09-17}{2025-09-20} \\
+      \ganttgroup{11. Doc. interfaz web}{2025-09-17}{2025-09-20} \\
       \ganttbar{11.1 Manual de Usuario}{2025-09-17}{2025-09-18} \\
-      \ganttbar{11.2 Documentación Técnica}{2025-09-19}{2025-09-20} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-09-19}{2025-09-20} \\
+      \ganttbar{11.2 Documentación técnica}{2025-09-19}{2025-09-20} \\
+      \ganttgroup{14. Gestión y coord.}{2025-09-19}{2025-09-20} \\
     
       % Fase 12: Integración del Sistema (30 h → 10 días)
       \ganttgroup{12. Integración}{2025-09-21}{2025-10-04} \\
-      \ganttbar{12.1 Integración Firmware-API}{2025-09-21}{2025-09-26} \\
+      \ganttbar{12.1 Integración firmware-API}{2025-09-21}{2025-09-26} \\
       \ganttbar{12.2 Integración API-UI}{2025-09-27}{2025-10-04} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-09-30}{2025-10-04} \\
+      \ganttgroup{14. Gestión y coord.}{2025-09-30}{2025-10-04} \\
     
       % Fase 13: Pruebas del Sistema (40 h → 14 días)
-      \ganttgroup{13. Pruebas del Sistema}{2025-10-05}{2025-10-18} \\
-      \ganttbar{13.1 Pruebas Integrales}{2025-10-05}{2025-10-12} \\
-      \ganttbar{13.2 Pruebas de Usuario}{2025-10-13}{2025-10-18} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-10-17}{2025-10-18} \\
+      \ganttgroup{13. Pruebas del sistema}{2025-10-05}{2025-10-18} \\
+      \ganttbar{13.1 Pruebas integrales}{2025-10-05}{2025-10-12} \\
+      \ganttbar{13.2 Pruebas de usuario}{2025-10-13}{2025-10-18} \\
+      \ganttgroup{14. Gestión y coord.}{2025-10-17}{2025-10-18} \\
     
       % Fase 15: Cierre del Proyecto (15 h → 5 días)
-      \ganttgroup{15. Cierre Proyecto}{2025-10-19}{2025-10-23} \\
-      \ganttbar{15.1 Informe Final}{2025-10-19}{2025-10-22} \\
+      \ganttgroup{15. Cierre proyecto}{2025-10-19}{2025-10-23} \\
+      \ganttbar{15.1 Informe final}{2025-10-19}{2025-10-22} \\
       \ganttbar{15.2 Presentación}{2025-10-23}{2025-10-23} \\
-      \ganttgroup{14. Gestión y Coord.}{2025-10-23}{2025-10-23} \\
+      \ganttgroup{14. Gestión y coord.}{2025-10-23}{2025-10-23} \\
     
     \end{ganttchart}
   \end{center}
@@ -718,11 +723,11 @@ y unit chart=0.5cm, % antes 0.5cm
   \label{fig:gantt2}
 \end{figure}
 \newpage
-\textbf{Supuestos:}
+Supuestos considerados para la planificación:
 \begin{itemize}
-    \item Se trabaja 4 horas por día, sin contar los fines de semana.
-    \item Las tareas mayormente son secuenciales porque se es el único recurso.
-    \item La parte de gestión se hace en paralelo.
+    \item La jornada de trabajo estimada es de 4 horas diarias, excluyendo fines de semana.
+    \item Las tareas se desarrollan mayormente de forma secuencial, dado que se cuenta con un único recurso humano.
+    \item Las actividades vinculadas a la gestión del proyecto se realizan en paralelo al desarrollo técnico.
 \end{itemize}
 
 \section{12. Presupuesto detallado del proyecto}
@@ -796,15 +801,15 @@ a) Identificación de Riesgos y Consecuencias  \\
 Riesgo 1: incompatibilidad del módulo SIM800L con comunicación MQTT
 \begin{itemize}
 \item Severidad (S): 8\\
-Justificación: Requeriría rediseñar todo el sistema de comunicación, impactando en el cronograma y costos.
+Justificación: requeriría rediseñar todo el sistema de comunicación, impactando en el cronograma.
 \item Probabilidad (O): 6\\
-Justificación: El SIM800L tiene limitaciones conocidas para implementar MQTT de forma estable.
+Justificación: el SIM800L tiene limitaciones conocidas para implementar MQTT de forma estable.
 \end{itemize}
 
 Riesgo 2: fallas prolongadas en la conexión GPRS
 \begin{itemize}
 \item Severidad (S): 7\\
-Justificación: Pérdida de datos críticos de tránsito durante los periodos sin conexión.
+Justificación: pérdida de datos críticos de tránsito durante los periodos sin conexión.
 \item Probabilidad (O): 7\\
 Justificación: Las redes celulares en zonas rurales suelen tener intermitencias frecuentes.
 \end{itemize}
@@ -814,31 +819,22 @@ Riesgo 3: saturación de la memoria RAM del ESP32-C3
 \item Severidad (S): 6\\
 Justificación: pérdida de datos no transmitidos.
 \item Probabilidad (O): 5\\
-Justificación: Depende del volumen de tráfico y frecuencia de eventos.
+Justificación: depende del volumen de tráfico y frecuencia de eventos.
 \end{itemize}
 
 Riesgo 4: vulnerabilidades de seguridad en la comunicación
 \begin{itemize}
 \item Severidad (S): 8\\
-Justificación: Podría permitir acceso no autorizado o manipulación de datos.
+Justificación: podría permitir acceso no autorizado o manipulación de datos.
 \item Probabilidad (O): 4\\
-Justificación: El uso de protocolos seguros reduce este riesgo.
+Justificación: el uso de protocolos seguros reduce este riesgo.
 \end{itemize}
 
-Riesgo 5: retrasos en la entrega de componentes electrónicos
+Riesgo 5: incompatibilidad del protocolo RS232 con el contador desarrollado por María Clara Cutrone
 \begin{itemize}
-\item Severidad (S): 5\\
-Justificación: Afectaría el cronograma de desarrollo y pruebas.
-\item Probabilidad (O): 4\\
-Justificación: Problemas en la cadena de suministro son frecuentes actualmente.
-\end{itemize}
-
-Riesgo 6: incompatibilidad del protocolo RS232 con el contador desarrollado por María Clara Cuttrone
-\begin{itemize}
-\item Severidad (S): 7\\
-Justificación: Dependencia de desarrollo externo y posible incompatibilidad o falta de documentación.
+\item Severidad dependencia de desarrollo externo y posible incompatibilidad o falta de documentación.
 \item Probabilidad (O): 5\\
-Justificación: Riesgo moderado dado que el protocolo RS232 es estándar, pero la implementación específica puede variar.
+Justificación: riesgo moderado dado que el protocolo RS232 es estándar, pero la implementación específica puede variar.
 \end{itemize}
 
 b) Tabla de Gestión de Riesgos
@@ -853,7 +849,6 @@ Incompatibilidad del módulo SIM800L con comunicación MQTT & 8 & 6 & 48 & 5 & 3
 Fallas prolongadas en la conexión GPRS & 7 & 7 & 49 & 5 & 4 & 20 \\ \hline
 Saturación de la memoria RAM del ESP32-C3 & 6 & 5 & 30 & 5 & 3 & 15 \\ \hline
 Vulnerabilidades de seguridad en la comunicación & 8 & 4 & 32 & 6 & 2 & 12 \\ \hline
-Retrasos en la entrega de componentes electrónicos & 5 & 4 & 20 & 4 & 2 & 8 \\ \hline
 Incompatibilidad del protocolo RS232 con el contador & 7 & 5 & 35 & 5 & 3 & 15 \\ \hline
 \end{tabularx}%
 \end{table}
@@ -883,7 +878,7 @@ Riesgo 4: vulnerabilidades seguridad
 \item O: 2 (medidas comprobadas reducen vulnerabilidades)
 \end{itemize}
 
-Riesgo 6: incompatibilidad protocolo RS232 con contador
+Riesgo 5: incompatibilidad protocolo RS232 con contador
 \begin{itemize}
 \item Mitigación: coordinar con María Clara Cuttrone para validar y documentar la interfaz RS232; realizar pruebas de integración tempranas.
 \item S*: 5 (reducción del impacto con mejor conocimiento)
@@ -978,20 +973,17 @@ Riesgo 6: incompatibilidad protocolo RS232 con contador
 Para la realización de la reunión final de evaluación del proyecto se establecen las siguientes pautas de trabajo:
 
 \begin{itemize}
+    \item Análisis del plan de proyecto original: \\
+     Responsable: el director del proyecto (profesor a cargo). \\
+     Procedimiento: se revisará el cronograma inicial, los entregables planificados y los resultados obtenidos, mediante la comparación con los reportes de avance elaborados durante el desarrollo del proyecto. 
 
-    \item \textbf{Análisis del respeto al Plan de Proyecto original:} \\
-    Responsable: El Jefe de Proyecto será el encargado de esta tarea. \\
-    Procedimiento: Se revisará el cronograma inicial, los entregables planificados y los resultados obtenidos mediante la comparación con reportes de avance y actas de reuniones anteriores. Se utilizarán herramientas de gestión de proyectos para identificar desviaciones y causas. Se documentará el análisis en un informe para presentar en la reunión.
+    \item Identificación de técnicas y procedimientos útiles e inútiles, problemas y soluciones: \\
+     Responsables: el alumno con los  colaboradores. \\
+     Procedimiento: se llevará a cabo una reflexión crítica sobre las herramientas y métodos empleados. Se documentarán los problemas surgidos y las soluciones aplicadas, con el objetivo de extraer lecciones aprendidas para futuras experiencias similares. Estas conclusiones se incluirán en un documento de cierre.
 
-    \item \textbf{Identificación de técnicas y procedimientos útiles e inútiles, problemas y soluciones:} \\
-    Responsable: El Coordinador de Calidad y el equipo de trabajo colaborarán en esta tarea. \\
-    Procedimiento: Se convocará a una sesión de retroalimentación donde cada integrante comentará sobre las técnicas aplicadas. Se recopilarán problemas surgidos y sus soluciones mediante actas o minutas. Posteriormente, se consolidará un documento con lecciones aprendidas que se archivará para futuros proyectos.
-
-    \item \textbf{Organización del acto de agradecimiento a interesados, equipo y colaboradores:} \\
-    Responsable: El Departamento de Recursos Humanos organizará el acto. \\
-    Financiamiento: Los gastos serán cubiertos por el presupuesto asignado al área de gestión de proyectos, aprobados por la dirección. \\
-    Procedimiento: Se coordinará la logística del evento, envío de invitaciones y agradecimientos formales a todos los involucrados.
-
+    \item Organización de un acto simbólico de cierre y agradecimiento: \\
+    Responsable: El director del proyecto y el alumno. \\
+    Procedimiento: se coordinará un breve encuentro ( virtual) con los colaboradores y el director para agradecer su participación. Se enviarán agradecimientos formales y se compartirá un resumen de los resultados obtenidos.
 \end{itemize}
 
 
