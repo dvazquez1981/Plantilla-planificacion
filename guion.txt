@@ -1,0 +1,204 @@
+ 
+diapo 1:  Introducción (descripción técnica-conceptual) 
+El sistema que presentamos combina adquisición de datos de tránsito con la capacidad de gestionar el contador de forma remota.
+
+Por un lado, cada vez que pasa un vehículo, el contador envía un evento al ESP32-C3 a través de la interfaz RS232. El microcontrolador recibe ese dato, lo formatea y lo transmite a un servidor remoto usando redes celulares, a través de un módulo SIM800L y el protocolo que resulte disponible —HTTP POST o MQTT.
+
+Por otro lado, el ESP32-C3 puede enviar comandos de vuelta al contador: por ejemplo, para reiniciarlo, ajustar parámetros o solicitar datos de diagnóstico. Esta comunicación bidireccional garantiza que podamos no solo leer la información, sino también controlar y mantener el contador sin necesidad de visitas de campo.
+
+Finalmente, para asegurar la continuidad del servicio en zonas con conectividad intermitente, el sistema integra un buffer local: si la red falla, los datos se conservan y se envían automáticamente cuando la conexión se restablece.
+
+Con esta arquitectura, logramos un nodo de monitoreo de tránsito eficiente, autónomo y fácil de mantener, ideal para aplicaciones en rutas y entornos con cobertura celular variable.
+
+diapo 2: Interesados (stakeholders)
+Ahora veamos quiénes participan y se benefician de este proyecto:
+
+1. Cliente o usuario final: pueden ser organismos públicos o privados encargados de la gestión vial. Ellos necesitan datos precisos y en tiempo real para planificar intervenciones, optimizar rutas y mejorar la seguridad.
+
+2. Equipo de desarrollo: en este caso, nosotros como responsables del diseño del firmware en el ESP32-C3, la integración con el SIM800L y la gestión de la comunicación. Somos quienes traducimos los requerimientos en código y pruebas.
+
+3. Proveedor del contador RS232: trabajamos con el diseño de María Clara Cutrone, quien desarrolló el contador de tránsito. Su aporte técnico nos permitió entender el protocolo de comunicación y garantizar que el ESP32-C3 hablara el mismo “idioma” a través de RS232.
+
+4. Equipo de operaciones y técnicos de campo: son los encargados de instalar, mantener y monitorear el dispositivo una vez desplegado. Necesitan documentación clara, diagnósticos remotos y herramientas para actualizar o reconfigurar el contador sin desplazarse a cada sitio.
+
+Identificar sus expectativas y necesidades fue fundamental para definir los requerimientos, la interfaz de comando y la estrategia de validación del sistema.
+
+diapo 3: Propósito
+El propósito de este proyecto es múltiple y complementario:
+
+1. Recolectar datos de tránsito en tiempo real: Registrar cada paso de vehículo detectado por el contador y formatearlo para su envío.
+
+2. Transmisión confiable a servidor remoto: Utilizar redes celulares para enviar la información, eligiendo entre HTTP POST o MQTT según condiciones de red.
+
+3. Gestión remota del contador: No se trata solo de obtener datos, sino también de poder enviar comandos al contador para reinicios, cambios de configuración o diagnósticos sin desplazar personal.
+
+4. Resiliencia ante fallos de red: Implementar un buffer local que almacena eventos cuando no hay cobertura y los retransmite automáticamente al restablecerse la conexión.
+
+5. Seguridad y autenticidad: Proteger la integridad de los datos usando autenticación con tokens JWT y cifrado TLS, garantizando que solo sistemas autorizados puedan enviar o recibir información.
+
+Con estos objetivos claros, buscamos un sistema que aporte valor real al monitoreo vial, reduciendo costos de mantenimiento y mejorando la calidad de la información disponible.
+
+
+diapo 4: alcance
+n cuanto al alcance, definimos claramente lo que este proyecto abarca y lo que queda fuera.
+
+Incluye:
+
+El firmware completo para el ESP32-C3, que cubre la lectura de eventos por RS232, el almacenamiento temporal en buffer y la transmisión de datos.
+
+La integración con el contador existente, asegurando compatibilidad de protocolos.
+
+La comunicación GPRS mediante el módulo SIM800L, usando tanto HTTP POST como MQTT según disponibilidad de la red.
+
+La capacidad de gestión remota: envío de comandos para reconfiguración, reinicios y diagnósticos sin necesidad de desplazarnos.
+
+Un mecanismo de almacenamiento local de datos y reintentos automáticos, para garantizar la resiliencia ante cortes de conectividad.
+
+El desarrollo de un backend o plataforma visual de análisis
+Una interfaz gráfica de usuario: tampoco abordamos la capa de presentación, sino la adquisición y transmisión de datos.
+
+
+No incluye:
+
+
+La instalación física en campo, que se considerará en una siguiente fase de despliegue.
+
+
+diapo 5:
+requerimiento
+Funcionales:
+
+El dispositivo debe leer cada evento de tránsito enviado por el contador a través de RS232.
+
+Si no hay cobertura celular, debe almacenar esos eventos en un buffer interno hasta que la red esté disponible.
+
+Cuando hay conexión, transmite la información a un servidor remoto usando HTTP POST o MQTT.
+
+Además, permite recibir comandos desde el servidor para gestionar el contador: reinicios, cambios de configuración, diagnóstico.
+
+Y mantiene un registro de logs detallado para facilitar la depuración y el monitoreo.
+
+No funcionales:
+
+La seguridad es fundamental: todas las comunicaciones se autentican con tokens JWT y se cifran con TLS.
+
+El sistema debe ser resiliente, implementando reintentos escalonados y reconectándose automáticamente.
+
+Debe utilizar los recursos de CPU y memoria de forma eficiente, para funcionar incluso en entornos con energía limitada.
+
+El código se diseñó con modularidad y está bien documentado, facilitando su mantenimiento y futuras mejoras.
+
+Por último, la portabilidad: la arquitectura permite cambiar el contador o el tipo de red celular con mínimos ajustes.
+
+diapo 6: Requerimientos no funcionales
+ cuanto a los no funcionales: el sistema debe ser energéticamente eficiente, ya que puede funcionar con alimentación solar; el firmware debe ser estable y fácilmente actualizable; debe estar documentado para futuros mantenimientos. También debe usar estándares conocidos como RS232 y protocolos HTTP para facilitar la interoperabilidad con otros dispositivos o servicios.
+ 
+diapo 7;
+
+diapo 8;
+
+ 
+Diapositiva 9:
+Para asegurar el éxito del proyecto, identificamos cinco riesgos críticos:
+
+SIM800L ↔ MQTT: problemas de compatibilidad con el broker.
+
+Cortes de GPRS: pérdida de datos si la red falla.
+
+Saturación de RAM: riesgo de reinicios o pérdida de eventos.
+
+Vulnerabilidades: interceptación o manipulación de datos.
+
+RS232 externo: el contador podría cambiar su protocolo.
+
+Cada riesgo se evaluó con un RPN (Severidad × Probabilidad). Definimos como crítico cualquier RPN por encima de 30, lo que nos permitió priorizar acciones de mitigación.
+
+Nuestras estrategias fueron:
+
+Implementar HTTP POST de respaldo cuando MQTT falle.
+
+Usar un buffer local con reintentos escalonados para cubrir cortes de red.
+
+Proteger la comunicación con JWT y TLS para minimizar vulnerabilidades.
+
+Realizar pruebas de integración tempranas con el contador RS232 para validar compatibilidad.
+
+
+DIAPO 10
+riesgo 1
+aquí vemos el primer riesgo identificado: la incompatibilidad del módulo SIM800L con algunos brokers MQTT. Dado que nuestra solución depende de enviar datos con fiabilidad, esto se calificó con una severidad de 8 y una probabilidad de 6, dando un RPN original de 48, por encima del umbral crítico.
+
+Para mitigarlo, definimos un plan de respaldo: cuando MQTT falle, el ESP32-C3 usará HTTP POST para enviar la misma información. Gracias a esto, reducimos la severidad y la probabilidad del riesgo, bajando el RPN a 15, un valor aceptable que ya no consideramos crítico.
+
+De este modo, aseguramos que la transmisión de datos no dependa exclusivamente de MQTT y mejoramos la robustez del sistema.
+
+Diapositiva 12: 
+Riesgo 2 – Fallas de conexión GPRS
+El segundo riesgo es la intermitencia o caída prolongada de la red GPRS, que puede impedir la transmisión de datos por largos periodos.
+
+Lo evaluamos con severidad 7 y probabilidad 7, lo que nos dio un RPN original de 49, claramente por encima del umbral crítico.
+
+Como medida de mitigación, implementamos un buffer local persistente que almacena los eventos mientras no haya red, y una lógica de reintentos inteligentemente escalonados, que evita agotar la batería o saturar la red cuando vuelve la cobertura.
+
+Estas acciones redujeron el RPN a 20, situándolo en un rango controlable y garantizando que el sistema recupere y transmita toda la información cuando la conexión se restablezca.
+
+
+Diapositiva 13: 
+Riesgo 3 – Saturación de RAM
+El tercer riesgo corresponde a la saturación de la memoria RAM del ESP32-C3, que podría ocurrir si se acumulan demasiados eventos sin transmitir.
+
+Con una severidad de 6 y probabilidad de 5, obtuvimos un RPN original de 30, justo en el límite crítico.
+
+Para mitigarlo, diseñamos un buffer circular que descarta los eventos más antiguos cuando se alcanza un umbral de ocupación, y optimizamos el uso de la memoria en el firmware, liberando recursos tan pronto como se confirman envíos exitosos.
+
+Estas mejoras redujeron el RPN a 15, asegurando que el sistema mantenga siempre un espacio de memoria libre para nuevos eventos.
+
+Diapositiva 14: 
+Riesgo 4 – Vulnerabilidades de seguridad
+El cuarto riesgo identificado es la vulnerabilidad de la comunicación: un atacante podría interceptar o alterar los mensajes enviados por GPRS.
+
+Con severidad de 8 y probabilidad de 4, calculamos un RPN original de 32, lo que lo sitúa en zona crítica.
+
+Para mitigarlo, implementamos autenticación mediante tokens JWT y cifrado TLS en la capa de transporte. Esto garantiza que solo dispositivos autorizados puedan conectarse y que los datos no puedan leerse ni modificarse en tránsito.
+
+Como resultado, la severidad y la probabilidad disminuyeron, dejando el RPN mitigado en 12, bien por debajo del umbral crítico.
+
+
+Diapositiva 15:
+
+Riesgo 5 – Incompatibilidad con contador
+
+Finalmente, el quinto riesgo es que el protocolo RS232 implementado en el contador externo cambie o no coincida exactamente con nuestras expectativas, lo que impide la correcta interpretación de datos.
+
+Con severidad de 7 y probabilidad de 5, el RPN original fue de 35, un riesgo alto.
+
+Para mitigarlo, coordinamos desde el inicio con la desarrolladora del contador, realizamos pruebas de integración tempranas y documentamos en detalle las tramas y parámetros RS232. Además, añadimos validaciones de checksum en el firmware para detectar rápidamente cualquier desalineación de formato.
+
+Estas acciones redujeron el RPN a 15, asegurando que podamos ajustarnos rápidamente a cambios menores y mantener la compatibilidad.
+
+
+Diapositiva 16: Gestión de calidad
+cuanto a la gestión de calidad, nos enfocamos principalmente en asegurar que tanto el hardware como el software funcionen de manera confiable bajo condiciones reales.
+
+Implementamos una validación funcional en entorno controlado, simulando eventos de tránsito reales para verificar la detección y el envío de datos.
+
+Además, realizamos pruebas bajo condiciones de conectividad variables, para garantizar que el sistema almacene localmente cuando no hay señal, y luego retransmita correctamente cuando se restablece.
+
+También testeamos la recepción de comandos remotos desde el servidor, que son fundamentales para gestionar el contador, por ejemplo, cambiar su modo de funcionamiento o reiniciarlo.
+
+Por otro lado, analizamos los logs del servidor central para verificar que los datos lleguen correctamente, sin pérdidas ni duplicados, y con las marcas de tiempo adecuadas.
+
+Finalmente, se aplicó un control de versiones sobre el firmware y los scripts de backend, manteniendo una documentación técnica detallada que permite trazabilidad de cambios y facilita el mantenimiento.
+
+
+Diapositiva 17: Cierre
+Como cierre del proyecto, podemos decir que se cumplieron los principales objetivos propuestos:
+logramos establecer una comunicación bidireccional confiable entre el contador y el servidor central. Esto incluyó tanto el envío de datos de tránsito como la recepción de comandos remotos.
+
+El sistema fue implementado exitosamente en un entorno de prueba, donde se validó el funcionamiento general y la robustez ante condiciones reales, incluyendo pérdida de conexión.
+
+Además, los riesgos técnicos más críticos fueron abordados mediante estrategias de mitigación, y los RPN reducidos a valores aceptables.
+
+Se generó una documentación completa del sistema, incluyendo los diagramas, la gestión de riesgos, la planificación en AON y Gantt, y la descripción técnica de cada módulo.
+
+Todo esto constituye una base sólida para una futura implementación en campo, con proyección a integrarlo en escenarios reales de monitoreo vehicular en rutas o accesos urbanos.
