@@ -428,8 +428,8 @@ Prioridad: media
 \end{itemize}
 
 \item Esquemas eléctricos y de comunicación incluyendo los diagramas de conexiones entre los dispositivos.
-\item Plan de pruebas y resultados
-\item Memoria del trabajo final
+\item Plan de pruebas y resultados.
+\item Memoria del trabajo final.
 
 \end{itemize}
 
@@ -551,7 +551,7 @@ Prioridad: media
 \end{enumerate}
 \end{enumerate}
 
-\textbf{Cantidad total de horas: 600 }
+Cantidad total de horas: 600. 
 
 \newpage
 
@@ -796,42 +796,43 @@ Los valores de los precios están en pesos argentinos.
 
 a) Identificación de riesgos y consecuencias: \\
 \\
-Riesgo 1: incompatibilidad del módulo SIM800L con comunicación MQTT
+Riesgo 1: incompatibilidad del módulo SIM800L con comunicación MQTT.
 \begin{itemize}
-\item Severidad (S): 8\\
-Justificación: requeriría rediseñar todo el sistema de comunicación, impactando en el cronograma.
-\item Probabilidad (O): 6\\
+\item Severidad (S): 8.\\
+Justificación: requeriría rediseñar todo el sistema de comunicación lo que impactaría en el cronograma.
+\item Probabilidad (O): 6.\\
 Justificación: el SIM800L tiene limitaciones conocidas para implementar MQTT de forma estable.
 \end{itemize}
 
-Riesgo 2: fallas prolongadas en la conexión GPRS
+Riesgo 2: fallas prolongadas en la conexión GPRS.
 \begin{itemize}
-\item Severidad (S): 7\\
-Justificación: pérdida de datos críticos de tránsito durante los periodos sin conexión.
-\item Probabilidad (O): 7\\
-Justificación: Las redes celulares en zonas rurales suelen tener intermitencias frecuentes.
+\item Severidad (S): 7.\\
+Justificación: pérdida de datos críticos de tránsito durante los períodos sin conexión.
+\item Probabilidad (O): 7.\\
+Justificación: las redes celulares en zonas rurales suelen tener intermitencias frecuentes.
 \end{itemize}
 
-Riesgo 3: saturación de la memoria RAM del ESP32-C3
+Riesgo 3: saturación de la memoria RAM del ESP32-C3.
 \begin{itemize}
-\item Severidad (S): 6\\
+\item Severidad (S): 6.\\
 Justificación: pérdida de datos no transmitidos.
-\item Probabilidad (O): 5\\
+\item Probabilidad (O): 5.\\
 Justificación: depende del volumen de tráfico y frecuencia de eventos.
 \end{itemize}
 
-Riesgo 4: vulnerabilidades de seguridad en la comunicación
+Riesgo 4: vulnerabilidades de seguridad en la comunicación.
 \begin{itemize}
-\item Severidad (S): 8\\
+\item Severidad (S): 8.\\
 Justificación: podría permitir acceso no autorizado o manipulación de datos.
-\item Probabilidad (O): 4\\
+\item Probabilidad (O): 4.\\
 Justificación: el uso de protocolos seguros reduce este riesgo.
 \end{itemize}
 
-Riesgo 5: incompatibilidad del protocolo RS232 con el contador desarrollado por María Clara Cutrone
+Riesgo 5: incompatibilidad del protocolo RS232 con el contador desarrollado por María Clara Cutrone.
 \begin{itemize}
-\item Severidad dependencia de desarrollo externo y posible incompatibilidad o falta de documentación.
-\item Probabilidad (O): 5\\
+\item Severidad (S): 7. 
+Justificación: dependencia de desarrollo externo y posible incompatibilidad o falta de documentación.
+\item Probabilidad (O): 5.\\
 Justificación: riesgo moderado dado que el protocolo RS232 es estándar, pero la implementación específica puede variar.
 \end{itemize}
 
@@ -857,32 +858,32 @@ Se tomarán medidas de mitigación en riesgos con RPN > 30.
 c) Plan de mitigación:
 
 
-Riesgo 1: incompatibilidad SIM800L/MQTT
+Riesgo 1: incompatibilidad SIM800L/MQTT.
 \begin{itemize}
 \item Mitigación: implementar protocolo HTTP como alternativa, usando POST para enviar datos.
-\item S: 5 (impacto reducido al tener alternativa funcional)
-\item O: 3 (solución probada y documentada)
+\item S*: 5 (impacto reducido al tener alternativa funcional)
+\item O*: 3 (solución probada y documentada)
 \end{itemize}
 
-Riesgo 2: fallas conexión GPRS
+Riesgo 2: fallas conexión GPRS.
 \begin{itemize}
 \item Mitigación: implementar almacenamiento local persistente y lógica de reintentos inteligente.
 \item S*: 5 (datos se recuperan post-reconexión)
 \item O*: 4 (mejora en manejo de desconexiones)
 \end{itemize}
 
-Riesgo 4: vulnerabilidades seguridad
+Riesgo 4: vulnerabilidades seguridad.
 \begin{itemize}
-\item Mitigación: implementar autenticación por tokens JWT.
-\item S: 6 (reduce impacto de posibles ataques)
-\item O: 2 (medidas comprobadas reducen vulnerabilidades)
+\item Mitigación: implementar autenticación por \textit{tokens} JWT.
+\item S*: 6 (reduce impacto de posibles ataques)
+\item O*: 2 (medidas comprobadas reducen vulnerabilidades)
 \end{itemize}
 
-Riesgo 5: incompatibilidad protocolo RS232 con contador
+Riesgo 5: incompatibilidad protocolo RS232 con contador.
 \begin{itemize}
-\item Mitigación: coordinar con María Clara Cutrone para validar y documentar la interfaz RS232; realizar pruebas de integración tempranas.
+\item Mitigación: coordinar con María Clara Cutrone para validar y documentar la interfaz RS232. Realizar pruebas de integración tempranas.
 \item S*: 5 (reducción del impacto con mejor conocimiento)
-\item O*: 3 (mejora en la probabilidad al estar en contacto con desarrolladora)
+\item O*: 3 (mejora en la probabilidad al estar en contacto con la desarrolladora)
 \end{itemize}
 
 
@@ -894,73 +895,73 @@ Riesgo 5: incompatibilidad protocolo RS232 con contador
 
 \begin{itemize} 
 
-\item Req \#1: El ESP32-C3 debe recibir datos por interfaz RS-232 desde el sistema de detección.
+\item Req \#1: el ESP32-C3 debe recibir datos por interfaz RS-232 desde el sistema de detección.
 
 \begin{itemize}
-	\item Verificación: realizar pruebas de laboratorio con el sistema de detección enviando datos por RS-232 y monitorear que el ESP32-C3 los reciba correctamente sin pérdidas ni errores. Se usan analizadores lógicos y herramientas de debug para observar la comunicación interna.
+	\item Verificación: realizar pruebas de laboratorio con el sistema de detección enviando datos por RS-232 y monitorear que el ESP32-C3 los reciba correctamente sin pérdidas ni errores. Se usan analizadores lógicos y herramientas de \textit{debug} para observar la comunicación interna.
 	\item Validación: demostrar con el cliente la recepción en tiempo real de eventos generados en el sistema de detección y confirmación del correcto procesamiento de datos.
 \end{itemize}
 
-\item Req \#3: El ESP32-C3 debe publicar cada mensaje de la cola a un \textit{broker} MQTT remoto usando GPRS.
+\item Req \#3: el ESP32-C3 debe publicar cada mensaje de la cola a un \textit{broker} MQTT remoto usando GPRS.
 
 \begin{itemize}
-	\item Verificación: simular eventos y verificar en laboratorio que el ESP32-C3 publique correctamente cada mensaje a un broker MQTT configurado, validando los logs y el orden de envío.
+	\item Verificación: simular eventos y verificar en laboratorio que el ESP32-C3 publique correctamente cada mensaje a un \textit{broker} MQTT configurado, validando los \textit{logs} y el orden de envío.
 	\item Validación: mostrar al cliente la recepción de mensajes en el sistema remoto bajo diferentes condiciones de conectividad y volumen de datos.
 \end{itemize}
 
-\item Req \#4: El protocolo MQTT debe utilizar QoS 1 o 2 para asegurar la entrega sin duplicación.
+\item Req \#4: el protocolo MQTT debe utilizar QoS 1 o 2 para asegurar la entrega sin duplicación.
 
 \begin{itemize}
-	\item Verificación: testear la implementación con broker MQTT que soporte QoS 1 y 2, revisando que no haya duplicados en la recepción y confirmando los mecanismos de ACK.
+	\item Verificación: testear la implementación con \textit{broker} MQTT que soporte QoS 1 y 2, revisar que no haya duplicados en la recepción y confirmarlos mecanismos de ACK.
 	\item Validación: validar con el cliente que los datos recibidos en el backend no presentan duplicaciones y que la información es consistente.
 \end{itemize}
 
-\item Req \#5: Debe haber control de reintentos ante fallos de conexión sin duplicar mensajes.
+\item Req \#5: debe haber control de reintentos ante fallos de conexión sin duplicar mensajes.
 
 \begin{itemize}
-	\item Verificación: en laboratorio interrumpir la conexión GPRS y observar que el ESP32-C3 hace reintentos controlados, sin duplicar mensajes en el broker.
-	\item Validación: el cliente valida que durante periodos de desconexión los datos no se pierden ni duplican, comprobando reportes posteriores.
+	\item Verificación: en laboratorio interrumpir la conexión GPRS y observar que el ESP32-C3 hace reintentos controlados, sin duplicar mensajes en el \textit{broker}.
+	\item Validación: el cliente valida que durante períodos de desconexión los datos no se pierden ni duplican, al comprobar reportes posteriores.
 \end{itemize}
 
-\item Req \#6: Si no hay conectividad GPRS disponible, los mensajes deben permanecer en la cola en memoria.
+\item Req \#6: si no hay conectividad GPRS disponible, los mensajes deben permanecer en la cola en memoria.
 
 \begin{itemize}
 	\item Verificación: simular falta de conectividad y verificar que los mensajes se almacenan en cola interna y se publican una vez restaurada la conexión.
 	\item Validación: el cliente confirma que no se pierden eventos durante desconexiones y que la cola gestiona adecuadamente la memoria.
 \end{itemize}
 
-\item Req \#8: El ESP32-C3 debe suscribirse a un \textit{topic} MQTT para recibir comandos desde el servidor.
+\item Req \#8: el ESP32-C3 debe suscribirse a un \textit{topic} MQTT para recibir comandos desde el servidor.
 
 \begin{itemize}
-	\item Verificación: comprobar en pruebas que el ESP32-C3 se suscribe correctamente y recibe comandos publicados en el topic específico.
+	\item Verificación: comprobar en pruebas que el ESP32-C3 se suscribe correctamente y recibe comandos publicados en el \textit{topic} específico.
 	\item Validación: demostrar al cliente que los comandos enviados desde el servidor llegan y se interpretan correctamente en el dispositivo.
 \end{itemize}
 
-\item Req \#11: La API REST debe poder enviar comandos al ESP32-C3 publicando en el \textit{topic} correspondiente.
+\item Req \#11: la API REST debe poder enviar comandos al ESP32-C3 publicando en el \textit{topic} correspondiente.
 
 \begin{itemize}
-	\item Verificación: probar en laboratorio la API REST enviando comandos y confirmar la publicación correcta en MQTT.
+	\item Verificación: probar en laboratorio la API REST mediante el envío de comandos y confirmar la publicación correcta en MQTT.
 	\item Validación: el cliente verifica que los comandos emitidos desde la API llegan efectivamente al dispositivo y se ejecutan.
 \end{itemize}
 
-\item Req \#15: Probar recepción de comandos desde el servidor y respuesta correcta.
+\item Req \#15: probar recepción de comandos desde el servidor y respuesta correcta.
 
 \begin{itemize}
-	\item Verificación: realizar pruebas funcionales enviando comandos y validando que el ESP32-C3 responde con OK, error o estados según corresponda.
+	\item Verificación: realizar pruebas funcionales mediante el envío de comandos y validar que el ESP32-C3 responde con OK, error o estados según corresponda.
 	\item Validación: el cliente valida que el sistema responde adecuadamente ante comandos válidos y maneja errores según lo esperado.
 \end{itemize}
 
-\item Req \#18: La conexión MQTT debe incluir autenticación por credenciales.
+\item Req \#18: la conexión MQTT debe incluir autenticación por credenciales.
 
 \begin{itemize}
-	\item Verificación: revisar configuración de autenticación en el broker MQTT y probar conexiones con credenciales válidas e inválidas.
+	\item Verificación: revisar configuración de autenticación en el \textit{broker} MQTT y probar conexiones con credenciales válidas e inválidas.
 	\item Validación: el cliente confirma que el acceso está restringido y solo usuarios autorizados pueden conectarse y publicar/suscribirse.
 \end{itemize}
 
-\item Req \#19: La API REST debe requerir autenticación para el envío de comandos o consulta de datos.
+\item Req \#19: la API REST debe requerir autenticación para el envío de comandos o consulta de datos.
 
 \begin{itemize}
-	\item Verificación: probar mecanismos de autenticación (por ejemplo, tokens o claves) en la API REST, validando que rechaza accesos no autorizados.
+	\item Verificación: probar mecanismos de autenticación (por ejemplo, \textit{tokens} o claves) en la API REST y validar que rechaza accesos no autorizados.
 	\item Validación: el cliente verifica que solo usuarios autenticados pueden enviar comandos o consultar datos mediante la API.
 \end{itemize}
 
@@ -975,14 +976,14 @@ Para la realización de la reunión final de evaluación del proyecto se estable
 \begin{itemize}
     \item Análisis del plan de proyecto original: \\
      Responsable: el director del proyecto (profesor a cargo). \\
-     Procedimiento: se revisará el cronograma inicial, los entregables planificados y los resultados obtenidos, mediante la comparación con los reportes de avance elaborados durante el desarrollo del proyecto. 
+     Procedimiento: se revisarán el cronograma, los entregables y los resultados del proyecto, comparándolos con los reportes de avance realizados durante su desarrollo.
 
     \item Identificación de técnicas y procedimientos útiles e inútiles, problemas y soluciones: \\
      Responsables: el alumno con los  colaboradores. \\
      Procedimiento: se llevará a cabo una reflexión crítica sobre las herramientas y métodos empleados. Se documentarán los problemas surgidos y las soluciones aplicadas, con el objetivo de extraer lecciones aprendidas para futuras experiencias similares. Estas conclusiones se incluirán en un documento de cierre.
 
     \item Organización de un acto simbólico de cierre y agradecimiento: \\
-    Responsable: El director del proyecto y el alumno. \\
+    Responsable: el director del proyecto y el alumno. \\
     Procedimiento: se coordinará un breve encuentro (virtual) con el director para agradecer su participación. Se enviarán agradecimientos formales y se compartirá un resumen de los resultados obtenidos.
 \end{itemize}
 

@@ -1,6 +1,6 @@
  
 diapo 1:  Introducción (descripción técnica-conceptual) 
-El sistema que presentamos combina adquisición de datos de tránsito con la capacidad de gestionar el contador de forma remota.
+El sistema  combina adquisición de datos de tránsito con la capacidad de gestionar el contador de forma remota.
 
 Por un lado, cada vez que pasa un vehículo, el contador envía un evento al ESP32-C3 a través de la interfaz RS232. El microcontrolador recibe ese dato, lo formatea y lo transmite a un servidor remoto usando redes celulares, a través de un módulo SIM800L y el protocolo que resulte disponible —HTTP POST o MQTT.
 
