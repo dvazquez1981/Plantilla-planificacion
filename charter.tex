@@ -582,7 +582,7 @@ En la figura 3 se presenta el diagrama de Gantt correspondiente a la planificaci
     \begin{ganttchart}[
       time slot unit=day,
       time slot format=isodate,
-      x unit=0.120cm,
+      x unit=0.118cm,
       y unit title=0.6cm,
       y unit chart=0.5cm,
       milestone label font=\scriptsize,
@@ -652,7 +652,7 @@ En la figura 3 se presenta el diagrama de Gantt correspondiente a la planificaci
     \begin{ganttchart}[
       time slot unit=day,
       time slot format=isodate,
-     x unit=0.18cm,      % antes 0.120cm
+     x unit=0.155cm,      % antes 0.120cm
 y unit title=0.6cm,  % antes 0.6cm
 y unit chart=0.5cm, % antes 0.5cm
       milestone label font=\scriptsize,
@@ -727,86 +727,7 @@ Supuestos considerados para la planificación:
     \item Las tareas se desarrollan mayormente de forma secuencial, dado que se cuenta con un único recurso humano.
     \item Las actividades vinculadas a la gestión del proyecto se realizan en paralelo al desarrollo técnico.
 \end{itemize}
-\begin{figure}[htpb]
-  \begin{center}
-    \begin{ganttchart}[
-      time slot unit=day,
-      time slot format=isodate,
-      x unit=0.12cm,            % mismo ancho de día en ambas figuras
-      y unit title=0.6cm,
-      y unit chart=0.5cm,
-      group label font=\scriptsize,
-      bar label font=\tiny
-      ]{2025-05-01}{2025-08-11}
-      
-      % Títulos
-      \gantttitlecalendar*{2025-05-01}{2025-08-11}{year} \\
-      \gantttitlecalendar*{2025-05-01}{2025-08-11}{month} \\
-      
-      % Fases principales
-      \ganttgroup{1. Análisis y diseño}{2025-05-01}{2025-05-22} \\
-      \ganttgroup{2. Aprendizaje en tecnologías}{2025-05-23}{2025-06-06} \\
-      \ganttgroup{3. Desarrollo del firmware}{2025-06-07}{2025-07-06} \\
-      \ganttgroup{4. Testing firmware}{2025-07-07}{2025-07-13} \\
-      \ganttgroup{5. Documentación firmware}{2025-07-14}{2025-07-17} \\
-      \ganttgroup{6. Desarrollo API REST}{2025-07-18}{2025-08-11} \\
 
-      % Gestión y coordinación (como BARRAS para que cuadren exactamente)
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{14. Gestión y coord.}{2025-05-21}{2025-05-22} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-06-05}{2025-06-06} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-07-01}{2025-07-06} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-07-13}{2025-07-13} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-07-18}{2025-07-18} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-08-10}{2025-08-11} \\
-
-    \end{ganttchart}
-  \end{center}
-  \caption{\small Diagrama de Gantt parte 1 (sin subtareas).}
-  \label{fig:gantt1}
-\end{figure}
-
-
-\begin{figure}[htpb]
-  \begin{center}
-    \begin{ganttchart}[
-      time slot unit=day,
-      time slot format=isodate,
-      x unit=0.12cm,            % mismo ancho de día aquí también
-      y unit title=0.6cm,
-      y unit chart=0.5cm,
-      group label font=\scriptsize,
-      bar label font=\tiny
-      ]{2025-08-12}{2025-10-23}
-      
-      % Títulos
-      \gantttitlecalendar*{2025-08-12}{2025-10-23}{year} \\
-      \gantttitlecalendar*{2025-08-12}{2025-10-23}{month} \\
-      
-      % Fases principales
-      \ganttgroup{7. Testing API REST}{2025-08-12}{2025-08-16} \\
-      \ganttgroup{8. Documentación API REST}{2025-08-17}{2025-08-20} \\
-      \ganttgroup{9. Desarrollo interfaz web}{2025-08-21}{2025-09-11} \\
-      \ganttgroup{10. Testing interfaz web}{2025-09-12}{2025-09-16} \\
-      \ganttgroup{11. Documentación interfaz web}{2025-09-17}{2025-09-20} \\
-      \ganttgroup{12. Integración del sistema}{2025-09-21}{2025-10-04} \\
-      \ganttgroup{13. Pruebas del sistema}{2025-10-05}{2025-10-18} \\
-      \ganttgroup{15. Cierre del proyecto}{2025-10-19}{2025-10-23} \\
-
-      % Gestión y coordinación (continuación)
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{14. Gestión y coord.}{2025-08-15}{2025-08-16} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-08-19}{2025-08-20} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-09-10}{2025-09-11} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-09-15}{2025-09-16} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-09-19}{2025-09-20} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-09-30}{2025-10-04} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-10-17}{2025-10-18} \\
-      \ganttbar[bar/.append style={fill=cyan!40, draw=black}]{}{2025-10-23}{2025-10-23} \\
-
-    \end{ganttchart}
-  \end{center}
-  \caption{\small Diagrama de Gantt parte 2 (sin subtareas).}
-  \label{fig:gantt2}
-\end{figure}
 
 
 \section{12. Presupuesto detallado del proyecto}
