@@ -1,4 +1,4 @@
- 
+Hola buenas noches soy Diego Anibal Vazquez, spy ingeniero informatico recibido en fiuba, mi proyecto es sobre la Modernización de contadores de tránsito con comunicación bidireccional. 
 diapo 1:  Introducción (descripción técnica-conceptual) 
 El sistema  combina adquisición de datos de tránsito con la capacidad de gestionar el contador de forma remota.
 
@@ -8,25 +8,26 @@ Por otro lado, el ESP32-C3 puede enviar comandos de vuelta al contador: por ejem
 
 Finalmente, para asegurar la continuidad del servicio en zonas con conectividad intermitente, el sistema integra un buffer local: si la red falla, los datos se conservan y se envían automáticamente cuando la conexión se restablece.
 
+Cabe destacar que ademas se agregara una interfaz visual que permitira monitorear los conteos de transito y la ejecucion de los comandos de mantemiento.
+
 Con esta arquitectura, logramos un nodo de monitoreo de tránsito eficiente, autónomo y fácil de mantener, ideal para aplicaciones en rutas y entornos con cobertura celular variable.
 
 diapo 2: Interesados (stakeholders)
 Ahora veamos quiénes participan y se benefician de este proyecto:
 
-1. Cliente o usuario final: pueden ser organismos públicos o privados encargados de la gestión vial. Ellos necesitan datos precisos y en tiempo real para planificar intervenciones, optimizar rutas y mejorar la seguridad.
+1. Cliente o usuario final: pueden ser organismos públicos o privados encargados de la gestión vial. Ellos necesitan datos precisos  para planificar intervenciones, optimizar rutas y mejorar la seguridad.
 
-2. Equipo de desarrollo: en este caso, nosotros como responsables del diseño del firmware en el ESP32-C3, la integración con el SIM800L y la gestión de la comunicación. Somos quienes traducimos los requerimientos en código y pruebas.
+2. Equipo de desarrollo: en este caso, so yo el responsable del diseño del firmware en el ESP32-C3, la integración con el SIM800L y la gestión de la comunicación. 
 
-3. Proveedor del contador RS232: trabajamos con el diseño de María Clara Cutrone, quien desarrolló el contador de tránsito. Su aporte técnico nos permitió entender el protocolo de comunicación y garantizar que el ESP32-C3 hablara el mismo “idioma” a través de RS232.
+3. Proveedor del contador RS232: trabajamos con el diseño de María Clara Cutrone, quien desarrolló el contador de tránsito. Su aporte técnico nos permitira entender el protocolo de comunicación y garantizar que el ESP32-C3 hablara el mismo “idioma” a través de RS232.
 
 4. Equipo de operaciones y técnicos de campo: son los encargados de instalar, mantener y monitorear el dispositivo una vez desplegado. Necesitan documentación clara, diagnósticos remotos y herramientas para actualizar o reconfigurar el contador sin desplazarse a cada sitio.
 
-Identificar sus expectativas y necesidades fue fundamental para definir los requerimientos, la interfaz de comando y la estrategia de validación del sistema.
 
 diapo 3: Propósito
 El propósito de este proyecto es múltiple y complementario:
 
-1. Recolectar datos de tránsito en tiempo real: Registrar cada paso de vehículo detectado por el contador y formatearlo para su envío.
+1. Recolectar datos de tránsito: Registrar cada paso de vehículo detectado por el contador y formatearlo para su envío.
 
 2. Transmisión confiable a servidor remoto: Utilizar redes celulares para enviar la información, eligiendo entre HTTP POST o MQTT según condiciones de red.
 
@@ -36,27 +37,27 @@ El propósito de este proyecto es múltiple y complementario:
 
 5. Seguridad y autenticidad: Proteger la integridad de los datos usando autenticación con tokens JWT y cifrado TLS, garantizando que solo sistemas autorizados puedan enviar o recibir información.
 
-Con estos objetivos claros, buscamos un sistema que aporte valor real al monitoreo vial, reduciendo costos de mantenimiento y mejorando la calidad de la información disponible.
+Con estos objetivos, se busca un sistema que aporte valor real al monitoreo vial, reduciendo costos de mantenimiento y mejorando la calidad de la información disponible.
 
 
 diapo 4: alcance
-n cuanto al alcance, definimos claramente lo que este proyecto abarca y lo que queda fuera.
+Definimos claramente lo que este proyecto abarca y lo que queda fuera.
 
 Incluye:
 
-El firmware completo para el ESP32-C3, que cubre la lectura de eventos por RS232, el almacenamiento temporal en buffer y la transmisión de datos.
+El firmware completo para el ESP32-C3, que cubre la lectura de eventos por RS232, el almacenamiento temporal en buffer, la transmisión de datos y comandos.
 
 La integración con el contador existente, asegurando compatibilidad de protocolos.
 
-La comunicación GPRS mediante el módulo SIM800L, usando tanto HTTP POST como MQTT según disponibilidad de la red.
+La comunicación GPRS mediante el módulo SIM800L, usando MQTT según disponibilidad de la red.
 
 La capacidad de gestión remota: envío de comandos para reconfiguración, reinicios y diagnósticos sin necesidad de desplazarnos.
 
 Un mecanismo de almacenamiento local de datos y reintentos automáticos, para garantizar la resiliencia ante cortes de conectividad.
 
-El desarrollo de un backend o plataforma visual de análisis
-Una interfaz gráfica de usuario: tampoco abordamos la capa de presentación, sino la adquisición y transmisión de datos.
+El desarrollo de un backend o plataforma visual de análisis de datos
 
+Una interfaz gráfica de usuario
 
 No incluye:
 
@@ -72,7 +73,7 @@ El dispositivo debe leer cada evento de tránsito enviado por el contador a trav
 
 Si no hay cobertura celular, debe almacenar esos eventos en un buffer interno hasta que la red esté disponible.
 
-Cuando hay conexión, transmite la información a un servidor remoto usando HTTP POST o MQTT.
+Cuando hay conexión, transmite la información a un servidor remoto usando  MQTT.
 
 Además, permite recibir comandos desde el servidor para gestionar el contador: reinicios, cambios de configuración, diagnóstico.
 
@@ -80,18 +81,14 @@ Y mantiene un registro de logs detallado para facilitar la depuración y el moni
 
 No funcionales:
 
-La seguridad es fundamental: todas las comunicaciones se autentican con tokens JWT y se cifran con TLS.
+La seguridad es fundamental: todas las comunicaciones se autentican con tokens JWT 
 
 El sistema debe ser resiliente, implementando reintentos escalonados y reconectándose automáticamente.
 
-Debe utilizar los recursos de CPU y memoria de forma eficiente, para funcionar incluso en entornos con energía limitada.
 
 El código se diseñó con modularidad y está bien documentado, facilitando su mantenimiento y futuras mejoras.
 
 Por último, la portabilidad: la arquitectura permite cambiar el contador o el tipo de red celular con mínimos ajustes.
-
-diapo 6: Requerimientos no funcionales
- cuanto a los no funcionales: el sistema debe ser energéticamente eficiente, ya que puede funcionar con alimentación solar; el firmware debe ser estable y fácilmente actualizable; debe estar documentado para futuros mantenimientos. También debe usar estándares conocidos como RS232 y protocolos HTTP para facilitar la interoperabilidad con otros dispositivos o servicios.
  
 diapo 7;
 
@@ -159,7 +156,7 @@ El cuarto riesgo identificado es la vulnerabilidad de la comunicación: un ataca
 
 Con severidad de 8 y probabilidad de 4, calculamos un RPN original de 32, lo que lo sitúa en zona crítica.
 
-Para mitigarlo, implementamos autenticación mediante tokens JWT y cifrado TLS en la capa de transporte. Esto garantiza que solo dispositivos autorizados puedan conectarse y que los datos no puedan leerse ni modificarse en tránsito.
+Para mitigarlo, implementamos autenticación mediante tokens JWT S en la capa de transporte. Esto garantiza que solo dispositivos autorizados puedan conectarse y que los datos no puedan leerse ni modificarse en tránsito.
 
 Como resultado, la severidad y la probabilidad disminuyeron, dejando el RPN mitigado en 12, bien por debajo del umbral crítico.
 
