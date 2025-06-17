@@ -35,8 +35,6 @@ Diapositiva 3: Propósito
 cambios de configuración o diagnósticos sin desplazar personal.
 4. Resiliencia ante fallos de red: Implementar un buffer local que almacena eventos cuando no hay cobertura y 
 los retransmite automáticamente al restablecerse la conexión.
-5. Seguridad y autenticidad: Proteger la integridad de los datos usando autenticación con tokens JWT, garantizando que solo sistemas autorizadosrecibir información.
-
 Con estos objetivos, se busca un sistema que aporte valor real al monitoreo vial, reduciendo costos de mantenimiento y mejorando la calidad de la información disponible.
 
 Diapositiva 4: Alcance
@@ -104,7 +102,7 @@ Mitigación: buffer local persistente y reintentos escalonados → RPN mitigado:
 El segundo riesgo es la intermitencia o caída prolongada de la red GPRS, que puede impedir la transmisión de datos por largos periodos.
 Lo evaluamos con severidad 7 y probabilidad 7, lo que nos dio un RPN original de 49, claramente por encima del umbral crítico.
 Como medida de mitigación, implementamos un buffer local persistente que almacena los eventos mientras no haya red, y una lógica
-de reintentos inteligentemente escalonados, que evita agotar la batería o saturar la red cuando vuelve la cobertura.
+de reintentos inteligentemente escalonados.
 Estas acciones redujeron el RPN a 20, situándolo en un rango controlable y garantizando que el sistema recupere y
  transmita toda la información cuando la conexión se restablezca.
 
@@ -135,20 +133,96 @@ Finalmente, el quinto riesgo es que el protocolo RS232 implementado en el contad
 lo que impide la correcta interpretación de datos.
 Con severidad de 7 y probabilidad de 5, el RPN original fue de 35, un riesgo alto.
 Para mitigarlo, coordinamos desde el inicio con la desarrolladora del contador, realizamos pruebas de integración tempranas y documentamos en detalle las tramas 
-y parámetros RS232. Además, añadimos validaciones de checksum en el firmware para detectar rápidamente cualquier desalineación de formato.
+y parámetros RS232.
 Estas acciones redujeron el RPN a 15, asegurando que podamos ajustarnos rápidamente a cambios menores y mantener la compatibilidad.
 
 
-Diapositiva 16: Gestión de calidad
-- Validación funcional en entorno controlado simulando eventos reales.
-- Pruebas con conectividad intermitente para validar almacenamiento local y reenvío.
-- Pruebas de comandos remotos desde el servidor (reinicios, cambios de modo, etc).
-- Verificación de llegada de datos en el servidor: sin pérdidas, duplicados y con timestamps.
-- Control de versiones del firmware y backend.
-- Documentación técnica completa.
+
+
+
+ 1. El ESP32-C3 debe recibir datos por RS-232 desde el sistema de detección
+Verificación:
+
+Conexión del sistema de detección al ESP32-C3.
+
+Uso de analizador lógico para monitorear la trama.
+
+Logging interno del ESP32-C3 para comprobar recepción.
+
+Comparación de datos enviados y recibidos.
+
+Validación:
+
+Demostración ante el cliente con eventos reales.
+
+Visualización en tiempo real de eventos recibidos.
+
+Confirmación de correspondencia entre evento generado y recibido.
+
+
+✅ 2. Publicar cada mensaje a un broker MQTT remoto por GPRS
+Verificación:
+
+Simulación de eventos en la cola del ESP32-C3.
+
+Envío por GPRS hacia broker remoto.
+
+Validación de logs y orden de mensajes en el broker.
+
+Uso de herramientas como MQTT.fx o Node-RED.
+
+Validación:
+
+Cliente observa recepción en tiempo real en el sistema remoto.
+
+Confirmación de orden y formato correcto de mensajes.
+
+Prueba con interrupción/reconexión de red.
+
+
+✅ 3. Reintentos automáticos ante fallos de conexión, sin duplicación de mensajes
+Verificación:
+
+Simulación de caída de red GPRS.
+
+Generación de eventos durante desconexión.
+
+Observación de reintentos en logs del ESP32-C3.
+
+Validación de no duplicación en el broker.
+
+Validación:
+
+Cliente verifica que los eventos se recuperan tras reconexión.
+
+Confirmación de no pérdida ni duplicación de datos.
+
+Evidencia en backend y reporte de logs.
+
+✅ 4. Mantener mensajes en cola en memoria si no hay conectividad GPRS
+Verificación:
+
+Simulación de desconexión prolongada.
+
+Generación de eventos que se acumulan en la cola.
+
+Validación de uso controlado de memoria.
+
+Envío posterior una vez restaurada la red.
+
+Validación:
+
+Cliente valida que los mensajes no se pierden.
+
+Se conserva el orden de envío.
+
+Se muestra evidencia del almacenamiento y reenvío exitoso.
+
+
+
 
 Diapositiva 17: Cierre
-Se cumplieron los principales objetivos:
+Se intentara concretar  los principales objetivos:
 - Comunicación bidireccional confiable.
 - Funcionamiento validado en entorno de prueba con conectividad real.
 - Riesgos mitigados y RPN reducidos a valores aceptables.
