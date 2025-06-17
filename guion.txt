@@ -2,100 +2,95 @@ Hola, buenas noches. Soy Diego Aníbal Vázquez, soy ingeniero informático reci
 Mi proyecto es sobre la Modernización de contadores de tránsito con comunicación bidireccional.
 
 Diapositiva 1: Introducción (descripción técnica-conceptual)
-
 El sistema combina adquisición de datos de tránsito con la capacidad de gestionar el contador de forma remota.
 Por un lado, cada vez que pasa un vehículo, el contador envía un evento al ESP32-C3 a través de la interfaz RS232.
-El microcontrolador recibe ese dato, lo formatea y lo transmite a un servidor remoto usando redes celulares, a través de un módulo SIM800L mediante MQTT.
-Por otro lado, el ESP32-C3 puede enviar comandos de vuelta al contador: por ejemplo, para reiniciarlo, ajustar parámetros o solicitar datos de diagnóstico. Esta comunicación bidireccional garantiza que podamos no solo leer la información, sino también controlar y mantener el contador sin necesidad de visitas de campo.
-Además, para asegurar la continuidad del servicio en zonas con conectividad intermitente, el sistema integrará un buffer local: si la red falla, los datos se conservan y se envían automáticamente cuando la conexión se restablece.
-Cabe destacar que además se agregará una interfaz visual que permitirá monitorear los conteos de tránsito y la ejecución de los comandos de mantenimiento.
-Con esta arquitectura, logramos un nodo de monitoreo de tránsito eficiente, autónomo y fácil de mantener, ideal para rutas y entornos con cobertura celular variable.
+El microcontrolador recibe ese dato, lo formatea y lo transmite a un servidor remoto usando redes celulares,
+a través de un módulo SIM800L mediante MQTT.
+Por otro lado, el ESP32-C3 puede enviar comandos de vuelta al contador: por ejemplo, para reiniciarlo,
+ajustar parámetros o solicitar datos de diagnóstico. Esta comunicación bidireccional garantiza que
+podamos no solo leer la información, sino también controlar y mantener el contador sin necesidad de visitas de campo.
+Además, para asegurar la continuidad del servicio en zonas con conectividad intermitente,
+el sistema integrará un buffer local: si la red falla, los datos se conservan y se envían
+automáticamente cuando la conexión se restablece.
+Cabe destacar que además se agregará una interfaz visual que permitirá monitorear
+los conteos de tránsito y la ejecución de los comandos de mantenimiento.
+Con esta arquitectura, logramos un nodo de monitoreo de tránsito eficiente, autónomo y fácil de mantener,
+ideal para rutas y entornos con cobertura celular variable.
 
 Diapositiva 2: Interesados (stakeholders)
 
 Ahora veamos quiénes participan y se benefician de este proyecto:
-
-Cliente o usuario final: pueden ser organismos públicos o privados encargados de la gestión vial. Ellos necesitan datos precisos para planificar intervenciones, optimizar rutas y mejorar la seguridad.
-
-Equipo de desarrollo: en este caso, soy yo el responsable del diseño del firmware en el ESP32-C3, la integración con el SIM800L y la gestión de la comunicación.
-
-Proveedor del contador RS232: trabajamos con el diseño de María Clara Cutrone, quien desarrolló el contador de tránsito. Este aporte técnico nos permitirá entender el protocolo de comunicación y garantizar que el ESP32-C3 hablara el mismo “idioma” a través de RS232.
-
-Equipo de operaciones y técnicos de campo: son los encargados de instalar, mantener y monitorear el dispositivo una vez desplegado. Necesitan documentación clara, diagnósticos remotos y herramientas para actualizar o reconfigurar el contador sin desplazarse a cada sitio.
+Cliente o usuario final: pueden ser organismos públicos o privados encargados de la gestión vial.
+Ellos necesitan datos precisos para planificar intervenciones, optimizar rutas y mejorar la seguridad.
+Equipo de desarrollo: en este caso, soy yo el responsable del diseño del firmware en el ESP32-C3,
+la integración con el SIM800L y la gestión de la comunicación.
+Proveedor del contador RS232: trabajamos con el diseño de María Clara Cutrone,
+ quien desarrolló el contador de tránsito. Este aporte técnico nos permitirá entender
+ el protocolo de comunicación y garantizar que el ESP32-C3 hablara el mismo “idioma” a través de RS232.
+Equipo de operaciones y técnicos de campo: son los encargados de instalar, mantener y monitorear
+el dispositivo una vez desplegado. Necesitan documentación clara, diagnósticos remotos y
+herramientas para actualizar o reconfigurar el contador sin desplazarse a cada sitio.
 
 Diapositiva 3: Propósito
 
-Recolectar datos de tránsito: Registrar cada paso de vehículo detectado por el contador y formatearlo para su envío.
-
-Transmisión confiable a servidor remoto: Utilizar redes celulares para enviar la información, usando MQTT según condiciones de red.
-
-Gestión remota del contador: No se trata solo de obtener datos, sino también de poder enviar comandos al contador para reinicios, cambios de configuración o diagnósticos sin desplazar personal.
-
-Resiliencia ante fallos de red: Implementar un buffer local que almacena eventos cuando no hay cobertura y los retransmite automáticamente al restablecerse la conexión.
-
-Con estos objetivos, se busca un sistema que aporte valor real al monitoreo vial, reduciendo costos de mantenimiento y mejorando la calidad de la información disponible.
+-Recolectar datos de tránsito: Registrar cada paso de vehículo detectado por el contador y formatearlo para su envío.
+-Transmisión confiable a servidor remoto: Utilizar redes celulares para enviar la información,
+usando MQTT según condiciones de red.
+-Gestión remota del contador: No se trata solo de obtener datos, sino también de poder enviar comandos al contador para reinicios,
+cambios de configuración o diagnósticos sin desplazar personal.
+-Resiliencia ante fallos de red: Implementar un buffer local que almacena eventos cuando no hay cobertura y
+los retransmite automáticamente al restablecerse la conexión.
+Con estos objetivos, se busca un sistema que aporte valor real al monitoreo vial,
+reduciendo costos de mantenimiento y mejorando la calidad de la información disponible.
 
 Diapositiva 4: Alcance
 
 Incluye:
 
-El firmware completo para el ESP32-C3, que cubre la lectura de eventos por RS232, el almacenamiento temporal en buffer, la transmisión de datos y comandos.
-
-La integración con el contador existente, asegurando compatibilidad de protocolos.
-
-La comunicación GPRS mediante el módulo SIM800L, usando MQTT según disponibilidad de la red.
-
-La capacidad de gestión remota: envío de comandos para reconfiguración, reinicios y diagnósticos sin necesidad de desplazarnos.
-
-Un mecanismo de almacenamiento local de datos y reintentos automáticos, para garantizar la resiliencia ante cortes de conectividad.
-
-El desarrollo de un backend o plataforma visual de análisis de datos
-
-Una interfaz gráfica de usuario
+-El firmware completo para el ESP32-C3, que cubre la lectura de eventos por RS232,
+el almacenamiento temporal en buffer, la transmisión de datos y comandos.
+-La integración con el contador existente, asegurando compatibilidad de protocolos.
+-La comunicación GPRS mediante el módulo SIM800L, usando MQTT según disponibilidad de la red.
+-La capacidad de gestión remota: envío de comandos para reconfiguración,
+reinicios y diagnósticos sin necesidad de desplazarnos.
+-Un mecanismo de almacenamiento local de datos y reintentos automáticos, para garantizar
+la resiliencia ante cortes de conectividad.
+-El desarrollo de un backend o plataforma visual de análisis de datos
+-Una interfaz gráfica de usuario
 
 No incluye:
-
-La instalación física en campo, que se considerará en una siguiente fase de despliegue.
+-La instalación física en campo, que se considerará en una siguiente fase de despliegue.
 
 Diapositiva 5: Requerimientos
 
 Funcionales:
 
-El dispositivo debe leer cada evento de tránsito enviado por el contador a través de RS232.
-
-Si no hay cobertura celular, debe almacenar esos eventos en un buffer interno hasta que la red esté disponible.
-
-Cuando hay conexión, transmite la información a un servidor remoto usando MQTT.
-
-Además, permite recibir comandos desde el servidor para gestionar el contador: reinicios, cambios de configuración, diagnóstico.
-
-Y mantiene un registro de logs detallado para facilitar la depuración y el monitoreo.
+-El dispositivo debe leer cada evento de tránsito enviado por el contador a través de RS232.
+-Si no hay cobertura celular, debe almacenar esos eventos en un buffer interno hasta que la red esté disponible.
+-Cuando hay conexión, transmite la información a un servidor remoto usando MQTT.
+-Además, permite recibir comandos desde el servidor para gestionar el contador: reinicios, cambios de configuración, diagnóstico.
+-Y mantiene un registro de logs detallado para facilitar la depuración y el monitoreo.
 
 No funcionales:
 
-La seguridad es fundamental: todas las comunicaciones con el backend serán con tokens JWT y las autorizaciones serán según el grupo al que pertenezca.
-
-El sistema debe ser resiliente, implementando reintentos escalonados y reconectándose automáticamente.
-
-El código se diseñó con modularidad y está bien documentado, facilitando su mantenimiento y futuras mejoras.
-
-Por último, la portabilidad: la arquitectura permite cambiar el contador o el tipo de red celular con mínimos ajustes.
+-La seguridad es fundamental: todas las comunicaciones con el backend serán con tokens JWT y las autorizaciones serán
+según el grupo al que pertenezca.
+-El sistema debe ser resiliente, implementando reintentos escalonados y reconectándose automáticamente.
+-El código se diseñará con modularidad y está bien documentado, facilitando su mantenimiento y futuras mejoras.
+-Portabilidad: la arquitectura permite cambiar el contador o el tipo de red celular con mínimos ajustes.
 
 Diapositiva 9: Riesgos
 
 Identificamos cinco riesgos críticos:
 
-SIM800L ↔ MQTT: problemas de compatibilidad con el broker.
+-SIM800L ↔ MQTT: problemas de compatibilidad con el broker.
+-Cortes de GPRS: pérdida de datos si la red falla.
+-Saturación de RAM: riesgo de reinicios o pérdida de eventos.
+-Vulnerabilidades: manipulación de datos.
+-RS232 externo: el contador podría cambiar su protocolo.
 
-Cortes de GPRS: pérdida de datos si la red falla.
-
-Saturación de RAM: riesgo de reinicios o pérdida de eventos.
-
-Vulnerabilidades: manipulación de datos.
-
-RS232 externo: el contador podría cambiar su protocolo.
-
-Cada riesgo se evaluó con un RPN (Severidad × Probabilidad). Definimos como crítico cualquier RPN por encima de 30, lo que nos permitió priorizar acciones de mitigación.
+Cada riesgo se evaluó con un RPN (Severidad × Probabilidad). Definimos como crítico cualquier RPN por encima de 30,
+lo que nos permitió priorizar acciones de mitigación.
 
 Nuestras estrategias fueron:
 
@@ -152,99 +147,70 @@ Con severidad de 7 y probabilidad de 5, el RPN original fue de 35, un riesgo alt
 Para mitigarlo, coordinamos desde el inicio con la desarrolladora del contador, realizamos pruebas de integración tempranas y documentamos en detalle las tramas y parámetros RS232.
 Estas acciones redujeron el RPN a 15, asegurando que podamos ajustarnos rápidamente a cambios menores y mantener la compatibilidad.
 
-Verificación y Validación (ejemplo de ítems)
+gestion de riegos
 
 El ESP32-C3 debe recibir datos por RS-232 desde el sistema de detección
-
 Verificación:
-
-Conexión del sistema de detección al ESP32-C3.
-
-Uso de analizador lógico para monitorear la trama.
-
-Logging interno del ESP32-C3 para comprobar recepción.
-
-Comparación de datos enviados y recibidos.
+-Conexión del sistema de detección al ESP32-C3.
+-Uso de analizador lógico para monitorear la trama.
+-Logging interno del ESP32-C3 para comprobar recepción.
+-Comparación de datos enviados y recibidos.
 
 Validación:
+-Demostración ante el cliente con eventos reales.
+-Visualización en tiempo real de eventos recibidos.
+-Confirmación de correspondencia entre evento generado y recibido.
 
-Demostración ante el cliente con eventos reales.
-
-Visualización en tiempo real de eventos recibidos.
-
-Confirmación de correspondencia entre evento generado y recibido.
 
 Publicar cada mensaje a un broker MQTT remoto por GPRS
 
 Verificación:
-
-Simulación de eventos en la cola del ESP32-C3.
-
-Envío por GPRS hacia broker remoto.
-
-Validación de logs y orden de mensajes en el broker.
-
-Uso de herramientas como MQTT.fx o Node-RED.
+-Simulación de eventos en la cola del ESP32-C3.
+-Envío por GPRS hacia broker remoto.
+-Validación de logs y orden de mensajes en el broker.
+-Uso de herramientas como MQTT.fx o Node-RED.
 
 Validación:
-
-Cliente observa recepción en tiempo real en el sistema remoto.
-
-Confirmación de orden y formato correcto de mensajes.
-
-Prueba con interrupción/reconexión de red.
-
-Reintentos automáticos ante fallos de conexión, sin duplicación de mensajes
+-Cliente observa recepción en tiempo real en el sistema remoto.
+-Confirmación de orden y formato correcto de mensajes.
+-Prueba con interrupción/reconexión de red.
+-Reintentos automáticos ante fallos de conexión, sin duplicación de mensajes
 
 Verificación:
-
-Simulación de caída de red GPRS.
-
-Generación de eventos durante desconexión.
-
-Observación de reintentos en logs del ESP32-C3.
-
-Validación de no duplicación en el broker.
+-Simulación de caída de red GPRS.
+-Generación de eventos durante desconexión.
+-Observación de reintentos en logs del ESP32-C3.
+-Validación de no duplicación en el broker.
 
 Validación:
-
-Cliente verifica que los eventos se recuperan tras reconexión.
-
-Confirmación de no pérdida ni duplicación de datos.
-
-Evidencia en backend y reporte de logs.
+-Cliente verifica que los eventos se recuperan tras reconexión.
+-Confirmación de no pérdida ni duplicación de datos.
+-Evidencia en backend y reporte de logs.
 
 Mantener mensajes en cola en memoria si no hay conectividad GPRS
-
 Verificación:
-
-Simulación de desconexión prolongada.
-
-Generación de eventos que se acumulan en la cola.
-
-Validación de uso controlado de memoria.
-
-Envío posterior una vez restaurada la red.
+-Simulación de desconexión prolongada.
+-Generación de eventos que se acumulan en la cola.
+-Validación de uso controlado de memoria.
+-Envío posterior una vez restaurada la red.
 
 Validación:
 
-Cliente valida que los mensajes no se pierden.
-
-Se conserva el orden de envío.
-
-Se muestra evidencia del almacenamiento y reenvío exitoso.
+-Cliente valida que los mensajes no se pierden.
+-Se conserva el orden de envío.
+-Se muestra evidencia del almacenamiento y reenvío exitoso.
 
 Diapositiva 17: Cierre
 
 Se intentará concretar los principales objetivos:
 
-Comunicación bidireccional confiable.
+-Comunicación bidireccional confiable.
 
-Funcionamiento validado en entorno de prueba con conectividad real.
+--Funcionamiento validado en entorno de prueba con conectividad real.
 
-Riesgos mitigados y RPN reducidos a valores aceptables.
+-Riesgos mitigados y RPN reducidos a valores aceptables.
 
-Documentación completa con diagramas, planificación, gestión de riesgos y descripción técnica.
+-Documentación completa con diagramas, planificación, gestión de riesgos y descripción técnica.
 
 Este trabajo deja una base sólida para su implementación en campo, con vistas a integrarse en escenarios reales de monitoreo vehicular en rutas y accesos urbanos.
 
