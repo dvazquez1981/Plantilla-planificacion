@@ -6,7 +6,7 @@ El sistema combina adquisición de datos de tránsito con la capacidad de gestio
 Por un lado, cada vez que pasa un vehículo, el contador envía un evento al ESP32-C3 a través de la interfaz RS232.
 El microcontrolador recibe ese dato, lo formatea y lo transmite a un servidor remoto usando redes celulares,
 a través de un módulo SIM800L mediante MQTT.
-Por otro lado, el ESP32-C3 puede enviar comandos de vuelta al contador: por ejemplo, para reiniciarlo,
+Por otro lado, el ESP32-C3 puede enviar  comandos recepcionados de vuelta al contador: por ejemplo, para reiniciarlo,
 ajustar parámetros o solicitar datos de diagnóstico. Esta comunicación bidireccional garantiza que
 podamos no solo leer la información, sino también controlar y mantener el contador sin necesidad de visitas de campo.
 Además, para asegurar la continuidad del servicio en zonas con conectividad intermitente,
@@ -92,15 +92,6 @@ Identificamos cinco riesgos críticos:
 Cada riesgo se evaluó con un RPN (Severidad × Probabilidad). Definimos como crítico cualquier RPN por encima de 30,
 lo que nos permitió priorizar acciones de mitigación.
 
-Nuestras estrategias fueron:
-
-Implementar HTTP POST de respaldo cuando MQTT falle.
-
-Usar un buffer local con reintentos escalonados para cubrir cortes de red.
-
-Proteger la comunicación con JWT para minimizar vulnerabilidades.
-
-Realizar pruebas de integración tempranas con el contador RS232 para validar compatibilidad.
 
 Diapositiva 10: Riesgo 1 – Incompatibilidad con MQTT
 Severidad: 8, Probabilidad: 6, RPN: 48
@@ -147,7 +138,7 @@ Con severidad de 7 y probabilidad de 5, el RPN original fue de 35, un riesgo alt
 Para mitigarlo, coordinamos desde el inicio con la desarrolladora del contador, realizamos pruebas de integración tempranas y documentamos en detalle las tramas y parámetros RS232.
 Estas acciones redujeron el RPN a 15, asegurando que podamos ajustarnos rápidamente a cambios menores y mantener la compatibilidad.
 
-gestion de riegos
+gestion de calidad
 
 El ESP32-C3 debe recibir datos por RS-232 desde el sistema de detección
 Verificación:
@@ -205,11 +196,8 @@ Diapositiva 17: Cierre
 Se intentará concretar los principales objetivos:
 
 -Comunicación bidireccional confiable.
-
---Funcionamiento validado en entorno de prueba con conectividad real.
-
+-Funcionamiento validado en entorno de prueba con conectividad real.
 -Riesgos mitigados y RPN reducidos a valores aceptables.
-
 -Documentación completa con diagramas, planificación, gestión de riesgos y descripción técnica.
 
 Este trabajo deja una base sólida para su implementación en campo, con vistas a integrarse en escenarios reales de monitoreo vehicular en rutas y accesos urbanos.
