@@ -1,21 +1,18 @@
-Hola, buenas noches. Soy Diego Aníbal Vázquez, soy ingeniero informático recibido en FIUBA.
+Hola, buenas noches. Soy Diego Vázquez, soy ingeniero informático recibido en FIUBA. Estoy en la especializacion de ceiot.
+Mi director de proyecto esta pendiente, pero sumamente charlado.
 Mi proyecto es sobre la Modernización de contadores de tránsito con comunicación bidireccional.
 
 Diapositiva 1: Introducción (descripción técnica-conceptual)
 El sistema combina adquisición de datos de tránsito con la capacidad de gestionar el contador de forma remota.
 Por un lado, cada vez que pasa un vehículo, el contador envía un evento al ESP32-C3 a través de la interfaz RS232.
-El microcontrolador recibe ese dato, lo formatea y lo transmite a un servidor remoto usando redes celulares,
-a través de un módulo SIM800L mediante MQTT.
-Por otro lado, el ESP32-C3 puede enviar  comandos recepcionados de vuelta al contador: por ejemplo, para reiniciarlo,
-ajustar parámetros o solicitar datos de diagnóstico. Esta comunicación bidireccional garantiza que
-podamos no solo leer la información, sino también controlar y mantener el contador sin necesidad de visitas de campo.
+El microcontrolador recibe ese dato, lo formatea y lo transmite a un servidor remoto usando redes celulares,a través de un módulo SIM800L mediante MQTT.
+Por otro lado, el ESP32-C3 puede enviar  comandos recepcionados de vuelta al contador: por ejemplo, para reiniciarlo, ajustar parámetros o solicitar datos de diagnóstico. Esta comunicación bidireccional garantiza quepodamos no solo leer la información, sino también controlar y mantener el contador sin necesidad de visitas de campo.
 Además, para asegurar la continuidad del servicio en zonas con conectividad intermitente,
 el sistema integrará un buffer local: si la red falla, los datos se conservan y se envían
 automáticamente cuando la conexión se restablece.
 Cabe destacar que además se agregará una interfaz visual que permitirá monitorear
 los conteos de tránsito y la ejecución de los comandos de mantenimiento.
-Con esta arquitectura, logramos un nodo de monitoreo de tránsito eficiente, autónomo y fácil de mantener,
-ideal para rutas y entornos con cobertura celular variable.
+Con esta arquitectura, logramos un nodo de monitoreo de tránsito eficiente, autónomo y fácil de mantener,ideal para rutas y entornos con cobertura celular variable.
 
 Diapositiva 2: Interesados (stakeholders)
 
@@ -24,9 +21,7 @@ Cliente o usuario final: pueden ser organismos públicos o privados encargados d
 Ellos necesitan datos precisos para planificar intervenciones, optimizar rutas y mejorar la seguridad.
 Equipo de desarrollo: en este caso, soy yo el responsable del diseño del firmware en el ESP32-C3,
 la integración con el SIM800L y la gestión de la comunicación.
-Proveedor del contador RS232: trabajamos con el diseño de María Clara Cutrone,
- quien desarrolló el contador de tránsito. Este aporte técnico nos permitirá entender
- el protocolo de comunicación y garantizar que el ESP32-C3 hablara el mismo “idioma” a través de RS232.
+Proveedor del contador RS232: trabajamos con el diseño de María Clara Cutrone, quien desarrolló el contador de tránsito. Este aporte técnico nos permitirá entender el protocolo de comunicación y garantizar que el ESP32-C3 hablara el mismo “idioma” a través de RS232.
 Equipo de operaciones y técnicos de campo: son los encargados de instalar, mantener y monitorear
 el dispositivo una vez desplegado. Necesitan documentación clara, diagnósticos remotos y
 herramientas para actualizar o reconfigurar el contador sin desplazarse a cada sitio.
@@ -73,8 +68,7 @@ Funcionales:
 
 No funcionales:
 
--La seguridad es fundamental: todas las comunicaciones con el backend serán con tokens JWT y las autorizaciones serán
-según el grupo al que pertenezca.
+-La seguridad es fundamental: todas las comunicaciones con el backend serán con tokens JWT y las autorizaciones serán según el grupo al que pertenezca.
 -El sistema debe ser resiliente, implementando reintentos escalonados y reconectándose automáticamente.
 -El código se diseñará con modularidad y está bien documentado, facilitando su mantenimiento y futuras mejoras.
 -Portabilidad: la arquitectura permite cambiar el contador o el tipo de red celular con mínimos ajustes.
@@ -99,7 +93,7 @@ Mitigación: fallback a HTTP POST → RPN mitigado: 15
 
 Aquí vemos el primer riesgo identificado: la incompatibilidad del módulo SIM800L con algunos brokers MQTT.
 Dado que nuestra solución depende de enviar datos con fiabilidad, esto se calificó con una severidad de 8 y una probabilidad de 6, dando un RPN original de 48, por encima del umbral crítico.
-Para mitigarlo, definimos un plan de respaldo: cuando MQTT falle, el ESP32-C3 usará HTTP POST para enviar la misma información.
+Para mitigarlo, definimos un plan de respaldo: si la implementacion de MQTT falla, se implementara en el ESP32-C3  HTTP POST para enviar la misma información.
 Gracias a esto, reducimos la severidad y la probabilidad del riesgo, bajando el RPN a 15, un valor aceptable que ya no consideramos crítico.
 
 Diapositiva 12: Riesgo 2 – Fallas de GPRS
